@@ -74,7 +74,7 @@ export default function Profile(next) {
     try {
       
       dispatch(updateUserStart());
-      const res = await fetch(`http://localhost:5000/api/user/update/${currentUser._id}`, 
+      const res = await fetch(`/api/user/update/${currentUser._id}`, 
         {
           method: 'POST',
           headers:{
@@ -105,7 +105,7 @@ export default function Profile(next) {
         try {
           
           dispatch(deleteUserStart());
-          const res = await fetch(`http://localhost:5000/api/user/delete/${currentUser._id}`, 
+          const res = await fetch(`/api/user/delete/${currentUser._id}`, 
             {
               method: 'DELETE',
               
@@ -130,7 +130,7 @@ export default function Profile(next) {
         try {
           
           dispatch(signoutUserStart());
-          const res = await fetch(`http://localhost:5000/api/auth/signout`);
+          const res = await fetch(`/api/auth/signout`);
            const data = await res.json();
 
         if(data.success === false){
@@ -152,7 +152,7 @@ export default function Profile(next) {
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:5000/api/user/listing/${currentUser._id}`);
+      const res = await fetch(`/api/user/listing/${currentUser._id}`);
 
 
         const data = await res.json();
@@ -171,7 +171,7 @@ export default function Profile(next) {
 
   const handleDeleteListing= async(id)=>{
       try{
-        const res = await fetch(`http://localhost:5000/api/listing/delete/${id}`,{
+        const res = await fetch(`/api/listing/delete/${id}`,{
           method:'DELETE'
         });
          const data = await res.json('listing is deleted');
