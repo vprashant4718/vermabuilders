@@ -55,7 +55,7 @@ export default function Search() {
 
       try {
         
-        const res = await fetch(`http://localhost:5000/api/listing/get?${searchQuery}`);
+        const res = await fetch(`/api/listing/get?${searchQuery}`);
         const data = await res.json();
         if (data.success === false) { 
           setLoading(false)
@@ -123,7 +123,7 @@ export default function Search() {
 
     try {
       
-      const res = await fetch(`http://localhost:5000/api/listing/get?${searchQuery}`);
+      const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
       if (data.length < 9) {
         setshowMore(false);
