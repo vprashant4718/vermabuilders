@@ -11,7 +11,7 @@ export default function Contact({formdata}) {
     try {
       
       const fetchUser = async()=>{
-        const res = await fetch(`http://localhost:5000/api/user/${formdata.userRef}`);
+        const res = await fetch(`/api/user/${formdata.userRef}`);
         const data =  await res.json();
         if (data.success === false) {
           return console.log(data.message); 
