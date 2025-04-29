@@ -135,7 +135,7 @@ const handleSubmit=async(e)=>{
         seterror(false);
 
         setProgress(30);
-    const res = await fetch('http://localhost:5000/api/listing/create',{
+    const res = await fetch('/api/listing/create',{
         method: 'POST',
         headers:{
             'Content-Type':'application/json',
