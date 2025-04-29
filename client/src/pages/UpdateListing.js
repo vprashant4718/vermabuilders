@@ -33,7 +33,7 @@ export default function UpdateListing() {
       const fetchListing= async()=>{
         const listingId = params.listingId;
         
-        const res = await fetch(`http://localhost:5000/api/listing/getlisting/${listingId}`);
+        const res = await fetch(`/api/listing/getlisting/${listingId}`);
         const data = await res.json();
         if (data.success === false) {
             console.log(data.message);
@@ -152,7 +152,7 @@ const handleSubmit=async(e)=>{
         if(formdata.imageUrl.length > 6) return setImageUploadError('You can upload max 6 image')
         setloading(true);
         seterror(false)
-    const res = await fetch(`http://localhost:5000/api/listing/update/${listingId}`,{
+    const res = await fetch(`/api/listing/update/${listingId}`,{
         method: 'POST',
         headers:{
             'Content-Type':'application/json',
