@@ -219,8 +219,8 @@ export default function Profile(next) {
 
       </form>
       <div className='flex flex-col justify-center gap-4 m-auto  '>
-        <span className='text-red-700 text-lg font-bold cursor-pointer' onClick={deleteUser}>Delete Account</span>
-        <span className='text-red-700 text-lg font-bold cursor-pointer ' onClick={signOutUser}>Signout</span>
+        <span className='border rounded-lg p-3 w-80  focus:outline-none bg-red-700  uppercase text-white font-bold hover:opacity-90 sm:w-96' onClick={deleteUser}>Delete Account</span>
+        <span className='border rounded-lg p-3 w-80  focus:outline-none bg-blue-700  uppercase text-white font-bold hover:opacity-90 sm:w-96' onClick={signOutUser}>Signout</span>
       </div>
       
           <p className='text-red-600'>
@@ -241,14 +241,14 @@ export default function Profile(next) {
             <div key={listing._id} className='flex justify-between border  border-gray-300 p-2 rounded-lg'>
               <Link to={`/listing/${currentUser._id}`} className='flex flex-row gap-2'>
                 <img src={listing.imageUrl[0]} alt="" width='60' height={40} className='object-contain w-20 h-10' />
-                <p>{listing.name}</p>
+                <p className='m-auto'>{listing.name}</p>
                 </Link>
              
               
               <div className='flex  gap-3'>
-                <button type='button' className='text-red-500 border border-red-500 rounded p-1 hover:text-white hover:bg-red-500' onClick={()=>handleDeleteListing(listing._id)}>DELETE</button>
+                <button type='button' className='text-red-500 border border-red-500 rounded p-[0.40rem] hover:text-white hover:bg-red-500' onClick={()=>handleDeleteListing(listing._id)}>DELETE</button>
                 <Link to={`/updatelisting/${listing._id}`}>
-                <button  className='text-green-500 border border-green-500 rounded p-1 hover:text-white hover:bg-green-500' >EDIT</button>
+                <button  className='text-green-500 border border-green-500 rounded p-[0.40rem] hover:text-white hover:bg-green-500' >EDIT</button>
                 </Link>
 
               </div>
