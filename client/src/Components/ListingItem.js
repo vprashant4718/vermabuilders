@@ -7,7 +7,7 @@ export default function ListingItem({ listing}) {
     <Link to={`/listing/${listing._id}`}>
     <div className='flex flex-col border border-slate-300 rounded-lg justify-center w-80 lg:w-60'> 
        
-            <img src={listing.imageUrl[0]} alt="image" className='w-[100%] max-h-[20vh] rounded-md hover:scale-105 duration-500'  />
+            <img src={listing.imageUrl[0]} alt="image" className='w-[100%] max-h-[16vh] rounded-md hover:scale-105 duration-500'  />
         
         <div className='pl-6 pr-6'>
         <div>
