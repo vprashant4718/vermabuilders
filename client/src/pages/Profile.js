@@ -239,7 +239,7 @@ export default function Profile(next) {
             {userListing && userListing.length > 0 && 
              userListing.map((listing)=> 
             <div key={listing._id} className='flex justify-between border  border-gray-300 p-2 rounded-lg'>
-              <Link to={`/listing/${currentUser._id}`} className='flex flex-row gap-2'>
+              <Link to={`/listing/${listing._id}`} className='flex flex-row gap-2'>
                 <img src={listing.imageUrl[0]} alt="" width='60' height={40} className='object-contain w-20 h-10' />
                 <p className='m-auto'>{listing.name}</p>
                 </Link>
