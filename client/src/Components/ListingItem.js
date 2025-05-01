@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 export default function ListingItem({ listing}) {
   return (
     <Link to={`/listing/${listing._id}`}>
-    <div className='flex flex-col border border-slate-300 rounded-lg justify-center w-80 lg:w-60'> 
+    <div className='flex flex-col border border-slate-300 rounded-lg justify-center w-60 lg:w-60'> 
        
-            <img src={listing.imageUrl[0]} alt="image" className='w-[100%] max-h-[22vh] rounded-md hover:scale-105 duration-500  sm:max-h-[16vh]'  />
+            <img src={listing.imageUrl[0]} alt="image" className='w-[100%] max-h-[25vh] rounded-md hover:scale-105 duration-500  sm:max-h-[22vh]  lg:max-h-[16vh]  '  />
         
         <div className='pl-6 pr-6'>
         <div>
