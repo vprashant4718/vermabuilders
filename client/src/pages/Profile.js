@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import {getDownloadURL, getStorage, uploadBytesResumable} from 'firebase/storage'
 import {ref} from 'firebase/storage'
@@ -9,9 +10,13 @@ import { updateUserStart,updateUserSuccess,updateUserFailure } from '../redux/us
 import { deleteUserStart , deleteUserSuccess,deleteUserFailure } from '../redux/user/userSlice';
 import { signoutUserStart , signoutUserSuccess,signoutUserFailure } from '../redux/user/userSlice';
 import { Link } from 'react-router-dom';
+import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
+import { HiOutlineExclamationCircle, HiOutlineLogout } from "react-icons/hi";
 
 
-export default function Profile(next) {
+
+
+  export default function Profile(next) {
   const dispatch = useDispatch();
   const {currentUser, loading, error} = useSelector((state)=> state.user);
   const fileref = useRef(null);
@@ -21,12 +26,15 @@ export default function Profile(next) {
   const [formdata, setformdata] = useState({});
   const [updateSuccess, setupdateSuccess] = useState(false);
   const [userListing, setuserListing] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [signModal, setSignModal] = useState(false);
+  
 
   useEffect(() => {
     if (file) {
       handleonfileUpload(file);
     }
-    
+    // eslint-disable-next-line
   }, [file])
 
   const handleonfileUpload=(file)=>{
@@ -74,7 +82,7 @@ export default function Profile(next) {
     try {
       
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, 
+      const res = await fetch(`http://localhost:5000/api/user/update/${currentUser._id}`, 
         {
           method: 'POST',
           headers:{
@@ -105,7 +113,7 @@ export default function Profile(next) {
         try {
           
           dispatch(deleteUserStart());
-          const res = await fetch(`/api/user/delete/${currentUser._id}`, 
+          const res = await fetch(`http://localhost:5000/api/user/delete/${currentUser._id}`, 
             {
               method: 'DELETE',
               
@@ -130,7 +138,7 @@ export default function Profile(next) {
         try {
           
           dispatch(signoutUserStart());
-          const res = await fetch(`/api/auth/signout`);
+          const res = await fetch(`http://localhost:5000/api/auth/signout`);
            const data = await res.json();
 
         if(data.success === false){
@@ -152,7 +160,7 @@ export default function Profile(next) {
     e.preventDefault();
 
     try {
-      const res = await fetch(`/api/user/listing/${currentUser._id}`);
+      const res = await fetch(`http://localhost:5000/api/user/listing/${currentUser._id}`);
 
 
         const data = await res.json();
@@ -171,7 +179,7 @@ export default function Profile(next) {
 
   const handleDeleteListing= async(id)=>{
       try{
-        const res = await fetch(`/api/listing/delete/${id}`,{
+        const res = await fetch(`http://localhost:5000/api/listing/delete/${id}`,{
           method:'DELETE'
         });
          const data = await res.json('listing is deleted');
@@ -218,10 +226,55 @@ export default function Profile(next) {
         </Link>
 
       </form>
-      <div className='flex flex-col justify-center gap-4 m-auto  '>
-        <span className='border rounded-lg p-3 w-80  focus:outline-none bg-red-700  uppercase text-white font-bold hover:opacity-90 sm:w-96' onClick={deleteUser}>Delete Account</span>
-        <span className='border rounded-lg p-3 w-80  focus:outline-none bg-blue-700  uppercase text-white font-bold hover:opacity-90 sm:w-96' onClick={signOutUser}>Signout</span>
+      <div className='flex flex-col justify-center gap-4 m-auto '>
+        <button type='button' className='text-red-700 text-lg font-bold cursor-pointer' onClick={() => setOpenModal(true)}>Delete Account</button>
+        <span className='text-red-700 text-lg font-bold cursor-pointer' onClick={() => setSignModal(true)}>Signout</span>
       </div>
+    
+
+      {/* modal for delete user  */}
+      <Modal show={openModal} size="lg" className='m-auto bg-white w-96 h-72 border rounded-md border-gray-400' onClose={() => setOpenModal(false)} popup>
+        <ModalHeader />
+        <ModalBody className='m-auto'>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-600 dark:text-red-600" />
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this product?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="red" className='p-2' onClick={() => deleteUser()}>
+                {"Yes, I'm sure"}
+              </Button>
+              <Button color="gray" className='p-2' onClick={() => setOpenModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </ModalBody>
+      </Modal>
+    
+    
+      {/* modal for signout user  */}
+      <Modal show={signModal} size="lg" className='m-auto bg-white w-96 h-72 border rounded-md border-gray-400' onClose={() => setSignModal(false)} popup>
+        <ModalHeader />
+        <ModalBody className='m-auto'>
+          <div className="text-center">
+            <HiOutlineLogout className="mx-auto mb-4 h-14 w-14 text-red-600 dark:text-red-600" />
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to SignOUt
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="red" className='p-2' onClick={() => signOutUser()}>
+                {"Yes, I'm sure"}
+              </Button>
+              <Button color="gray" className='p-2' onClick={() => setSignModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </ModalBody>
+      </Modal>
+    
       
           <p className='text-red-600'>
             {error? error.message : ''}
@@ -239,16 +292,16 @@ export default function Profile(next) {
             {userListing && userListing.length > 0 && 
              userListing.map((listing)=> 
             <div key={listing._id} className='flex justify-between border  border-gray-300 p-2 rounded-lg'>
-              <Link to={`/listing/${listing._id}`} className='flex flex-row gap-2'>
+              <Link to={`/listing/${currentUser._id}`} className='flex flex-row gap-2'>
                 <img src={listing.imageUrl[0]} alt="" width='60' height={40} className='object-contain w-20 h-10' />
-                <p className='m-auto'>{listing.name}</p>
+                <p>{listing.name}</p>
                 </Link>
              
               
               <div className='flex  gap-3'>
-                <button type='button' className='text-red-500 border border-red-500 rounded p-[0.40rem] hover:text-white hover:bg-red-500' onClick={()=>handleDeleteListing(listing._id)}>DELETE</button>
+                <button type='button' className='text-red-500 border border-red-500 rounded p-1 hover:text-white hover:bg-red-500' onClick={()=>handleDeleteListing(listing._id)}>DELETE</button>
                 <Link to={`/updatelisting/${listing._id}`}>
-                <button  className='text-green-500 border border-green-500 rounded p-[0.40rem] hover:text-white hover:bg-green-500' >EDIT</button>
+                <button  className='text-green-500 border border-green-500 rounded p-1 hover:text-white hover:bg-green-500' >EDIT</button>
                 </Link>
 
               </div>
