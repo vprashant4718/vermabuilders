@@ -1,12 +1,52 @@
-import mongoose from "mongoose";
 import User from "../models/user.model.js";
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import {errorHandler} from '../utils/errorhandler.js';
-
+import OtpMail, { Verification } from "../routes/email.js";
+import validator from 'validator';
 
 dotenv.config();
+
+export const email = async (req, res, next)=>{
+  try {
+    const {email} = req.body;
+    
+    const validEmail  = validator.isEmail(email);
+    if(!validEmail){ return  next(errorHandler(400, 'Enter a Valid Email !')); }
+
+    const hashOTP = bcryptjs.hashSync(Verification.toString(), 10);
+    const isEmailExist = await User.findOne({email});
+
+    if(isEmailExist){ return next(errorHandler(409, 'User Already Exist with same Email !')); }
+    
+    else{
+      OtpMail(email).then(
+        res.cookie('otp', hashOTP,{httpOnly : true}).status(200).json('otp sent successfully')
+      )
+    }
+     
+        
+    } catch (error) {
+      next(error);
+    }
+};
+
+export const validateOtp = async (req, res, next)=>{
+  try {
+    const {email,otp} = req.body;
+    const hashedOtp = req.cookies.otp;
+    const validOtp = bcryptjs.compareSync(otp, hashedOtp);
+if(!validOtp){ next(errorHandler(401, 'Wrong Otp !')); }
+  else{
+    res.status(200).json('otp is correct')
+  }
+        
+    } catch (error) {
+      next(error);
+    }
+};
+
 
 export const signup = async (req, res, next)=>{
     const { username, email, password } = req.body;
@@ -14,6 +54,7 @@ export const signup = async (req, res, next)=>{
     const newUser = new User({username, email, password:hashedpassword});
     
     try {
+     
         await newUser.save(); 
         res.status(201).json('user created successfully'); 
         
@@ -31,7 +72,7 @@ export const signin = async(req, res, next)=>{
     const validUser = await User.findOne({email});
     if(!validUser){ next(errorHandler(404, 'User not found !')); }
     const validPassword = bcryptjs.compareSync(password, validUser.password);
-    if(!validPassword){ next(errorHandler(401, 'Wrong Credentials !')); }
+    if(!validPassword){ next(errorHandler(401, 'Wrong Email or Password !')); }
     
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     const { password: pass, ...rest } = validUser._doc;
