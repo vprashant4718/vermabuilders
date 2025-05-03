@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../Components/OAuth';
 
-export default function SignUp(next) {
+export default function SignUp() {
   
   const [formData, setformData] = useState({});
   const [error, setError] = useState();
   const [Loading, setLoading] = useState();
+    const [validate, setvalidate] = useState(false);
+
   const navigate = useNavigate();
    const handleOnChange = (e)=>{
     setformData({
@@ -14,6 +16,87 @@ export default function SignUp(next) {
       [e.target.id]: e.target.value,
     });
   };
+
+
+const sendOtpBtn = async(e)=>{
+    try{
+      e.preventDefault();
+    const email = document.getElementById('email').value;
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const emailJson = {"email":email}
+    const otpfield = document.getElementById('otpfield');
+    const validateOtp = document.getElementById('validateOtp');
+    const res = await fetch('http://localhost:5000/api/auth/email', {
+      method:'POST',
+      headers:{
+        'Content-Type' : 'application/json'
+       },
+       body: JSON.stringify(emailJson),
+
+    });
+
+
+    const data = await res.json();
+    if(data.success === false){
+      setLoading(false);
+      setError(data.message);
+      return;
+    }
+    setLoading(false); 
+    setError(null);
+
+    console.log(email.value);
+    sendOtpBtn.style.background = 'green';
+    sendOtpBtn.getAttribute("disabled");
+    sendOtpBtn.innerHTML = "Otp Sent";
+    otpfield.classList.remove('hidden');
+    validateOtp.style.display = 'block';
+  } catch (error) {
+    setLoading(false);
+    setError(error.message);
+   
+  }
+  }
+
+
+  const validateOtp = async(e)=>{
+    try{
+      e.preventDefault();
+    const email = document.getElementById('email').value;
+    const otpfield = document.getElementById('otpfield').value;
+    const otptoNumber = parseInt(otpfield)
+    const otpJson = {"email":email, "otp":otptoNumber}
+    const validateOtp = document.getElementById('validateOtp');
+    const res = await fetch('http://localhost:5000/api/auth/validateotp', {
+      method:'POST',
+      headers:{
+        'Content-Type' : 'application/json'
+       },
+       body: JSON.stringify(otpJson),
+
+    });
+
+    
+    const data = await res.json();
+    if(data.success === false){
+      setLoading(false);
+      setError(data.message);
+      return;
+    }
+    setLoading(false); 
+    setError(null);
+    
+    
+    setvalidate(true)
+    validateOtp.style.background = "green";
+  } catch (error) {
+    setLoading(false);
+    setError(error.message);
+   
+  }
+  }
+
+  
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,19 +132,31 @@ export default function SignUp(next) {
   
   
   return (
-    <div  className='flex flex-col justify-center mr-auto w-auto  h-full pb-40 sm:h-full pt-20 sm:pb-24'>
+     <div  className='flex flex-col justify-center mr-auto w-auto  h-full pb-40 sm:h-full pt-20 sm:pb-24'>
       <h1 className='text-3xl text-center font-bold sm:py-3 px-3' >SignUp</h1>
       <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-4 p-2 sm:p-3'>
         <input type="text" id='username' placeholder="Username" className='border rounded-lg p-3 w-80 lowercase focus:outline-none sm:w-96' onChange={handleOnChange} />
-        <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-80 lowercase focus:outline-none sm:w-96' onChange={handleOnChange} />
+        
+        <div className='flex flex-row w-96 gap-3'>
+        <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-80 lowercase focus:outline-none sm:w-72' onChange={handleOnChange} required/>
+        <button type='button' id='sendOtpBtn' className='bg-red-600 text-white p-2 rounded' onClick={sendOtpBtn}> Send OTP</button>
+        </div>
+        <div className='flex flex-row w-96 gap-3'>
+        <input type="text" id='otpfield' placeholder="Enter Otp" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96 hidden' onChange={handleOnChange}  />
+        <button type='button' id='validateOtp' className='bg-sky-500 text-white p-2 rounded hidden' onClick={validateOtp}> validate</button>
+        </div>
+       
+      {validate &&
         <input type="password" id='password' placeholder="password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
-        <button disabled = {Loading}  className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-80  sm:w-96'>{Loading ? "Loading..." : "Sign Up"} </button>
+      }
+      
+      {validate &&
+        <button disabled = {Loading} id='signup' className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-80  sm:w-96'>{Loading ? "Loading..." : "Sign Up"} </button>}
 
       </form>
       <OAuth />
          <span className='items-center flex justify-center p-2 text-xl'>Have an account?  <Link to="/signin" className='text-blue-700 hover:underline'>SignIn</Link></span>
     {error && <p className='text-red-700 text-center'> {error} </p>}
-
     </div>
   )
 }
