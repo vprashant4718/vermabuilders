@@ -36,7 +36,13 @@ const sendOtpBtn = async(e)=>{
     });
 
 
+   
     const data = await res.json();
+    console.log(data)
+    if(data.success){
+      sessionStorage.setItem('otp', data.hashOTP); // Store for verification
+      console.log("OTP stored in session:", data.hashOTP);
+    }
     if(data.success === false){
       setLoading(false);
       setError(data.message);
@@ -45,7 +51,8 @@ const sendOtpBtn = async(e)=>{
     setLoading(false); 
     setError(null);
 
-    console.log(email.value);
+
+    console.log(email);
     sendOtpBtn.style.background = 'green';
     sendOtpBtn.getAttribute("disabled");
     sendOtpBtn.innerHTML = "Otp Sent";
