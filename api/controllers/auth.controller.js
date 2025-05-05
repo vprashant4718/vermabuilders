@@ -8,6 +8,7 @@ import validator from 'validator';
 
 dotenv.config();
 
+
 export const email = async (req, res, next)=>{
   try {
     const {email} = req.body;;
@@ -15,17 +16,17 @@ export const email = async (req, res, next)=>{
     const validEmail  = validator.isEmail(emailLower);
     if(!validEmail){ return  next(errorHandler(400, 'Enter a Valid Email !')); }
 
-    const hashOTP = bcryptjs.hashSync(Verification.toString(), 10);
+    // const hashOTP = bcryptjs.hashSync(Verification.toString(), 10);
     const isEmailExist = await User.findOne({emailLower});
 
     if(isEmailExist){ return next(errorHandler(409, 'User Already Exist with same Email !')); }
     
     else{
       OtpMail(emailLower);
-      res.cookie('otp', hashOTP, { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 });// 15 minutes 
+      res.cookie('otp', Verification, { httpOnly: false, secure: false, maxAge: 15 * 60 * 1000 });// 15 minutes 
   
   // Also send OTP in response (temporarily)
-  res.json({ success: true, hashOTP, message: "OTP sent!" });
+  res.json({ success: true, Verification, message: "OTP sent!" });
       // res.cookie('otp', hashOTP, {
       //   httpOnly: true,
       //   secure: true, // In production
@@ -43,10 +44,11 @@ export const email = async (req, res, next)=>{
 export const validateOtp = async (req, res, next)=>{
   try {
     const {email,otp} = req.body;
-    
+    console.log(otp)
     const hashedOtp = req.cookies.otp;
-    const validOtp = bcryptjs.compareSync(otp, hashedOtp);
-if(!validOtp){ next(errorHandler(401, 'Wrong Otp !')); }
+    console.log(hashedOtp + "hii")
+    // const validOtp = bcryptjs.compareSync(otp, hashedOtp);
+if(otp != hashedOtp){ next(errorHandler(401, 'Wrong Otp !')); }
   else{
     res.status(200).json('otp is correct')
   }
