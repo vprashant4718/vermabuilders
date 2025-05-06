@@ -20,17 +20,13 @@ export const email = async (req, res, next)=>{
     const isEmailExist = await User.findOne({emailLower});
     
     if(isEmailExist){ return next(errorHandler(409, 'User Already Exist with same Email !')); }
-    const random4Digit = Math.floor(1000 + Math.random() * 9000);
 
     else{
        const random4Digit = Math.floor(1000 + Math.random() * 9000);
       OtpMail(emailLower);
       res.cookie('hash', Verification+`${random4Digit}` { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 });// 15 minutes 
-  
-  // Also send OTP in response 
-  res.json({ success: true, message: "OTP sent!" });
-        
-    }
+      res.json({ success: true, message: "OTP sent!" });
+         }
      
         
     } catch (error) {
