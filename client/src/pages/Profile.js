@@ -229,7 +229,7 @@ export default function Profile(next) {
       </form>
       <div className='flex flex-col justify-center gap-4 m-auto '>
         <button type='button' className='border rounded-lg p-3 w-80  focus:outline-none  bg-red-600 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setOpenModal(true)}>Delete Account</button>
-        <span className='border rounded-lg p-3 w-80  focus:outline-none  bg-red-400 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setSignModal(true)}>Signout</span>
+        <button className='border rounded-lg p-3 w-80  focus:outline-none  bg-red-600 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setSignModal(true)}>Signout</button>
       </div>
 
        
@@ -240,7 +240,7 @@ export default function Profile(next) {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-600 dark:text-red-600" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to delete this product?
+              Are you sure you want to Delete this Account?
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="red" className='p-2' onClick={() => deleteUser()}>
