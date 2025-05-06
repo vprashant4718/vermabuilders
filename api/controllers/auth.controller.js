@@ -52,7 +52,17 @@ if(otp != firstSixDigits){return next(errorHandler(401, 'Wrong Otp !')); }
 
 export const signup = async (req, res, next)=>{
     const { username, email, password } = req.body;
+    if(password === ""){
+      return next(errorHandler(401, 'Create a new password !'));
+    }
+    if(password.length < 5){
+      return next(errorHandler(401, 'Password should be manimum length is 5 !'));
+    }
+  if(username === ""){
+      return next(errorHandler(401, 'Enter Your Username'));
+  }
     const hashedpassword = bcryptjs.hashSync(password, 10);
+  
     const newUser = new User({username, email, password:hashedpassword});
     
     try {
