@@ -24,7 +24,7 @@ export const email = async (req, res, next)=>{
     else{
        const random4Digit = Math.floor(1000 + Math.random() * 9000);
       OtpMail(emailLower);
-      res.cookie('hash', Verification+`${random4Digit}` { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 });// 15 minutes 
+      res.cookie('hash', Verification+`${random4Digit}`, { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 });// 15 minutes 
       res.json({ success: true, message: "OTP sent!" });
          }
      
