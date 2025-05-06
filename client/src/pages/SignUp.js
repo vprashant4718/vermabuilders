@@ -22,8 +22,9 @@ const sendOtpBtn = async(e)=>{
     try{
       e.preventDefault();
     const email = document.getElementById('email').value;
+      const emailLower = email.toLowerCase();
     const sendOtpBtn = document.getElementById('sendOtpBtn');
-    const emailJson = {"email":email}
+    const emailJson = {"email":emailLower}
     const otpfield = document.getElementById('otpfield');
     const validateOtp = document.getElementById('validateOtp');
     const res = await fetch('/api/auth/email', {
@@ -48,8 +49,9 @@ const sendOtpBtn = async(e)=>{
     setError(null);
 
 
-    console.log(email);
+    console.log(emailLower);
     sendOtpBtn.disabled  = true  
+    sendOtpBtn.style.cursor = "not-allowed";
     sendOtpBtn.style.background = '#32CD32';
     sendOtpBtn.innerHTML = "Otp Sent";
     otpfield.classList.remove('hidden');
@@ -93,6 +95,7 @@ const sendOtpBtn = async(e)=>{
     setvalidate(true)
     validateOtp.style.background = "#32CD32";
     validateOtp.disabled = true;
+    validateOtp.style.cursor = "not-allowed";
   } catch (error) {
     setLoading(false);
     setError(error.message);
