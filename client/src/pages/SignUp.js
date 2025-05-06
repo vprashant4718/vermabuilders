@@ -38,11 +38,7 @@ const sendOtpBtn = async(e)=>{
 
    
     const data = await res.json();
-    console.log(data)
-    if(data.success){
-      sessionStorage.setItem('otp', data.hashOTP); // Store for verification
-      console.log("OTP stored in session:", data.hashOTP);
-    }
+   
     if(data.success === false){
       setLoading(false);
       setError(data.message);
@@ -53,8 +49,8 @@ const sendOtpBtn = async(e)=>{
 
 
     console.log(email);
-    sendOtpBtn.style.background = 'green';
-    sendOtpBtn.getAttribute("disabled");
+    sentOtpBtn.disabled  = true  
+    sendOtpBtn.style.background = '#32CD32';
     sendOtpBtn.innerHTML = "Otp Sent";
     otpfield.classList.remove('hidden');
     validateOtp.style.display = 'block';
@@ -95,7 +91,8 @@ const sendOtpBtn = async(e)=>{
     
     
     setvalidate(true)
-    validateOtp.style.background = "green";
+    validateOtp.style.background = "#32CD32";
+      validgateOtp.disabled = true;
   } catch (error) {
     setLoading(false);
     setError(error.message);
