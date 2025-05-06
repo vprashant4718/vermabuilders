@@ -44,7 +44,10 @@ export const validateOtp = async (req, res, next)=>{
     const firstSixDigits = parseInt(hashedOtp.toString().slice(4, 10));
 if(otp != firstSixDigits){return next(errorHandler(401, 'Wrong Otp !')); }
     
-  if(otp === firstSixDigits){ res.status(200).json('otp is correct') }
+  if(otp === firstSixDigits){
+    res.status(200).json('otp is correct');
+    res.clearCookie("hash");
+  }
         
     } catch (error) {
       next(error);
