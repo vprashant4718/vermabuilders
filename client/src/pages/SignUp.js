@@ -49,7 +49,7 @@ const sendOtpBtn = async(e)=>{
 
 
     console.log(email);
-    sentOtpBtn.disabled  = true  
+    sendOtpBtn.disabled  = true  
     sendOtpBtn.style.background = '#32CD32';
     sendOtpBtn.innerHTML = "Otp Sent";
     otpfield.classList.remove('hidden');
@@ -92,7 +92,7 @@ const sendOtpBtn = async(e)=>{
     
     setvalidate(true)
     validateOtp.style.background = "#32CD32";
-      validgateOtp.disabled = true;
+    validateOtp.disabled = true;
   } catch (error) {
     setLoading(false);
     setError(error.message);
