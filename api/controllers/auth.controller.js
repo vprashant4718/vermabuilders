@@ -39,7 +39,7 @@ export const validateOtp = async (req, res, next)=>{
     const {email,otp} = req.body;
     const hashedOtp = req.cookies.hash;
     // const validOtp = bcryptjs.compareSync(otp, hashedOtp);
-    const firstSixDigits = parseInt(hashOtp.toString().slice(0, 6));
+    const firstSixDigits = parseInt(hashedOtp.toString().slice(0, 6));
 if(otp != firstSixDigits){return next(errorHandler(401, 'Wrong Otp !')); }
     
   if(otp === firstSixDigits){ res.status(200).json('otp is correct') }
