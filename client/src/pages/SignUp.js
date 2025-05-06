@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../Components/OAuth';
+import { MdVerified } from "react-icons/md";
+
 
 export default function SignUp() {
   
@@ -19,10 +21,12 @@ export default function SignUp() {
 
 
 const sendOtpBtn = async(e)=>{
+  setError(null);
     try{
       e.preventDefault();
+    const emailInput = document.getElementById('email');
     const email = document.getElementById('email').value;
-      const emailLower = email.toLowerCase();
+    const emailLower = email.toLowerCase();
     const sendOtpBtn = document.getElementById('sendOtpBtn');
     const emailJson = {"email":emailLower}
     const otpfield = document.getElementById('otpfield');
@@ -50,6 +54,7 @@ const sendOtpBtn = async(e)=>{
 
 
     console.log(emailLower);
+    emailInput.disabled = true
     sendOtpBtn.disabled  = true  
     sendOtpBtn.style.cursor = "not-allowed";
     sendOtpBtn.style.background = '#32CD32';
@@ -65,11 +70,14 @@ const sendOtpBtn = async(e)=>{
 
 
   const validateOtp = async(e)=>{
+    setError(null);
     try{
       e.preventDefault();
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const verified = document.getElementById('verified');
     const email = document.getElementById('email').value;
-    const otpfield = document.getElementById('otpfield').value;
-    const otptoNumber = parseInt(otpfield)
+    const otpfield = document.getElementById('otpfield');
+    const otptoNumber = parseInt(otpfield.value)
     const otpJson = {"email":email, "otp":otptoNumber}
     const validateOtp = document.getElementById('validateOtp');
     const res = await fetch('/api/auth/validateotp', {
@@ -96,6 +104,11 @@ const sendOtpBtn = async(e)=>{
     validateOtp.style.background = "#32CD32";
     validateOtp.disabled = true;
     validateOtp.style.cursor = "not-allowed";
+    sendOtpBtn.style.display = "none";
+    otpfield.style.display = "none";
+    validateOtp.style.display = "none";
+    verified.style.display = "block";
+      
   } catch (error) {
     setLoading(false);
     setError(error.message);
@@ -106,6 +119,7 @@ const sendOtpBtn = async(e)=>{
   
   
   const handleSubmit = async (e) => {
+    setError(null);
     e.preventDefault();
 
     try {
@@ -147,6 +161,7 @@ const sendOtpBtn = async(e)=>{
         <div className='flex flex-row w-96 gap-3'>
         <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-80 lowercase focus:outline-none sm:w-72' onChange={handleOnChange} required/>
         <button type='button' id='sendOtpBtn' className='bg-red-600 text-white p-2 rounded' onClick={sendOtpBtn}> Send OTP</button>
+        <MdVerified  id='verified' className='bg-white text-green-500 border-green-500 p-1 rounded hidden'/> 
         </div>
         <div className='flex flex-row w-96 gap-3'>
         <input type="text" id='otpfield' placeholder="Enter Otp" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96 hidden' onChange={handleOnChange}  />
@@ -154,7 +169,7 @@ const sendOtpBtn = async(e)=>{
         </div>
        
       {validate &&
-        <input type="password" id='password' placeholder="password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
+        <input type="password" id='password' placeholder="create password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
       }
       
       {validate &&
