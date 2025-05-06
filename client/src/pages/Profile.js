@@ -228,8 +228,8 @@ export default function Profile(next) {
 
       </form>
       <div className='flex flex-col justify-center gap-4 m-auto '>
-        <button type='button' className='text-red-700 text-lg font-bold cursor-pointer' onClick={() => setOpenModal(true)}>Delete Account</button>
-        <span className='text-red-700 text-lg font-bold cursor-pointer' onClick={() => setSignModal(true)}>Signout</span>
+        <button type='button' className='border rounded-lg p-3 w-80  focus:outline-none  bg-red-600 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setOpenModal(true)}>Delete Account</button>
+        <span className='border rounded-lg p-3 w-80  focus:outline-none  bg-red-400 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setSignModal(true)}>Signout</span>
       </div>
 
        
