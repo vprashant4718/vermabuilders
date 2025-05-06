@@ -161,7 +161,7 @@ const sendOtpBtn = async(e)=>{
         <div className='flex flex-row w-96 gap-3'>
         <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-80 lowercase focus:outline-none sm:w-72' onChange={handleOnChange} required/>
         <button type='button' id='sendOtpBtn' className='bg-red-600 text-white p-2 rounded' onClick={sendOtpBtn}> Send OTP</button>
-        <MdVerified  id='verified' className='bg-white text-green-500 border-green-500 p-1 rounded hidden'/> 
+        <MdVerified  id='verified' className='bg-white text-green-500 border-green-500 p-1 text-3xl rounded hidden'/> 
         </div>
         <div className='flex flex-row w-96 gap-3'>
         <input type="text" id='otpfield' placeholder="Enter Otp" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96 hidden' onChange={handleOnChange}  />
