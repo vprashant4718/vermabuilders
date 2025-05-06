@@ -26,7 +26,7 @@ const sendOtpBtn = async(e)=>{
     const emailJson = {"email":email}
     const otpfield = document.getElementById('otpfield');
     const validateOtp = document.getElementById('validateOtp');
-    const res = await fetch('http://localhost:5000/api/auth/email', {
+    const res = await fetch('/api/auth/email', {
       method:'POST',
       headers:{
         'Content-Type' : 'application/json'
@@ -74,7 +74,7 @@ const sendOtpBtn = async(e)=>{
     const otptoNumber = parseInt(otpfield)
     const otpJson = {"email":email, "otp":otptoNumber}
     const validateOtp = document.getElementById('validateOtp');
-    const res = await fetch('http://localhost:5000/api/auth/validateotp', {
+    const res = await fetch('/api/auth/validateotp', {
       method:'POST',
       headers:{
         'Content-Type' : 'application/json'
