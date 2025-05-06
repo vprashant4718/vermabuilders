@@ -12,20 +12,19 @@ dotenv.config();
 export const email = async (req, res, next)=>{
   try {
     const {email} = req.body;;
-    const emailLower = email.replace(/\s+/g, '').toLowerCase();
-    console.log(emailLower);
-    const validEmail  = validator.isEmail(emailLower);
+    console.log(email);
+    const validEmail  = validator.isEmail(email);
     if(!validEmail){ return  next(errorHandler(400, 'Enter a Valid Email !')); }
 
     //const hashOTP = bcryptjs.hashSync(Verification, 10);
-    const isEmailExist = await User.findOne({emailLower});
+    const isEmailExist = await User.findOne({email});
     
     if(isEmailExist){ return next(errorHandler(409, 'User Already Exist with same Email !')); }
 
     else{
        const random4Digit = Math.floor(1000 + Math.random() * 9000);
        const random4Digit2 = Math.floor(1000 + Math.random() * 9000);
-      OtpMail(emailLower);
+      OtpMail(email);
       res.cookie('hash',`${random4Digit}`+ Verification+`${random4Digit2}`, { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 });// 15 minutes 
       res.json({ success: true, message: "OTP sent!" });
          }
@@ -57,12 +56,14 @@ if(otp != firstSixDigits){return next(errorHandler(401, 'Wrong Otp !')); }
 
 export const signup = async (req, res, next)=>{
     const { username, email, password } = req.body;
+    const isUserExist = await User.findOne({username});
     const isEmailExist = await User.findOne({email});
   
   if(username === ""){
       return next(errorHandler(401, 'Enter Your Username'));
   }
     
+    if(isUserExist){ return next(errorHandler(409, 'Username Already taken !')); }
     if(isEmailExist){ return next(errorHandler(409, 'User Already Exist with same Email !')); }
   
     if(password === ""){
