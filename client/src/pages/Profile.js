@@ -77,7 +77,7 @@ export default function Profile(next) {
   };
 
   const handleChange=(e)=>{
-    setformdata({...formdata, [e.target.id]: e.target.value});
+    setformdata({...formdata, [e.target.id]: (e.target.value).toLowerCase()});
   }
 
   const handleSubmit = async (e) => {
@@ -177,7 +177,7 @@ export default function Profile(next) {
         const data = await res.json();
 
         if (data.success === false) {
-         return setErrorFun1(data.message);
+         return setErrorFun1('You Have 0 Listing');
         }
 
         setuserListing(data);
