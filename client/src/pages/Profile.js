@@ -81,7 +81,10 @@ export default function Profile(next) {
   }
 
   const handleSubmit = async (e) => {
+    setupdateSuccess(null);
+    setError(null);
     setErrorFun(null);
+    
     e.preventDefault();
 
     try {
@@ -101,6 +104,7 @@ export default function Profile(next) {
         if(data.success === false){
           dispatch(updateUserFailure(data.message));
           setErrorFun(data.message);
+         
           return;
         }
         dispatch(updateUserSuccess(data));
@@ -309,12 +313,12 @@ export default function Profile(next) {
                 </Link>
 
               </div>
-              {errorFun1 && <p className='text-red-700 text-center'> {errorFun1} </p>}
             </div>
             )
 
             }
           </div>
+              {errorFun1 && <p className='text-red-700 text-center'> {errorFun1} </p>}
     </div>
   )
 }
