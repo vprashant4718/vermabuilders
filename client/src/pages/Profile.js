@@ -26,8 +26,11 @@ export default function Profile(next) {
   const [formdata, setformdata] = useState({});
   const [updateSuccess, setupdateSuccess] = useState(false);
   const [userListing, setuserListing] = useState([]);
- const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [signModal, setSignModal] = useState(false);
+  const [errorFun, setErrorFun] = useState();
+  const [errorFun1, setErrorFun1] = useState();
+
 
 
 
@@ -78,6 +81,7 @@ export default function Profile(next) {
   }
 
   const handleSubmit = async (e) => {
+    setErrorFun(null);
     e.preventDefault();
 
     try {
@@ -96,6 +100,7 @@ export default function Profile(next) {
 
         if(data.success === false){
           dispatch(updateUserFailure(data.message));
+          setErrorFun(data.message);
           return;
         }
         dispatch(updateUserSuccess(data));
@@ -123,6 +128,7 @@ export default function Profile(next) {
 
         if(data.success === false){
           dispatch(deleteUserFailure(data.message));
+          setErrorFun(data.message);
           return;
         }
         dispatch(deleteUserSuccess(data))
@@ -167,14 +173,14 @@ export default function Profile(next) {
         const data = await res.json();
 
         if (data.success === false) {
-         return console.log(data)
+         return setErrorFun1(data.message);
         }
 
         setuserListing(data);
 
 
     } catch (error) {
-      console.log(error)
+      setErrorFun1(error);
     }
   }
 
@@ -186,13 +192,13 @@ export default function Profile(next) {
          const data = await res.json('listing is deleted');
 
          if (data.success === false) {
-            console.log(data.message);
+           setErrorFun(data.message);
          }
 
          setuserListing((prev)=> prev.filter((listing)=> listing._id !== id));
 
       }catch(error){
-        console.log(error);
+        setErrorFun(error);
       }
 
   }
@@ -277,12 +283,9 @@ export default function Profile(next) {
       </Modal>
        
 
-  <p className='text-red-600'>
-            {error? error.message : ''}
-          </p>
-          <p className='text-green-600'>
-            {updateSuccess ? "User Updated successfully" : ''}
-          </p>
+      <p className='text-red-600'> {error? error.message : ''} </p>
+      <p className='text-green-600'> {updateSuccess ? "User Updated successfully" : ''} </p>
+      {errorFun && <p className='text-red-700 text-center'> {errorFun} </p>}
 
 
         <div >
@@ -306,6 +309,7 @@ export default function Profile(next) {
                 </Link>
 
               </div>
+              {errorFun1 && <p className='text-red-700 text-center'> {errorFun1} </p>}
             </div>
             )
 
