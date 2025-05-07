@@ -82,8 +82,8 @@ export default function Profile(next) {
 
   const handleSubmit = async (e) => {
     setupdateSuccess(null);
-    setError(null);
     setErrorFun(null);
+    setErrorFun1(null);
     
     e.preventDefault();
 
