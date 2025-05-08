@@ -41,7 +41,7 @@ export default function Profile(next) {
       const handleShowListing=async(e)=>{ 
     
         try {
-          const res = await fetch(`http://localhost:5000/api/user/listing/${currentUser._id}`);
+          const res = await fetch(`/api/user/listing/${currentUser._id}`);
     
     
             const data = await res.json();
@@ -60,6 +60,35 @@ export default function Profile(next) {
 
       handleShowListing();
         }, []);
+
+
+
+  useEffect(() => {
+        const fetchListing=async()=>{
+    
+          setLoading(true);
+    
+          try {
+            
+            const res = await fetch(`/api/listing/getadminlisting/`);
+            const data = await res.json();
+            if (data.success === false) { 
+              setLoading(false)
+          }
+         
+          
+          setListing(data);
+          setLoading(false);
+          
+        } catch (error) {
+         console.log(error) 
+        }
+        }
+        fetchListing();
+      }, [window.location.search]);
+      
+    
+
     
 
   useEffect(() => {
