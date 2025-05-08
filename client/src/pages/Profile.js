@@ -11,6 +11,7 @@ import { signoutUserStart , signoutUserSuccess,signoutUserFailure } from '../red
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
 import { HiOutlineExclamationCircle, HiOutlineLogout } from "react-icons/hi";
+import { MdLocationOn } from 'react-icons/md';
 
 
 
@@ -31,8 +32,35 @@ export default function Profile(next) {
   const [errorFun, setErrorFun] = useState();
   const [errorFun1, setErrorFun1] = useState();
 
+ // admin 
+    const [listings, setListing] = useState([]);
+    const [Loading, setLoading] = useState(false);
+  
 
+      useEffect(() => {
+      const handleShowListing=async(e)=>{ 
+    
+        try {
+          const res = await fetch(`http://localhost:5000/api/user/listing/${currentUser._id}`);
+    
+    
+            const data = await res.json();
+            
+            if (data.success === false) {
+             return 
+            }
+            
+            setuserListing(data);
+            
+         
+        } catch (error) {
+          console.log(error)
+        }
+      }
 
+      handleShowListing();
+        }, []);
+    
 
   useEffect(() => {
     if (file) {
@@ -167,26 +195,26 @@ export default function Profile(next) {
       }
 
 
-  const handleShowListing=async(e)=>{
-    e.preventDefault();
+  // const handleShowListing=async(e)=>{
+  //   e.preventDefault();
 
-    try {
-      const res = await fetch(`/api/user/listing/${currentUser._id}`);
-
-
-        const data = await res.json();
-
-        if (data.success === false) {
-         return setErrorFun1('You Have 0 Listing');
-        }
-
-        setuserListing(data);
+  //   try {
+  //     const res = await fetch(`/api/user/listing/${currentUser._id}`);
 
 
-    } catch (error) {
-      setErrorFun1(error);
-    }
-  }
+  //       const data = await res.json();
+
+  //       if (data.success === false) {
+  //        return setErrorFun1('You Have 0 Listing');
+  //       }
+
+  //       setuserListing(data);
+
+
+  //   } catch (error) {
+  //     setErrorFun1(error);
+  //   }
+  // }
 
   const handleDeleteListing= async(id)=>{
       try{
@@ -208,9 +236,12 @@ export default function Profile(next) {
   }
 
   return (
-    <div className='flex flex-col justify-center items-center text-center gap-6 pt-24 '>
+   <div className='flex flex-col border-gray-500 justify-center items-center text-center gap-6 pt-24 '>
+         {/* profile  */}
+    <div className='flex flex-row border-gray-500 justify-center items-center text-center gap-40'>
+      <div className='flex flex-col border-gray-500 justify-center items-center text-center gap-6'>
         <input type="file" hidden ref={fileref} accept='images/*' onChange={(e)=>setfile(e.target.files[0])}/>
-
+      
       <div className='flex flex-col justify-center items-center'>
         <img src={formdata.avatar || currentUser.avatar} alt="profile_img" className='rounded-full h-24 w-24 cursor-pointer' 
         onClick={()=>{fileref.current.click()}}/>
@@ -229,20 +260,20 @@ export default function Profile(next) {
       <input type="text" id='username'  placeholder="username" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' defaultValue={currentUser.username}  onChange={handleChange}/>
       <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' defaultValue={currentUser.email}  onChange={handleChange}/>
         <input type="password" id='password' placeholder="password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' defaultValue={currentUser.password} onChange={handleChange}/>
-
+        
         <button id='submit'  disabled={loading} className='border rounded-lg p-3 w-80  focus:outline-none  bg-blue-950 uppercase text-white font-bold hover:opacity-85 sm:w-96'>{loading? "Loading..." : 'Update'}</button>
-
+        
         <Link to={"/createListing"}className='border rounded-lg p-3 w-80  focus:outline-none bg-green-700  uppercase text-white font-bold hover:opacity-90 sm:w-96'>
        Create Listing
         </Link>
 
       </form>
       <div className='flex flex-col justify-center gap-4 m-auto '>
-        <button type='button' className='border rounded-lg p-3 w-80  focus:outline-none  bg-red-600 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setOpenModal(true)}>Delete Account</button>
-        <button className='border rounded-lg p-3 w-80  focus:outline-none  bg-red-600 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setSignModal(true)}>Signout</button>
+        <button type='button' className='text-red-700 text-lg font-bold cursor-pointer' onClick={() => setOpenModal(true)}>Delete Account</button>
+        <span className='text-red-700 text-lg font-bold cursor-pointer' onClick={() => setSignModal(true)}>Signout</span>
       </div>
+    
 
-       
       {/* modal for delete user  */}
       <Modal show={openModal} size="lg" className='m-auto bg-white w-96 h-72 border rounded-md border-gray-400' onClose={() => setOpenModal(false)} popup>
         <ModalHeader />
@@ -250,7 +281,7 @@ export default function Profile(next) {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-600 dark:text-red-600" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to Delete this Account?
+              Are you sure you want to delete this product?
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="red" className='p-2' onClick={() => deleteUser()}>
@@ -285,31 +316,34 @@ export default function Profile(next) {
           </div>
         </ModalBody>
       </Modal>
-       
+    
+      
+          <p className='text-red-600'>
+            {error? error.message : ''}
+          </p>
+          <p className='text-green-600'>
+            {updateSuccess ? "User Updated successfully" : ''}
+          </p>
+         </div>
 
-      <p className='text-red-600'> {error? error.message : ''} </p>
-      <p className='text-green-600'> {updateSuccess ? "User Updated successfully" : ''} </p>
-      {errorFun && <p className='text-red-700 text-center'> {errorFun} </p>}
-
-
-        <div >
+         {/* <div >
           <button onClick={handleShowListing} type='button' className='text-green-600 text-center uppercase font-bold border border-green-600 mb-10 p-2 rounded'>Show Listing </button>
-        </div>
+        </div> */}
 
           <div className='flex flex-col gap-3 mb-16 p-4'>
             {userListing && userListing.length > 0 && 
              userListing.map((listing)=> 
             <div key={listing._id} className='flex justify-between border  border-gray-300 p-2 rounded-lg'>
-              <Link to={`/listing/${listing._id}`} className='flex flex-row gap-2'>
+              <Link to={`/listing/${currentUser._id}`} className='flex flex-row gap-2'>
                 <img src={listing.imageUrl[0]} alt="" width='60' height={40} className='object-contain w-20 h-10' />
-                <p className='m-auto'>{listing.name}</p>
+                <p>{listing.name}</p>
                 </Link>
-
-
+             
+              
               <div className='flex  gap-3'>
-                <button type='button' className='text-red-500 border border-red-500 rounded p-[0.40rem] hover:text-white hover:bg-red-500' onClick={()=>handleDeleteListing(listing._id)}>DELETE</button>
+                <button type='button' className='text-red-500 border border-red-500 rounded p-1 hover:text-white hover:bg-red-500' onClick={()=>handleDeleteListing(listing._id)}>DELETE</button>
                 <Link to={`/updatelisting/${listing._id}`}>
-                <button  className='text-green-500 border border-green-500 rounded p-[0.40rem] hover:text-white hover:bg-green-500' >EDIT</button>
+                <button  className='text-green-500 border border-green-500 rounded p-1 hover:text-white hover:bg-green-500' >EDIT</button>
                 </Link>
 
               </div>
@@ -318,7 +352,82 @@ export default function Profile(next) {
 
             }
           </div>
-              {errorFun1 && <p className='text-red-700 text-center'> {errorFun1} </p>}
+
+    </div>
+
+
+
+  {/* if User admin is true  */}
+
+ {currentUser.isAdmin && <div className='flex flex-col justify-center mr-auto w-auto  h-full pb-48 sm:h-full pt-20  md:flex-row'>
+          
+            <div className='flex-1'>
+            <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
+              All User Listing:
+           </h1>
+          <div className='flex flex-col flex-wrap gap-4 mt-5'>
+               {!Loading && listings.length === 0 && (
+                <p className=' text-center text-xl text-slate-700'>No listing found!</p>
+              )}
+              {Loading && (
+                <p className='text-center text-xl text-slate-700 w-full'>
+                  Loading...
+                </p>
+              )}
+              
+               {!Loading &&
+                listings &&
+                listings.map((listing) => (      
+                  <Link to={`/listing/${listing._id}`} className='flex flex-col  m-auto w-[70%] lg:w-[70%]'>
+                      <div className='flex flex-row border border-slate-300 rounded-lg justify-center '> 
+                         
+                         <img src={listing.imageUrl[0]} alt="image" className='w-[10%] max-h-[7%] rounded-md hover:scale-105 duration-500  sm:max-h-[7%]  lg:max-h-[7%]  '  />
+                     
+                     <div className='pl-6 pr-6 flex flex-row items-center justify-center'>
+                     <div>
+                         <h6 className='truncate w-44 font-semibold text-lg mb-1 my-4 mx-1 uppercase sm:w-44 lg:w-44 lg:text-base'>{listing.name}</h6>
+                     </div>
+                     <div className='flex flex-row mb-1 items-center gap-1'>
+                       <MdLocationOn  className='text-green-600 ' />
+                       <p className='truncate w-44 text-sm font-semibold lg:w-44'>{listing.address}..</p>
+                     </div>
+                     {/* <div className='flex flex-col  gap-1 text-sm font-semibold'>
+                       <p className='truncate w-44  lg:w-44 '>{listing.description}</p> */}
+                      
+                       <p className='text-center m-auto truncate w-44 text-slate-700 font-semibold text-lg '>
+                       { listing.type === 'rent'?'$': '₹'  } {listing.regularprice}{ listing.type === 'rent'?'/month': '/Lacs'  }
+                       </p>
+                      
+                     {/* </div> */}
+                         <div className='flex flex-row items-center justify-center gap-2 w-44 text-sm font-semibold  mb-3'>
+                           <p>{listing.bedrooms} beds</p>
+                           <p>{listing.bathrooms} baths</p>
+                         </div>
+
+                        <div className='flex flex-row gap-2 items-center justify-center'>
+                         <Link >
+                         <button  className='text-green-500 m-auto border  border-green-500 rounded p-1 hover:text-white hover:bg-green-500' >Update</button>
+                        </Link>
+
+                        <button type='button' className='text-red-500 m-auto border border-red-500 rounded p-1 hover:text-white hover:bg-red-500' >DELETE</button>
+                         </div>
+                     </div>
+                  </div>
+                                    </Link>
+                ))} 
+  
+              
+            </div>
+            <div>
+              
+           
+             </div>
+          </div>
+         </div>
+}
+
+
+
     </div>
   )
 }
