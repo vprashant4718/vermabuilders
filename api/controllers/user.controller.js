@@ -30,13 +30,13 @@ export const userUpdate =async (req,res, next)=>{
 
 //Update User Password
 export const userPasswordUpdate =async (req,res, next)=>{
-        try {
+       // try {
             const {email, password} = req.body;
-            
+            console.log(email, password);
         if(password){
             hashedPassword = bcryptjs.hashSync(password, 10);
     }
-    const updateUser = await User.findOneAndUpdate({email},{
+        await User.findOneAndUpdate({email},{
         $set:{
             password: hashedPassword,
         }},{new: true});
@@ -44,9 +44,9 @@ export const userPasswordUpdate =async (req,res, next)=>{
         
         res.status(201).json('user password reset Success');
         
-    } catch (error) {
-        next(error)
-    }
+  //  } catch (error) {
+  //      next(error)
+   // }
     }
 
 
