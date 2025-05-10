@@ -63,14 +63,14 @@ export default function Profile(next) {
 
 
 
-  useEffect(() => {
+useEffect(() => {
         const fetchListing=async()=>{
     
           setLoading(true);
     
-         // try {
+          try {
             
-            const res = await fetch(`/api/listing/getadminlisting/`);
+            const res = await fetch(`/api/listing/getadminlisting`);
             const data = await res.json();
             if (data.success === false) { 
               setLoading(false)
@@ -80,15 +80,13 @@ export default function Profile(next) {
           setListing(data);
           setLoading(false);
           
-      //  } catch (error) {
-        // console.log(error) 
-        //}
+        } catch (error) {
+         console.log(error) 
+        }
         }
         fetchListing();
       }, []);
       
-    
-
     
 
   useEffect(() => {
