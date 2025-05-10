@@ -120,7 +120,7 @@ const sendOtpBtn = async(e)=>{
   const handleSubmit = async (e) => {
     setError(null);
      e.preventDefault();
-   // try {
+   try {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('confirmPassword');
@@ -138,7 +138,7 @@ const sendOtpBtn = async(e)=>{
     
       setLoading(true);
       
-    const res = await fetch('/api/auth/resetpassword', 
+    const res = await fetch('/api/user/resetpassword', 
     {
           method: 'POST',
           headers:{
@@ -157,11 +157,11 @@ const sendOtpBtn = async(e)=>{
         setError(null);
         navigate('/signin');
 
-     // } catch (error) {
-     //   setLoading(false);
-     //   setError(error.message);
+      } catch (error) {
+        setLoading(false);
+        setError(error.message);
        
-     // }
+     }
       };
   
   
