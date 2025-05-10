@@ -12,6 +12,7 @@ import UpdateListing from './pages/UpdateListing';
 import Listing from './pages/Listing';
 import Search from './pages/Search';
 import Footer from './Components/Footer';
+import Forgot from './pages/ForgotPass';
 
 
 
@@ -25,6 +26,8 @@ export default function App() {
       <Route path='/contact' element={<ContactVerma />} />
       <Route path='/listing/:listingId' element={<Listing />} />
       <Route path='/search' element={<Search />} />
+      <Route path='/forgot_password' element={<Forgot />} />
+
       
       <Route element={<PrivateRoute />} >
       <Route path='/profile' element={<Profile />} />
