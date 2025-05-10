@@ -47,12 +47,16 @@ try {
   
   
   return (
-    <div  className='flex flex-col justify-center mr-auto w-auto  h-full pb-48 sm:h-full pt-20 '>
+    <div  className='flex flex-col justify-center mr-auto w-auto  h-full pb-44 sm:h-full pt-24 '>
       <h1 className='text-3xl text-center font-bold py-3 px-3'>Sign In</h1>
       <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-4'>
         
         <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-80 lowercase focus:outline-none sm:w-96' onChange={handleOnChange} />
+        <div>
         <input type="password" id='password' placeholder="password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
+        <span className='items-center flex justify-center p-2 text-sm w-[32%] m-[0% 67%]'>  <Link to="/forgot_password" className='text-blue-700 hover:underline'>Forgot Password</Link></span>
+        </div>
+
         <button disabled = {loading} className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-80  sm:w-96'>{loading ? "loading..." : "Sign In"   } </button>
 
       </form>
