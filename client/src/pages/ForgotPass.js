@@ -76,7 +76,7 @@ const sendOtpBtn = async(e)=>{
     const verified = document.getElementById('verified');
     const email = document.getElementById('email').value;
     const otpfield = document.getElementById('otpfield');
-    const otptoNumber = parseInt(otpfield.value)
+    const otptoNumber = otpfield.value;
     const otpJson = {"email":email, "hash":otptoNumber}
     const validateOtp = document.getElementById('validateOtp');
     const res = await fetch('/api/auth/validateforgototp', {
