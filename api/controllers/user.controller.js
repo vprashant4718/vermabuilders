@@ -3,6 +3,8 @@ import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import Listing from "../models/listing.model.js";
 
+
+//update user from profile page
 export const userUpdate =async (req,res, next)=>{
     if(req.user.id !== req.params.id) return next(errorHandler(403, 'You can only change your own account'));
 
@@ -26,9 +28,31 @@ export const userUpdate =async (req,res, next)=>{
     }
     }
 
+//Update User Password
+export const userPasswordUpdate =async (req,res, next)=>{
+        try {
+            const {email, password} = req.body;
+            
+        if(password){
+            hashedPassword = bcryptjs.hashSync(password, 10);
+    }
+    const updateUser = await User.findOneAndUpdate({email},{
+        $set:{
+            password: hashedPassword,
+        }},{new: true});
+
+        
+        res.status(201).json('user password reset Success');
+        
+    } catch (error) {
+        next(error)
+    }
+    }
 
 
 
+
+//delete user permanently
 export const userDelete =async (req,res, next)=>{
     if(req.user.id !== req.params.id) return next(errorHandler(403, 'You can only change your own account'));
 
@@ -45,7 +69,7 @@ export const userDelete =async (req,res, next)=>{
         
 }
 
-
+//listing done by an user
 export const userListing= async(req,res, next)=>{
     if(req.user.id !== req.params.id) return next(errorHandler(403, 'You can only check your listing'));
 
@@ -59,7 +83,7 @@ export const userListing= async(req,res, next)=>{
         
 }
 
-
+//Getting user Details
 export const getUser =async(req, res, next)=>{
     try {
         
