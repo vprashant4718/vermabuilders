@@ -180,8 +180,10 @@ const sendOtpBtn = async(e)=>{
         </div>
        
       {validate &&
+        <>
         <input type="password" id='password' placeholder="New Password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
         <input type="password" id='confirmPassword' placeholder="Confirm Password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
+        </>
       }
       
       {validate &&
