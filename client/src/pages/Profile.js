@@ -68,7 +68,7 @@ export default function Profile(next) {
     
           setLoading(true);
     
-          try {
+         // try {
             
             const res = await fetch(`/api/listing/getadminlisting/`);
             const data = await res.json();
@@ -80,9 +80,9 @@ export default function Profile(next) {
           setListing(data);
           setLoading(false);
           
-        } catch (error) {
-         console.log(error) 
-        }
+      //  } catch (error) {
+        // console.log(error) 
+        //}
         }
         fetchListing();
       }, []);
