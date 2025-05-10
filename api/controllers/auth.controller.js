@@ -54,6 +54,53 @@ export const validateOtp = async (req, res, next)=>{
 };
 
 
+
+//forgot password reset 
+export const Forgot = async (req, res, next)=>{
+  try {
+    const {email} = req.body;;
+    console.log(email);
+    const validEmail  = validator.isEmail(email);
+    if(!validEmail){ return  next(errorHandler(400, 'Enter a Valid Email !')); }
+
+    const hashOTP = bcryptjs.hashSync(Verification, 10);
+    const isEmailExist = await User.findOne({email});
+    
+    if(!isEmailExist){ return next(errorHandler(409, `No User Found `)); }
+
+
+
+    else{
+      OtpMail(email);
+      res.cookie('hashed', hashOTP, { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 });// 15 minutes 
+      res.json({ success: true, message: "OTP sent!" });
+         }
+     
+        
+    } catch (error) {
+      next(error);
+    }
+};
+
+
+
+
+export const validateForgotOtp = async (req, res, next)=>{
+  try {
+    const {email,hash} = req.body;
+    const hashedOtp = req.cookies.hashed;
+    const validOtp = bcryptjs.compareSync(hash, hashedOtp);
+    if(!validOtp){ next(errorHandler(401, 'Wrong Otp !')); }
+  else{
+    res.status(200).json('otp is correct');
+  }
+
+    } catch (error) {
+      next(error);
+    }
+};
+
+
 export const signup = async (req, res, next)=>{
     const { username, email, password } = req.body;
     const isUserExist = await User.findOne({username});
