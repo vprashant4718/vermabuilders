@@ -131,9 +131,10 @@ const sendOtpBtn = async(e)=>{
                 confirmPassword.value = '';
                 return;
     };
+    const newPass = password.value;
     
     const emailLower = email.toLowerCase();
-    const updateNewPass = {"email":emailLower, "password":password.value}
+    const updateNewPass = {"email":emailLower, "password":newPass}
     try {
       setLoading(true);
       
