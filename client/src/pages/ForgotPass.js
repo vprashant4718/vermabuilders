@@ -125,7 +125,7 @@ const sendOtpBtn = async(e)=>{
     const password = document.getElementById('password');
     const confirmPassword = document.getElementById('confirmPassword');
 
-    if(password != confirmPassword){
+    if(password.value != confirmPassword.value){
        setError("Password & Confirm Password Not Match");
                 password.value = '';
                 confirmPassword.value = '';
