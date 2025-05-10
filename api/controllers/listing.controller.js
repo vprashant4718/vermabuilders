@@ -1,7 +1,6 @@
 import Listing from "../models/listing.model.js";
 import { errorHandler } from "../utils/errorhandler.js";
 
-
 export const createListing = async(req,res,next)=>{
     try {
         
@@ -19,11 +18,11 @@ export const deleteListing = async(req,res,next)=>{
         
        const listing =  await Listing.findById(req.params.id);
        if (!listing) {
-            return res.status(404).json('listing not found');
+        return  next(errorHandler(400, 'listing not found'));
        }
 
        if(req.user.id !== listing.userRef){
-        return  res.status(401).json('You can delete only your listings')
+        return next(errorHandler(400, 'You can delete only your listings'));
        }
 
         await Listing.findByIdAndDelete(req.params.id);
@@ -61,12 +60,67 @@ export const getListing=async(req,res)=>{
     const listing = await Listing.findById(req.params.id);
 
     if (!listing) {
-        return  next(errorHandler(404, 'You Have No Listings'));
-      }
+      return  next(errorHandler(404, 'No Listing Found'));
+        
+    }
     
     res.status(201).json(listing);
 }
 
+// export const getadminlisting = async(req,res)=>{
+//     const listing = await Listing.find({});
+
+//     if (!listing) {
+//       return  next(errorHandler(404, 'No Listing Found'));
+        
+//     }
+    
+//     res.status(201).json(listing);
+// }
+
+
+
+
+export const getadminlisting= async(req,res,next)=>{
+    const limit = parseInt(req.query.limit) || 9;
+    const searchIndex = parseInt(req.query.searchIndex) || 0;
+
+    let parking = req.query.parking;
+    if(parking === undefined || parking === 'false'){
+        parking = {$in: [true, false]}
+    }
+
+    let furnished = req.query.furnished;
+    if(furnished === undefined || furnished === 'false'){
+        furnished = {$in: [true, false]}
+    }
+
+    let type = req.query.type;
+    if(type === undefined || type === 'all'){
+        type = {$in: ['sale', 'rent']}
+    }
+
+    const searchTerm = req.query.searchTerm || '';
+    const sort = req.query.sort || 'createdAt';
+    const order = req.query.order || 'desc';
+
+
+    try {
+        
+        const listing = await Listing.find({
+            name:{$regex: searchTerm, $options:'i'},
+            type,
+            furnished,
+            parking,
+            
+        } ).sort( {[sort]:order} ).limit(limit).skip(searchIndex);
+        
+        return res.status(200).json(listing);
+
+    } catch (error) {
+       next(error) 
+    }
+}
 export const getSearchListings= async(req,res,next)=>{
     const limit = parseInt(req.query.limit) || 9;
     const searchIndex = parseInt(req.query.searchIndex) || 0;
