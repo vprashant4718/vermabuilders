@@ -102,6 +102,7 @@ export const validateForgotOtp = async (req, res, next)=>{
 
 
 export const signup = async (req, res, next)=>{
+  try {
     const { username, email, password } = req.body;
     const isUserExist = await User.findOne({username});
     const isEmailExist = await User.findOne({email});
@@ -123,7 +124,7 @@ export const signup = async (req, res, next)=>{
   
     const newUser = new User({username, email, password:hashedpassword});
 
-    try {
+    
 
         await newUser.save(); 
         res.status(201).json('user created successfully'); 
@@ -136,9 +137,8 @@ export const signup = async (req, res, next)=>{
 
 // sign in functionality 
 export const signin = async(req, res, next)=>{
-  const { email, password } = req.body;
-  try {
-
+ try {
+    const { email, password } = req.body;
     const validUser = await User.findOne({email});
     if(!validUser){ next(errorHandler(404, 'User not found !')); }
     const validPassword = bcryptjs.compareSync(password, validUser.password);
@@ -146,10 +146,7 @@ export const signin = async(req, res, next)=>{
 
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     const { password: pass, ...rest } = validUser._doc;
-
-
-
-   res.cookie('access_token', token,{httpOnly : true})
+    res.cookie('access_token', token,{httpOnly : true})
         .status(200)
         .json(rest);
 } catch (error) {
