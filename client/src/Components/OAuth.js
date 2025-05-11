@@ -33,9 +33,7 @@ export default function OAuth() {
         }
     }
         return (
-    <div className='flex flex-col justify-center items-center gap-4 p-1 sm:p-3'>
          <button onClick={handleGoogleClick} type='button' id='google'  className='border rounded-lg p-2 bg-red-700 text-white font-bold w-80  sm:w-96'>Continue With Google </button>
     
-    </div>
   )
 }
