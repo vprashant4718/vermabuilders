@@ -47,22 +47,23 @@ try {
   
   
   return (
-    <div  className='flex flex-col justify-center mr-auto w-auto  h-full pb-44 sm:h-full pt-24 '>
-      <h1 className='text-3xl text-center font-bold py-3 px-3'>Sign In</h1>
+    <div  className='flex flex-col justify-center m-auto w-auto  h-full pb-44 sm:w-44 h-full pt-24 '>
+      <h1 className='text-3xl text-center font-bold py-3 px-3 mb-3'>Sign In</h1>
       <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-4'>
         
-        <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-80 lowercase focus:outline-none sm:w-96' onChange={handleOnChange} />
+        <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-auto lowercase focus:outline-none sm:w-96' onChange={handleOnChange} />
         <div>
-        <input type="password" id='password' placeholder="password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
-        <span className='items-center flex justify-center p-2 text-sm w-[32%] m-[0% 67%]'>  <Link to="/forgot_password" className='text-blue-700 hover:underline'>Forgot Password</Link></span>
+        <input type="password" id='password' placeholder="password" className='border rounded-lg p-3 w-auto  focus:outline-none sm:w-96' onChange={handleOnChange} />
+        <span className='items-end flex justify-end p-2 text-xs w-auto sm:text-sm'>  <Link to="/forgot_password" className='text-blue-700 hover:underline'>Forgot Password</Link></span>
         </div>
 
-        <button disabled = {loading} className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-80  sm:w-96'>{loading ? "loading..." : "Sign In"   } </button>
+        <button disabled = {loading} className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-52  sm:w-96'>{loading ? "loading..." : "Sign In"   } </button>
 
       </form>
+      <div className='flex flex-col justify-center w-auto items-center gap-4 p-1 sm:'>
       <OAuth/>
-        <span className='items-center flex justify-center p-2 text-xl'>Do not have an account?  <Link to="/signup" className='text-blue-700 hover:underline'>SignUp</Link></span>
-   
+        <span className='items-end m-auto text-sm sm:text-xl sm:w-72'>Don't have an account?  <Link to="/signup" className='text-blue-700 hover:underline sm:'>SignUp</Link></span>
+   </div>
     {error && <p className='text-red-700 text-center'> {error} </p>}
 
     </div>
