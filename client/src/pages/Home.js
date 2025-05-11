@@ -54,19 +54,16 @@ export default function Home() {
         color='#1F51FF' progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <div className="p-3">
+   <div className="p-3  ml-5">
         <h1 className="text-3xl font-bold">
           Find Your
-          <span className="text-slate-500"> Dream Home</span>
+          <span className="text-slate-600"> Dream Home</span>
           <br />
           with Verma Builders
         </h1>
         <br />
-        <p className="text-slate-600 font-semibold text-sm lg:w-[70vw]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, et.
-          Velit omnis distinctio iste soluta similique ducimus facere dolor
-          odit, id aspernatur, perspiciatis repudiandae doloribus voluptates
-          reprehenderit eos qui nam. d.
+        <p className="text-slate-600 font-semibold text-base lg:w-[70vw]">
+          We help you find the perfect home tailored to your lifestyle. Whether you’re buying, selling, or investing, trust our expert team to guide you every step of the way with integrity and experience.
         </p>
 
         <Link to={`/search`} className="text-lg font-semibold text-blue-900">
@@ -74,22 +71,12 @@ export default function Home() {
         </Link>
       </div>
 
-      {/* <div>
-        <Swiper navigation>
-          {rentListing &&
-            rentListing.length > 0 &&
-            rentListing.map((url) => (
-              <SwiperSlide className="flex flex-row justify-center items-center m-auto  w-auto" >
-                <img src={url.imageUrl[0]} key={url} className="object-contain m-auto w-auto max-h-[70vh]" />
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </div> */}
+   
 
 
 <div>
   <Swiper
-    key={rentListing.length} // ✅ Force re-render when listings load
+    key={rentListing.length} // Force re-render when listings load
     modules={[Navigation, Autoplay]}
     navigation
     autoplay={{
