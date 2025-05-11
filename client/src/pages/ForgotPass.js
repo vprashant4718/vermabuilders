@@ -166,29 +166,29 @@ const sendOtpBtn = async(e)=>{
   
   
   return (
-     <div  className='flex flex-col justify-center mr-auto w-auto  h-full pt-24 pb-40 sm:h-full pt-20 sm:pt-24 pb-24'>
+<div  className='flex flex-col justify-center mr-auto w-auto  h-full pt-24 pb-44 sm:h-full  sm:pt-24 sm:pb-44'>
       <h1 className='text-3xl text-center font-bold sm:py-3 px-3' >Reset Your Password</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-4 p-2 sm:p-3'>
+      <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center w-auto gap-4 p-2 sm:p-3'>
            
-        <div className='flex flex-row w-96 gap-3'>
-        <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 w-80 lowercase focus:outline-none sm:w-72' onChange={handleOnChange} required/>
-        <button type='button' id='sendOtpBtn' className='bg-red-600 text-white p-2 rounded' onClick={sendOtpBtn}> Send OTP</button>
+        <div className='flex flex-col w-auto gap-3'>
+        <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 lowercase focus:outline-none sm:w-96' onChange={handleOnChange} required/>
+        <button type='button' id='sendOtpBtn' className='bg-red-600 text-white p-2 rounded w-24 self-end' onClick={sendOtpBtn}> Send OTP</button>
         <MdVerified  id='verified' className='bg-white text-green-500 border-green-500 text-center p-1 text-4xl rounded hidden'/> 
         </div>
-        <div className='flex flex-row w-96 gap-3'>
-        <input type="text" id='otpfield' placeholder="Enter Otp" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96 hidden' onChange={handleOnChange}  />
-        <button type='button' id='validateOtp' className='bg-sky-500 text-white p-2 rounded hidden' onClick={validateOtp}> validate</button>
+        <div className='flex flex-col w-auto gap-3'>
+        <input type="text" id='otpfield' placeholder="Enter Otp" className='border rounded-lg p-3  focus:outline-none sm:w-96 hidden' onChange={handleOnChange}  />
+        <button type='button' id='validateOtp' className='bg-sky-500  text-white p-2 rounded w-20 self-end hidden' onClick={validateOtp}> validate</button>
         </div>
        
       {validate &&
         <>
-        <input type="password" id='password' placeholder="New Password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
-        <input type="password" id='confirmPassword' placeholder="Confirm Password" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} />
+        <input type="password" id='password' placeholder="New Password" className='border rounded-lg p-3 focus:outline-none sm:w-96' onChange={handleOnChange} />
+        <input type="password" id='confirmPassword' placeholder="Confirm Password" className='border rounded-lg p-3 focus:outline-none sm:w-96' onChange={handleOnChange} />
         </>
       }
       
       {validate &&
-        <button disabled = {Loading} id='signup' className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-80  sm:w-96'>{Loading ? "Loading..." : "Reset Password"} </button>}
+        <button disabled = {Loading} id='signup' className='border rounded-lg p-3 bg-blue-950 text-white font-bold w-52  sm:w-96'>{Loading ? "Loading..." : "Reset Password"} </button>}
 
       </form> 
          <span className='items-center flex justify-center p-2 text-xl'>Remember Password ? <Link to="/signin" className='text-blue-700 hover:underline'>SignIn</Link></span>
@@ -196,6 +196,9 @@ const sendOtpBtn = async(e)=>{
     </div>
   )
 }
+
+
+
 
 
 
