@@ -47,7 +47,7 @@ try {
   
   
   return (
-    <div  className='flex flex-col justify-center m-auto w-auto  h-full pb-44 sm:w-44 h-full pt-24 '>
+   <div  className='flex flex-col justify-center m-auto w-auto  h-full pb-44 sm:w-44    pt-24 '>
       <h1 className='text-3xl text-center font-bold py-3 px-3 mb-3'>Sign In</h1>
       <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-4'>
         
@@ -60,16 +60,15 @@ try {
         <button disabled = {loading} className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-52  sm:w-96'>{loading ? "loading..." : "Sign In"   } </button>
 
       </form>
-      <div className='flex flex-col justify-center w-auto items-center gap-4 p-1 sm:'>
+      <div className='flex flex-col  w-auto items-center gap-1 p-1 sm:'>
       <OAuth/>
-        <span className='items-end m-auto text-sm sm:text-xl sm:w-72'>Don't have an account?  <Link to="/signup" className='text-blue-700 hover:underline sm:'>SignUp</Link></span>
+        <span className='self-end m-auto text-sm sm:text-base sm:w-72'>Don't have an account?  <Link to="/signup" className='text-blue-700 hover:underline sm:'>SignUp</Link></span>
    </div>
     {error && <p className='text-red-700 text-center'> {error} </p>}
 
     </div>
   )
 }
-
 
 
 
