@@ -263,7 +263,7 @@ useEffect(() => {
   }
 
   return (
-  <div className='flex flex-col border-gray-500 justify-center items-center text-center gap-6 pt-24 '>
+<div className='flex flex-col border-gray-500 justify-center items-center text-center gap-6 pt-24 '>
         
          {/* profile  & User Listings */}
     <div className='flex flex-col border-gray-500 justify-center items-center text-center m-auto gap-40 sm:flex-row sm:gap-10'>
@@ -357,7 +357,7 @@ useEffect(() => {
          </div>
 
           {/* listings done by user  */}
-          <div className='flex flex-col gap-3 mb-16 p-4 justify-center items-center'>
+          <div className='flex flex-col gap-6 mb-16 p-4 justify-center w-auto items-center lg:w-[48%]'>
             <h1 className='text-2xl font-bold'>My Listings</h1>
             {userListing && userListing.length > 0 && 
              userListing.map((listing)=> 
@@ -406,18 +406,18 @@ useEffect(() => {
                {!Loading &&
                 listings &&
                 listings.map((listing) => (      
-                  <Link to={`/listing/${listing._id}`} className='flex flex-col m-auto w-auto lg:w-[100%]'>
-                      <div className='flex flex-col border border-slate-300 w-auto rounded-lg justify-center md:flex-row'> 
-                         
-                         <img src={listing.imageUrl[0]} alt="image" className='w-auto items-center m-auto rounded-md hover:scale-105 duration-500    sm:w-48'  />
+                  <Link to={`/listing/${listing._id}`} className='flex flex-col border rounded-lg p-2 items-center  m-auto w-auto lg:w-[100%]'>
+                      <div className='flex flex-col w-auto rounded-lg justify-center sm:flex-row'> 
+                 
+                         <img src={listing.imageUrl[0]} alt='property' className='w-full  m-auto rounded-md hover:scale-105 duration-500    sm:w-48'  />
                      
                      <div className='pl-6 pr-6 flex flex-col items-center justify-center md:flex-row'>
                      <div>
-                         <h6 className='truncate w-auto font-semibold text-lg mb-1 my-4 mx-1 uppercase sm:w-44 lg:w-44 lg:text-base'>{listing.name}</h6>
+                         <h6 className='truncate font-semibold text-lg w-28 mb-1 my-4 mx-1  uppercase sm:w-44 sm:truncate-none lg:w-44 lg:text-base'>{listing.name}</h6>
                      </div>
                      <div className='flex flex-row mb-1 items-center md:flex-row'>
                        <MdLocationOn  className='text-green-600 ' />
-                       <p className='truncate w-auto text-sm font-semibold lg:w-44'>{listing.address}..</p>
+                       <p className='truncate w-20 text-sm font-semibold  lg:w-28'>{listing.address}..</p>
                      </div>
                      {/* <div className='flex flex-col  gap-1 text-sm font-semibold'>
                        <p className='truncate w-44  lg:w-44 '>{listing.description}</p> */}
@@ -459,4 +459,3 @@ useEffect(() => {
     </div>
   )
 }
-
