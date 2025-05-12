@@ -166,7 +166,7 @@ const sendOtpBtn = async(e)=>{
   
   
   return (
-<div  className='flex flex-col justify-center mr-auto w-auto  h-full pt-24 pb-44 sm:h-full  sm:pt-24 sm:pb-44'>
+     <div  className='flex flex-col justify-center mr-auto w-auto  h-full pt-24 pb-44 sm:h-full  sm:pt-24 sm:pb-44'>
       <h1 className='text-3xl text-center font-bold sm:py-3 px-3' >Reset Your Password</h1>
       <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center w-auto gap-4 p-2 sm:p-3'>
            
@@ -191,11 +191,15 @@ const sendOtpBtn = async(e)=>{
         <button disabled = {Loading} id='signup' className='border rounded-lg p-3 bg-blue-950 text-white font-bold w-52  sm:w-96'>{Loading ? "Loading..." : "Reset Password"} </button>}
 
       </form> 
-         <span className='items-center flex justify-center p-2 text-xl'>Remember Password ? <Link to="/signin" className='text-blue-700 hover:underline'>SignIn</Link></span>
+         <span className='items-center flex justify-center p-2 text-sm sm:text-base'>Remember Password ? <Link to="/signin" className='text-blue-700 hover:underline'>SignIn</Link></span>
     {error && <p className='text-red-700 text-center'> {error} </p>}
     </div>
   )
 }
+
+
+
+
 
 
 
