@@ -1,10 +1,18 @@
-const flowbiteReact = require("flowbite-react/plugin/tailwindcss");
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", ".flowbite-react\\class-list.json"],
-  theme: {
-    extend: {},
-  },
-  plugins: [flowbiteReact],
-}
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite/**/*.js", // ✅ Correct way
+  ],theme: {
+  extend: {
+    spacing: {
+      '10': '2.5rem'  // correct way to extend spacing
+    }
+  }
+},
+  plugins: [
+    require('flowbite/plugin') // ✅ Use this, not flowbite-react
+  ],
+};
+
