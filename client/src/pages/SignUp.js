@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../Components/OAuth';
 import { MdVerified } from "react-icons/md";
+import {toast } from 'react-toastify';
 
 
 export default function SignUp() {
@@ -46,13 +47,13 @@ const sendOtpBtn = async(e)=>{
    
     if(data.success === false){
       setLoading(false);
-      setError(data.message);
+      toast.error(data.message);
       return;
     }
     setLoading(false); 
     setError(null);
 
-
+    toast.success('otp sent to your email'); 
     console.log(emailLower);
     emailInput.disabled = true
     sendOtpBtn.disabled  = true  
@@ -63,7 +64,7 @@ const sendOtpBtn = async(e)=>{
     validateOtp.style.display = 'block';
   } catch (error) {
     setLoading(false);
-    setError(error.message);
+    toast.error(error.message);
    
   }
   }
@@ -93,13 +94,13 @@ const sendOtpBtn = async(e)=>{
     const data = await res.json();
     if(data.success === false){
       setLoading(false);
-      setError(data.message);
+      toast.error(data.message);
       return;
     }
     setLoading(false); 
     setError(null);
     
-    
+    toast.success('otp verified');
     setvalidate(true)
     validateOtp.style.background = "#32CD32";
     validateOtp.disabled = true;
@@ -111,7 +112,7 @@ const sendOtpBtn = async(e)=>{
       
   } catch (error) {
     setLoading(false);
-    setError(error.message);
+    toast.error(error.message);
    
   }
   }
@@ -137,16 +138,17 @@ const sendOtpBtn = async(e)=>{
         const data = await res.json();
         if(data.success === false){
           setLoading(false);
-          setError(data.message);
+          toast.error(data.message);
           return;
         }
         setLoading(false); 
         setError(null);
+      toast.success("Account Created");
         navigate('/signin');
 
       } catch (error) {
         setLoading(false);
-        setError(error.message);
+        toast.error(error.message);
        
       }
       };
