@@ -350,12 +350,6 @@ useEffect(() => {
       </Modal>
     
       
-          <p className='text-red-600'>
-            // {error? error.message : ''}
-          </p>
-          <p className='text-green-600'>
-            // {updateSuccess ? "User Updated successfully" : ''}
-          </p>
          </div>
 
           {/* listings done by user  */}
