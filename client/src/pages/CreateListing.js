@@ -231,7 +231,7 @@ navigate(`/listing/${data._id}`);
 
             <button type='button' disabled={upload} onClick={handleImageSubmit} className='uppercase text-green-600 border  border-green-600 p-3 rounded font-semibold'>{upload ? 'uploading' : 'upload'}</button>
         </div>
-            // <p className='text-red-700'> {ImageUploadError && ImageUploadError}</p>
+        
             {
             formdata.imageUrl.length > 0 && formdata.imageUrl.map((url, index)=>(
                 <div key={index} className="flex justify-between  border border-red-400 p-3 items-center rounded sm:gap-32">
