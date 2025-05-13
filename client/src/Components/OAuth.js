@@ -4,6 +4,7 @@ import {app} from '../firebase.js';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/user/userSlice.js';
 import { useNavigate } from 'react-router-dom';
+import {toast } from 'react-toastify';
 
 export default function OAuth() {
     const dispatch = useDispatch();
@@ -26,10 +27,11 @@ export default function OAuth() {
 
            const data = await res.json();
            dispatch(signInSuccess(data));
+            toast.success('Sign In Success');
            navigate('/');
 
         } catch (error) {
-            console.log(error);
+           toast.error(error);
         }
     }
         return (
