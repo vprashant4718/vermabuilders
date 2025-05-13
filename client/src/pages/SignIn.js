@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import OAuth from '../Components/OAuth';
+import {toast } from 'react-toastify';
 
 export default function SignIn() {
   
@@ -35,13 +36,15 @@ try {
         const data = await res.json();
         if(data.success === false){
           dispatch(signInFailure(data.message));
+          toast.error(data.message);
         return;
       }
     dispatch(signInSuccess(data));
+    toast.success("Sign In Success");
   navigate('/');
 
 } catch (error) {
-  
+   toast.error(error);
 }
 };
   
