@@ -4,6 +4,7 @@ import {app} from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import LoadingBar from 'react-top-loading-bar'
+import {toast } from 'react-toastify';
 
 export default function CreateListing() {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ export default function CreateListing() {
             setImageUploadError(false)
             setImageUploading(false);
         }).catch((error)=>{
-            setImageUploadError('Image upload faile max size 2mb');
+            toast.error('Image upload faile max size 2mb');
             setImageUploading(false);
         });
         
@@ -55,7 +56,7 @@ export default function CreateListing() {
         
     }
     else{
-        setImageUploadError('You can upload max 6 images');
+       toast.error('You can upload max 6 images');
         setImageUploading(false);
         }
     }
@@ -71,11 +72,11 @@ export default function CreateListing() {
                 'state_changed',
                 (snapshot)=>{
                  const progress = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
-                    console.log(`uploading image ${progress}%`)
+                    toast.success(`uploading image ${progress}%`)
                 }
                 , 
                 (error)=>{
-                    reject(error);
+                    reject(toast.error(error));
                 },
                 ()=>{
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl)=>{
@@ -149,13 +150,13 @@ const handleSubmit=async(e)=>{
     const data = await res.json();
     setloading(false);
     if(data.success === false){
-        seterror(data.message);
+        toast.error(data.message);
     }
         setProgress(100);
 navigate(`/listing/${data._id}`);
 
 } catch (error) {
-    seterror(error.message)
+    toast.error(error.message)
 }
 }
   return (
@@ -229,7 +230,7 @@ navigate(`/listing/${data._id}`);
 
             <button type='button' disabled={upload} onClick={handleImageSubmit} className='uppercase text-green-600 border  border-green-600 p-3 rounded font-semibold'>{upload ? 'uploading' : 'upload'}</button>
         </div>
-            <p className='text-red-700'> {ImageUploadError && ImageUploadError}</p>
+            // <p className='text-red-700'> {ImageUploadError && ImageUploadError}</p>
             {
             formdata.imageUrl.length > 0 && formdata.imageUrl.map((url, index)=>(
                 <div key={index} className="flex justify-between  border border-red-400 p-3 items-center rounded sm:gap-32">
@@ -239,7 +240,7 @@ navigate(`/listing/${data._id}`);
             ))
             }
     <button disabled={loading} className='p-3 uppercase rounded-lg bg-blue-950 text-white hover: opacity-95  disabled:opacity-80'>{loading ? 'Loading' : 'Create Listing'}</button>
-    <p className='text-red-600'>{error}</p>
+    // <p className='text-red-600'>{error}</p>
     </div>
     </form>
     </div>
