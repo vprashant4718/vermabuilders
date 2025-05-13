@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
 import { HiOutlineExclamationCircle, HiOutlineLogout } from "react-icons/hi";
 import { MdLocationOn } from 'react-icons/md';
+import {toast } from 'react-toastify';
 
 
 
@@ -47,7 +48,7 @@ export default function Profile(next) {
             const data = await res.json();
             
             if (data.success === false) {
-             return 
+             return; 
             }
             
             setuserListing(data);
@@ -114,7 +115,7 @@ useEffect(() => {
 
        },
        (error) => {
-        setfileUploadError(true);
+        toast.error(error);
        },
 
        () => {
@@ -158,16 +159,16 @@ useEffect(() => {
 
         if(data.success === false){
           dispatch(updateUserFailure(data.message));
-          setErrorFun(data.message);
+          toast.error(data.message);
          
           return;
         }
         dispatch(updateUserSuccess(data));
         setupdateSuccess(true);
-
+        toast.success('User Updated Successfully');
       } catch (error) {
         dispatch(updateUserFailure(error.message));
-
+        toast.error(error);
       }
 
       };
@@ -187,7 +188,7 @@ useEffect(() => {
 
         if(data.success === false){
           dispatch(deleteUserFailure(data.message));
-          setErrorFun(data.message);
+          toast.error(data.message);
           return;
         }
         dispatch(deleteUserSuccess(data))
@@ -209,6 +210,7 @@ useEffect(() => {
 
         if(data.success === false){
           dispatch(signoutUserFailure(data.message));
+          toast.error(data.message);
           return;
         }
         dispatch(signoutUserSuccess(data))
@@ -251,7 +253,7 @@ useEffect(() => {
          const data = await res.json('listing is deleted');
 
          if (data.success === false) {
-           setErrorFun(data.message);
+           toast.error(data.message);
          }
 
          setuserListing((prev)=> prev.filter((listing)=> listing._id !== id));
@@ -349,10 +351,10 @@ useEffect(() => {
     
       
           <p className='text-red-600'>
-            {error? error.message : ''}
+            // {error? error.message : ''}
           </p>
           <p className='text-green-600'>
-            {updateSuccess ? "User Updated successfully" : ''}
+            // {updateSuccess ? "User Updated successfully" : ''}
           </p>
          </div>
 
