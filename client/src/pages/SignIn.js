@@ -67,7 +67,7 @@ try {
       <OAuth/>
         <span className='self-end m-auto text-sm sm:text-base sm:w-72'>Don't have an account?  <Link to="/signup" className='text-blue-700 hover:underline sm:'>SignUp</Link></span>
    </div>
-    {error && <p className='text-red-700 text-center'> {error} </p>}
+    
 
     </div>
   )
