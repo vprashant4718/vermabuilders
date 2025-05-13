@@ -141,7 +141,7 @@ export default function DashProfile(next) {
     
   
   return (
-      <div className='flex flex-col border-gray-500 justify-center w-auto items-center text-center pt-8 gap-6'>
+      <div className='flex flex-col border-gray-500 justify-center w-auto items-center text-center pt-8 gap-6 mb-5'>
         <input type="file" hidden ref={fileref} accept='images/*' onChange={(e)=>setfile(e.target.files[0])}/>
       
       <div className='flex flex-col justify-center items-center'>
