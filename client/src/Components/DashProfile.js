@@ -9,6 +9,7 @@ import { updateUserStart,updateUserSuccess,updateUserFailure } from '../redux/us
 import { deleteUserStart , deleteUserSuccess,deleteUserFailure } from '../redux/user/userSlice';
 import { signoutUserStart , signoutUserSuccess,signoutUserFailure } from '../redux/user/userSlice';
 import { HiOutlineExclamationCircle, HiOutlineLogout } from "react-icons/hi";
+import {toast } from 'react-toastify';
 
 
 export default function DashProfile(next) {
@@ -35,19 +36,14 @@ export default function DashProfile(next) {
     }
    // eslint-disable-next-line 
   }, [file])
-
-
-
-
+ 
     const handleonfileUpload=(file)=>{
         const storage = getStorage(app);
         const filename = new Date().getTime() + file.name;
         const storageRef= ref(storage, filename);
         const uploadTask = uploadBytesResumable(storageRef, file);
     
-        try {
-    
-    
+        try { 
         uploadTask.on(
           'state_changed', 
           (snapshot)=>{
@@ -57,7 +53,7 @@ export default function DashProfile(next) {
     
            },
            (error) => {
-            setfileUploadError(true);
+            toast.error(error);
            },
     
            () => {
@@ -68,7 +64,7 @@ export default function DashProfile(next) {
            });
     
           } catch (error) {
-            next(error);
+            next(toast.error(error));
           }
     
     
@@ -101,23 +97,20 @@ export default function DashProfile(next) {
     
             if(data.success === false){
               dispatch(updateUserFailure(data.message));
-              setErrorFun(data.message);
-             
+              toast.error(data.message);
               return;
             }
             dispatch(updateUserSuccess(data));
-            setupdateSuccess(true);
+            toast.success('user updated successfully');
     
           } catch (error) {
             dispatch(updateUserFailure(error.message));
-    
+            toast.error(error);
           }
     
           };
     
           const deleteUser = async()=>{
-    
-    
             try {
     
               dispatch(deleteUserStart());
@@ -130,39 +123,20 @@ export default function DashProfile(next) {
     
             if(data.success === false){
               dispatch(deleteUserFailure(data.message));
-              setErrorFun(data.message);
+              toast.error(data.message);
               return;
             }
             dispatch(deleteUserSuccess(data))
-    
+            toast.info('User Deleted Successfully');
     
               } catch (error) {
               dispatch(deleteUserFailure(error.message));
+             toast.error(error);
     
             }
     
           }
-    
-          const signOutUser= async()=>{
-            try {
-    
-              dispatch(signoutUserStart());
-              const res = await fetch(`/api/auth/signout`);
-               const data = await res.json();
-    
-            if(data.success === false){
-              dispatch(signoutUserFailure(data.message));
-              return;
-            }
-            dispatch(signoutUserSuccess(data))
-    
-    
-              } catch (error) {
-              dispatch(signoutUserFailure(error.message));
-    
-            }
-    
-          }
+   
     
     
   
@@ -176,11 +150,11 @@ export default function DashProfile(next) {
       </div>
         <p>
           {fileUploadError ? 
-          <span className='text-red-600'> Error in Uploading image</span>
+          <span className='text-red-600'>Error in uploading image</span>
           : filePerc > 0 && filePerc < 100 ? 
           <span className='text-slate-700'>{`${filePerc}%`}</span> 
           : filePerc === 100 ? 
-          <span className='text-green-500'> Image Uploaded successfully</span>
+          <span className='text-green-500'>Image Uploaded successfully</span>
           : "" 
           }
         </p>
@@ -198,7 +172,6 @@ export default function DashProfile(next) {
       </form>
       <div className='flex flex-col justify-center gap-4 m-auto w-[100%] sm:w-96'>
         <button type='button' className='border rounded-lg p-2 w-[100%] focus:outline-none  bg-red-700 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setOpenModal(true)}>Delete Account</button>
-        <button type='button' className='border rounded-lg p-2 w-[100%] focus:outline-none  bg-red-700 uppercase text-white font-bold hover:opacity-85 sm:w-96' onClick={() => setSignModal(true)}>Signout</button>
       </div>
     
 
@@ -224,34 +197,6 @@ export default function DashProfile(next) {
       </Modal>
     
     
-      {/* modal for signout user  */}
-      <Modal show={signModal} size="lg" className='m-auto bg-white w-[100%] h-auto items-center border rounded-md border-gray-400' onClose={() => setSignModal(false)} popup>
-        <ModalHeader />
-        <ModalBody className='m-auto'>
-          <div className="text-center">
-            <HiOutlineLogout className="mx-auto mb-4 h-14 w-14 text-red-600 dark:text-red-600" />
-            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure - SignOUt
-            </h3>
-            <div className="flex justify-center gap-4">
-              <Button color="red" className='p-2' onClick={() => signOutUser()}>
-                {"Yes, I'm sure"}
-              </Button>
-              <Button color="gray" className='p-2' onClick={() => setSignModal(false)}>
-                No, cancel
-              </Button>
-            </div>
-          </div>
-        </ModalBody>
-      </Modal>
-    
-      
-          <p className='text-red-600'>
-            {error? error.message : ''}
-          </p>
-          <p className='text-green-600'>
-            {updateSuccess ? "User Updated successfully" : ''}
-          </p>
          </div>
          
         )}
