@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdVerified } from "react-icons/md";
+import {toast } from 'react-toastify';
 
 
 export default function Forgot() {
@@ -45,7 +46,7 @@ const sendOtpBtn = async(e)=>{
    
     if(data.success === false){
       setLoading(false);
-      setError(data.message);
+      toast.error(data.message);
       return;
     }
     setLoading(false); 
@@ -62,7 +63,7 @@ const sendOtpBtn = async(e)=>{
     validateOtp.style.display = 'block';
   } catch (error) {
     setLoading(false);
-    setError(error.message);
+    toast.error(error.message);
    
   }
   }
@@ -92,7 +93,7 @@ const sendOtpBtn = async(e)=>{
     const data = await res.json();
     if(data.success === false){
       setLoading(false);
-      setError(data.message);
+      toast.error(data.message);
       return;
     }
     setLoading(false); 
@@ -110,7 +111,7 @@ const sendOtpBtn = async(e)=>{
       
   } catch (error) {
     setLoading(false);
-    setError(error.message);
+    toast.error(error.message);
    
   }
   }
@@ -126,7 +127,7 @@ const sendOtpBtn = async(e)=>{
     const confirmPassword = document.getElementById('confirmPassword');
 
     if(password.value != confirmPassword.value){
-       setError("Password & Confirm Password Not Match");
+       toast.error("Password & Confirm Password Not Match");
                 password.value = '';
                 confirmPassword.value = '';
                 return;
@@ -150,7 +151,7 @@ const sendOtpBtn = async(e)=>{
         const data = await res.json();
         if(data.success === false){
           setLoading(false);
-          setError(data.message);
+          toast.error(data.message);
           return;
         }
         setLoading(false); 
@@ -159,7 +160,7 @@ const sendOtpBtn = async(e)=>{
 
       } catch (error) {
         setLoading(false);
-        setError(error.message);
+        toast.error(error.message);
        
      }
       };
@@ -192,7 +193,7 @@ const sendOtpBtn = async(e)=>{
 
       </form> 
          <span className='items-center flex justify-center p-2 text-sm sm:text-base'>Remember Password ? <Link to="/signin" className='text-blue-700 hover:underline'>SignIn</Link></span>
-    {error && <p className='text-red-700 text-center'> {error} </p>}
+    // {error && <p className='text-red-700 text-center'> {error} </p>}
     </div>
   )
 }
