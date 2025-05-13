@@ -153,6 +153,7 @@ const handleSubmit=async(e)=>{
         toast.error(data.message);
     }
         setProgress(100);
+        toast.success('Your Listing is Live');
 navigate(`/listing/${data._id}`);
 
 } catch (error) {
