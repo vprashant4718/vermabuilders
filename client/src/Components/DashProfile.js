@@ -88,7 +88,7 @@ export default function DashProfile(next) {
         try {
     
           dispatch(updateUserStart());
-          const res = await fetch(`http://localhost:5000/api/user/update/${currentUser._id}`, 
+          const res = await fetch(`/api/user/update/${currentUser._id}`, 
             {
               method: 'POST',
               headers:{
@@ -121,7 +121,7 @@ export default function DashProfile(next) {
             try {
     
               dispatch(deleteUserStart());
-              const res = await fetch(`http://localhost:5000/api/user/delete/${currentUser._id}`, 
+              const res = await fetch(`/api/user/delete/${currentUser._id}`, 
                 {
                   method: 'DELETE',
     
@@ -147,7 +147,7 @@ export default function DashProfile(next) {
             try {
     
               dispatch(signoutUserStart());
-              const res = await fetch(`http://localhost:5000/api/auth/signout`);
+              const res = await fetch(`/api/auth/signout`);
                const data = await res.json();
     
             if(data.success === false){
