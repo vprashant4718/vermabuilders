@@ -52,7 +52,7 @@ const sendOtpBtn = async(e)=>{
     setLoading(false); 
     setError(null);
 
-
+    toast.success('OTP sent to your email');
     console.log(emailLower);
     emailInput.disabled = true
     sendOtpBtn.disabled  = true  
@@ -99,6 +99,7 @@ const sendOtpBtn = async(e)=>{
     setLoading(false); 
     setError(null);
     
+    toast.success('OTP verified');
     
     setvalidate(true)
     validateOtp.style.background = "#32CD32";
@@ -156,13 +157,13 @@ const sendOtpBtn = async(e)=>{
         }
         setLoading(false); 
         setError(null);
+       toast.success('Password Updated Please Sign In');
         navigate('/signin');
 
       } catch (error) {
         setLoading(false);
         toast.error(error.message);
-       
-     }
+       }
       };
   
   
@@ -193,7 +194,7 @@ const sendOtpBtn = async(e)=>{
 
       </form> 
          <span className='items-center flex justify-center p-2 text-sm sm:text-base'>Remember Password ? <Link to="/signin" className='text-blue-700 hover:underline'>SignIn</Link></span>
-    // {error && <p className='text-red-700 text-center'> {error} </p>}
+    {error && <p className='text-red-700 text-center'> {error} </p>}
     </div>
   )
 }
