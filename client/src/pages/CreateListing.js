@@ -241,7 +241,7 @@ navigate(`/listing/${data._id}`);
             ))
             }
     <button disabled={loading} className='p-3 uppercase rounded-lg bg-blue-950 text-white hover: opacity-95  disabled:opacity-80'>{loading ? 'Loading' : 'Create Listing'}</button>
-    // <p className='text-red-600'>{error}</p>
+   <p className='text-red-600'>{error}</p>
     </div>
     </form>
     </div>
