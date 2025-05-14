@@ -75,12 +75,14 @@ export default function DashPosts() {
           }
           else{
             toast.error('Post not deleted');
+            console.log(data.message);
             setDeleteMessage('post not deleted');
             setErrorMessage(data.message);
           }
           
       } catch (error) {
        toast.error(error);
+      
       }
 
       setshowmodal(false);
