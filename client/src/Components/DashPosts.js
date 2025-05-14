@@ -85,7 +85,7 @@ export default function DashPosts() {
   }
   return (
      
-<div className="relative pt-10 w-[80vw] overflow-x-auto h-[80vh] shadow-md sm:rounded-lg">
+<div className="relative pt-10 w-[100vw] overflow-x-auto h-[80vh] shadow-md sm:rounded-lg md:w-[82vw]">
     <div className="pb-4 bg-white pl-5">
         <label for="table-search" className="sr-only">Search</label>
         <div className="relative mt-1">
