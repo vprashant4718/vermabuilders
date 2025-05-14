@@ -45,12 +45,17 @@ export const deletePostAdmin = async(req,res,next)=>{
         return  next(errorHandler(400, 'listing not found'));
        }
 
-       if(!req.user.admin || req.user.id !== listing.userRef){
+      if(req.user.admin){
+           await Listing.findByIdAndDelete(req.params.postId);
+           return res.status(200).json('listing deleted success');
+      }
+       if(req.user.id !== listing.userRef){
         return next(errorHandler(400, 'You can delete only your listings'));
        }
-
-        await Listing.findByIdAndDelete(req.params.postId);
-        return res.status(201).json('listing deleted success');
+        else{
+             await Listing.findByIdAndDelete(req.params.postId);
+           return res.status(200).json('listing deleted success');
+        }
     } catch (error) {
         next(error)
     }
