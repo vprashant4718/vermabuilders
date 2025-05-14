@@ -40,7 +40,7 @@ export const deleteListing = async(req,res,next)=>{
 export const deletePostAdmin = async(req,res,next)=>{
     try {
         
-       const listing =  await Listing.findById(req.params.id);
+       const listing =  await Listing.findById(req.params.postId);
        if (!listing) {
         return  next(errorHandler(400, 'listing not found'));
        }
@@ -49,14 +49,13 @@ export const deletePostAdmin = async(req,res,next)=>{
         return next(errorHandler(400, 'You can delete only your listings'));
        }
 
-        await Listing.findByIdAndDelete(req.params.id);
+        await Listing.findByIdAndDelete(req.params.postId);
         return res.status(201).json('listing deleted success');
     } catch (error) {
         next(error)
     }
         
 }
-
 
 
 
