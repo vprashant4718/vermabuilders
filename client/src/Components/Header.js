@@ -57,7 +57,7 @@ export default function Header() {
         </form>
    <div className='flex flex-row gap-2'>
    <div className='md:hidden'>
-  {currentUser ?( <Link to="/profile"> <img src={currentUser.avatar} width={40} height={40} className='rounded-full' alt="profile" /></Link>)
+  {currentUser ?( <Link to="/dashboard?tab=profile"> <img src={currentUser.avatar} width={40} height={40} className='rounded-full' alt="profile" /></Link>)
           : (<Link to="/signin" className='items-center m-auto'><li className='underline mt-2 list-none self-center  sm:inline text-slate-700 hover:underline'>Sign In</li></Link>)
         }
         </div>
@@ -82,7 +82,7 @@ export default function Header() {
          </Link>
 
         <div className='hidden md:inline '>
-  {currentUser ?( <Link to="/profile"> <img src={currentUser.avatar} width={40} height={40} className='rounded-full' alt="profile" /></Link>)
+  {currentUser ?( <Link to="/dashboard?tab=profile"> <img src={currentUser.avatar} width={40} height={40} className='rounded-full' alt="profile" /></Link>)
           : (<Link to="/signin" className='items-center '><li className='underline  list-none self-center  sm:inline text-slate-700 hover:underline'>Sign In</li></Link>)
         }
         </div>
