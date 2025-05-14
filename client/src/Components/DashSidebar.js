@@ -49,7 +49,7 @@ const signOutUser= async()=>{
         <SidebarItemGroup>
       
            <div className='flex flex-col gap-2  pt-8 ' ><Link to={'/dashboard?tab=profile'}>
-                <SidebarItem active={tab==='/dashboard?tab=profile'} icon={HiUser} label={currentUser.isAdmin?'admin': 'user'} labelColor={'dark'} as='div'>
+                <SidebarItem active={tab==='/dashboard?tab=profile'} icon={HiUser} label={currentUser.isAdmin?'admin': 'user'} labelColor={'dark'} as='div' className='hover:text-black'>
                     Profile
                 </SidebarItem>
             </Link>
