@@ -44,7 +44,7 @@ export default function Header() {
    <div className='flex flex-row gap-2'>
    <div className='md:hidden'>
   {currentUser ?( <Link to="/profile"> <img src={currentUser.avatar} width={40} height={40} className='rounded-full' alt="profile" /></Link>)
-          : (<Link to="/signin" className='items-center m-auto'><li className='underline list-none self-center  sm:inline text-slate-700 hover:underline'>Sign In</li></Link>)
+          : (<Link to="/signin" className='items-center m-auto'><li className='underline mt-2 list-none self-center  sm:inline text-slate-700 hover:underline'>Sign In</li></Link>)
         }
         </div>
     <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg md:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-default" aria-expanded="false">
