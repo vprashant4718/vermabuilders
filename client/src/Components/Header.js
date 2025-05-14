@@ -30,9 +30,8 @@ export default function Header() {
   
   return (
     
-    
-    <nav class="bg-gray-200 border-gray-200">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+   <nav class="bg-gray-200 border-gray-200 fixed top-0 z-50 w-full shadow-md">
+   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <Link to={'/'} class="flex items-center h-8 space-x-3 rtl:space-x-reverse">
       <img src={logo} className='w-16  md:w-30 md:h-20'  alt="verm builders logo" />
     </Link> 
