@@ -141,7 +141,7 @@ export default function DashProfile(next) {
     
   
   return (
-      <div className='flex flex-col border-gray-500 justify-center w-auto items-center text-center pt-8 gap-6 mb-5'>
+      <div className='flex flex-col border-gray-500 justify-center w-auto items-center text-center pt-8 gap-6 mb-5 pb-4'>
         <input type="file" hidden ref={fileref} accept='images/*' onChange={(e)=>setfile(e.target.files[0])}/>
       
       <div className='flex flex-col justify-center items-center'>
@@ -159,9 +159,9 @@ export default function DashProfile(next) {
           }
         </p>
       <form  className='flex flex-col justify-center items-center gap-4' onSubmit={handleSubmit}>
-      <input type="text" id='username'  placeholder="username" className='border rounded-lg p-2 w-[100%]  focus:outline-none outline-none sm:w-96' defaultValue={currentUser.username}  onChange={handleChange}/>
-      <input type="email" id='email'  placeholder="email" className='border rounded-lg p-2 w-[100%]  focus:outline-none sm:w-96' defaultValue={currentUser.email}  onChange={handleChange}/>
-        <input type="password" id='password' placeholder="password" className='border rounded-lg p-2 w-[100%]  focus:outline-none sm:w-96' defaultValue={currentUser.password} onChange={handleChange}/>
+      <input type="text" id='username'  placeholder="username" className='border-slate-300 rounded-lg p-2 w-[100%]  focus:outline-none outline-none sm:w-96' defaultValue={currentUser.username}  onChange={handleChange}/>
+      <input type="email" id='email'  placeholder="email" className='border-slate-300 rounded-lg p-2 w-[100%]  focus:outline-none sm:w-96' defaultValue={currentUser.email}  onChange={handleChange}/>
+        <input type="password" id='password' placeholder="password" className='border-slate-300 rounded-lg p-2 w-[100%]  focus:outline-none sm:w-96' defaultValue={currentUser.password} onChange={handleChange}/>
         
         <button id='submit'  disabled={loading} className='border rounded-lg p-2 w-[100%]  focus:outline-none  bg-blue-950 uppercase text-white font-bold hover:opacity-85 sm:w-96'>{loading? "Loading..." : 'Update'}</button>
         
