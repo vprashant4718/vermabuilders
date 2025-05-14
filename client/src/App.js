@@ -31,7 +31,6 @@ export default function App() {
 
       
       <Route element={<PrivateRoute />} >
-      <Route path='/profile' element={<Profile />} />
       <Route path='/createListing' element={<CreateListing />} />
       <Route path='/dashboard' element={<DashBoard />} />
       <Route path='/updatelisting/:listingId' element={<UpdateListing />} />
