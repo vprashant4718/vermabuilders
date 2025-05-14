@@ -40,7 +40,7 @@ export default function Header() {
         </div>
 
         <form onSubmit={handleSearchListing} className='bg-slate-100 p-2  rounded-lg flex items-center lg:ml-40 sm:ml-20'>
-            <input type="text" placeholder='Search...' className = 'w-16 bg-transparent focus:outline-none sm:w-32 md:w-64  ' value={searchTerm} onChange={(e)=>{setsearchTerm(e.target.value)}}/>
+            <input type="text" placeholder='Search...' className = 'border-slate-300 w-16 bg-transparent focus:outline-none sm:w-32 md:w-64  ' value={searchTerm} onChange={(e)=>{setsearchTerm(e.target.value)}}/>
             <button><FaSearch className='text-slate-500'/></button>
         </form>
 
