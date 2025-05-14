@@ -5,14 +5,16 @@ import { useLocation } from 'react-router-dom';
 import {HiOutlineArrowSmRight, HiUser} from 'react-icons/hi';
 import { BsFilePost } from "react-icons/bs";
 import { useSelector } from 'react-redux';
+import { signoutUserStart , signoutUserSuccess,signoutUserFailure } from '../redux/user/userSlice';
+import {toast } from 'react-toastify';
+
 // import { FaCommentDots } from "react-icons/fa";
-// import {signOutStart, signOutSuccess, signOutFailure} from "../redux/slice/createSlice";
-// import { useDispatch } from 'react-redux'; 
+import { useDispatch } from 'react-redux'; 
 
 export default function DashSidebar() {
 const { currentUser, error:errormessage } = useSelector((state) => state.user);
 
-// const dispatch = useDispatch()    
+const dispatch = useDispatch()    
 const location = useLocation();
 const [tab, settab] = useState(null);
 
@@ -25,22 +27,21 @@ if (tabUrl) {
 
 }, [location.search]);
 
-const signOutUser =async(e)=>{
-  e.preventDefault();
-//   dispatch(signOutStart());
-  try {
-    const res = await fetch(` https://localhost:5000/api/user/signout`,{
-      method:'POST'
-    });
-    const data = await res.json();
-    if(res.ok){
-        console.log(data);
-    //  dispatch(signOutSuccess(data));
-   }
-  } catch (error) {
-    //   dispatch(signOutFailure(error.message));
-  }
-}
+const signOutUser= async()=>{
+        try {
+          dispatch(signoutUserStart());
+          const res = await fetch(`/api/auth/signout`);
+           const data = await res.json();
+
+        if(data.success === false){
+          dispatch(signoutUserFailure(data.message));
+          return;
+        }
+        toast.success('Signout Success');
+        dispatch(signoutUserSuccess(data));
+        } catch (error) {
+          dispatch(signoutUserFailure(error.message));
+          } }
   return ( 
     <Sidebar className='w-auto rounded-none md:min-h-full md:w-60'>
         <SidebarItems>
@@ -51,21 +52,25 @@ const signOutUser =async(e)=>{
                     Profile
                 </SidebarItem>
             </Link>
-            <Link to={'/dashboard?tab=posts'}>
+           {currentUser.isAdmin ? <><Link to={'/dashboard?tab=posts'}>
+                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div'>
+                    My Listings
+                </SidebarItem>
+            </Link><Link to={'/dashboard?tab=mypost'}>
                 <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div'>
                     Admin Area
                 </SidebarItem>
-            </Link>
+            </Link></> :<Link to={'/dashboard?tab=mypost'}>
+                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div'>
+                    My Listings
+                </SidebarItem>
+            </Link>}
     
                 <SidebarItem active={tab==='/dashboard?tab=signout'} icon={HiOutlineArrowSmRight} labelColor={'dark'} className='cursor-pointer'>
                    <div onClick={signOutUser}>SignOut</div> 
                 </SidebarItem></div> 
-                
-               
-        </SidebarItemGroup>
-
-            
-        </SidebarItems>
+                 </SidebarItemGroup>
+           </SidebarItems>
     </Sidebar>
   )
 }
