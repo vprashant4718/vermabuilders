@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {  useNavigate } from 'react-router-dom';
 import ListingItem from '../Components/ListingItem'; 
 import { IoAddCircleOutline } from "react-icons/io5";
-
+import LoadingBar from 'react-top-loading-bar';
 
 export default function Search() {
   
@@ -18,6 +18,7 @@ export default function Search() {
   const [listings, setListing] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showMore, setshowMore] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const searchUrlParams = new URLSearchParams(window.location.search);
@@ -48,15 +49,16 @@ export default function Search() {
 
 
     const fetchListing=async()=>{
-
+      setProgress(30);
       setLoading(true);
       setshowMore(false)
       const searchQuery = searchUrlParams;
 
       try {
-        
+        setProgress(50);
         const res = await fetch(`/api/listing/get?${searchQuery}`);
         const data = await res.json();
+        setProgress(70);
         if (data.success === false) { 
           setLoading(false)
       }
@@ -74,6 +76,7 @@ export default function Search() {
     }
     }
     fetchListing();
+    setProgress(100);
   }, [window.location.search])
   
 
@@ -137,6 +140,11 @@ export default function Search() {
   }
   return (
         <div className='flex flex-col justify-center mr-auto w-auto  h-full pb-48 sm:h-full pt-20  md:flex-row'>
+    <LoadingBar
+        height={5}
+        color='#1F51FF' progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
           <div className='p-7  border-b-2 md:border-r-2 md:min-h-screen'>
             <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
               <div className='flex items-center gap-2'>
@@ -147,7 +155,7 @@ export default function Search() {
                   type='text'
                   id='searchTerm'
                   placeholder='Search...'
-                  className='border rounded-lg p-3 w-full' value={sideBarData.searchTerm} onChange={handleChange}
+                  className='border-slate-300 rounded-lg p-3 w-full' value={sideBarData.searchTerm} onChange={handleChange}
                 />
               </div>
               <div className='flex gap-2 flex-wrap items-center'>
@@ -203,7 +211,7 @@ export default function Search() {
                   onChange={handleChange}
                   defaultValue={'created_at_desc'}
                   id='sort_order'
-                  className='border rounded-lg p-3'
+                  className='border-slate-300 rounded-lg p-3'
                 >
                   <option value='regularPrice_desc'>Price high to low</option>
                   <option value='regularPrice_asc'>Price low to high</option>
