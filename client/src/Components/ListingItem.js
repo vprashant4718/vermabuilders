@@ -21,7 +21,7 @@ export default function ListingItem({ listing}) {
           <p className='truncate w-44  lg:w-44 '>{listing.description}</p>
          
           <p className='truncate w-44 text-slate-700 font-semibold text-lg '>
-          { listing.type === 'rent'?'$': '₹'  } {listing.regularprice}{ listing.type === 'rent'?'/month': '/Lacs'  }
+         {listing.type==='rent'? '₹ '+(listing.regularprice)+'K month': '₹ '+(listing.regularprice)+' Lacs'}
           </p>
          
         </div>
