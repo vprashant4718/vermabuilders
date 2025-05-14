@@ -29,41 +29,55 @@ export default function Header() {
   }, [window.location.search])
   
   return (
-    <header className='bg-slate-200 shadow-md fixed z-10 w-full p-1'>
+    
+    
+    <nav class="bg-gray-200 border-gray-200">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <Link to={'/'} class="flex items-center h-8 space-x-3 rtl:space-x-reverse">
+      <img src={logo} className='w-16  md:w-30 md:h-20'  alt="verm builders logo" />
+    </Link> 
 
-        <div className='flex  justify-between items-center mx-auto max-w-6xl'>
-        <div>
-          <Link to={'/'}>
-            <img src={logo} className='w-20 h-10  sm:w-20 h-20'  alt="" />
-          </Link> 
-         
-        </div>
-
-        <form onSubmit={handleSearchListing} className='bg-slate-100 p-2  rounded-lg flex items-center lg:ml-40 sm:ml-20'>
-            <input type="text" placeholder='Search...' className = 'border-none w-16 bg-transparent focus:outline-none sm:w-32 md:w-64  ' value={searchTerm} onChange={(e)=>{setsearchTerm(e.target.value)}}/>
-            <button><FaSearch className='text-slate-500'/></button>
+    <form onSubmit={handleSearchListing} className='p-2  rounded-lg flex items-center lg:ml-40 sm:ml-20 sm:bg-slate-100'>
+           <input type="text" placeholder='Search...' className = 'hidden w-16 bg-transparent border-none focus:outline-none sm:w-24 sm:inline md:w-48 lg:w-64' value={searchTerm} onChange={(e)=>{setsearchTerm(e.target.value)}}/> 
+            <button><FaSearch className='text-slate-700 text-2xl'/></button>
         </form>
+   <div className='flex flex-row gap-2'>
+   <div className='md:hidden'>
+  {currentUser ?( <Link to="/profile"> <img src={currentUser.avatar} width={40} height={40} className='rounded-full' alt="profile" /></Link>)
+          : (<Link to="/signin" className='items-center m-auto'><li className='underline list-none self-center  sm:inline text-slate-700 hover:underline'>Sign In</li></Link>)
+        }
+        </div>
+    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg md:hidden  focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-default" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true"  fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+    </button>
+</div>
+    <div class="hidden w-full sm:block md:w-auto" id="navbar-default">
+      <ul class="font-medium flex flex-col gap-2 p-4 md:p-0 mt-4 border bg-blue-900 border-gray-100 rounded-lg md:bg-transparent md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  ">
+        
+        <Link to="/">
+             <li className='list-none sm:inline sm:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">Home</li>
+        </Link>
+        <Link to="/about">
+           <li className='list-none sm:inline sm:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">About</li>
+        </Link>
+        <Link to="/contact">
+            <li className='list-none sm:inline sm:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">Contact</li>
+         </Link>
 
-        <ul className='flex flex-row justify-center items-center p-1 gap-3 font-semibold text-base'>
-            <Link to="/">
-            <li className='hidden sm:inline text-slate-700 hover:underline'>Home</li>
-            </Link>
-            <Link to="/about">
-            <li className='hidden sm:inline text-slate-700 hover:underline'>About</li>
-            </Link>
-            <Link to="/contact">
-            <li className='hidden sm:inline text-slate-700 hover:underline'>Contact</li>
-            </Link>
-            
-           
-            {currentUser ?( <Link to="/profile"> <img src={currentUser.avatar} width={40} height={40} className='rounded-full' alt="profile" /></Link>)
-            : (<Link to="/signin"><li className='underline sm:inline text-slate-700 hover:underline'>Sign In</li></Link>)
-          }
-            
-        </ul>
-        <div>
+        <div className='hidden md:inline '>
+  {currentUser ?( <Link to="/profile"> <img src={currentUser.avatar} width={40} height={40} className='rounded-full' alt="profile" /></Link>)
+          : (<Link to="/signin" className='items-center m-auto'><li className='underline list-none self-center  sm:inline text-slate-700 hover:underline'>Sign In</li></Link>)
+        }
         </div>
-        </div>
-    </header>
+       
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
   )
 }
