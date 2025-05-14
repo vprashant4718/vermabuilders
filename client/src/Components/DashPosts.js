@@ -1,9 +1,11 @@
-import { Button, Modal, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react';
-import React, { useEffect, useState } from 'react';
+import { Button, Modal, ModalBody, ModalHeader,} from 'flowbite-react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineDelete } from 'react-icons/ai';
 import { MdLocationOn } from 'react-icons/md';
 import { PiWarningBold } from 'react-icons/pi';
 import { useSelector } from 'react-redux';
+import {toast } from 'react-toastify';
+
 
 export default function DashPosts() {
   const {currentUser} = useSelector((state)=> state.user);
@@ -19,25 +21,19 @@ export default function DashPosts() {
 
   useEffect(() => {
           const fetchListing=async()=>{
-      
             setLoading(true);
-      
-            try {
-              
+       try {
               const res = await fetch(`/api/listing/getadminlisting`);
               const data = await res.json();
               if (data.success === false) { 
-                setLoading(false)
+                setLoading(false);
             }
            
-            
             setListing(data);
             setLoading(false);
-            
-          } catch (error) {
+           } catch (error) {
            console.log(error) 
-          }
-          }
+          }}
           if(currentUser.isAdmin){
           fetchListing();
         }
@@ -67,18 +63,24 @@ export default function DashPosts() {
 
   const handleDeletePost= async()=>{
       try {
-          const res = await fetch(`/api/post/deletepost/${postIdtoDelete}/${currentUser._id}`,{
+          const res = await fetch(`/api/listing/deletepostadmin/${postIdtoDelete}`,{
             method: 'DELETE'
           });
 
           const data = await res.json();
           if(res.ok){
+            toast.success('Post Deleted');
             setDeleteMessage('post has been deleted');
+
+          }
+          else{
+            toast.error('Post not deleted');
+            setDeleteMessage('post not deleted');
             setErrorMessage(data.message);
           }
           
       } catch (error) {
-        console.log(error)
+       toast.error(error);
       }
 
       setshowmodal(false);
@@ -161,12 +163,24 @@ export default function DashPosts() {
             </tbody>
             </table>
 
+   
 
-      {
-        showMore && 
-       (<button onClick={handleShowMore} classNameName='mb-6 text-yellow-300 text-center border-solid border-yellow-300 m-auto'>+Show More</button>)
+      {showMore && 
+       (<button onClick={handleShowMore} className='mb-6 text-yellow-300 text-center border-solid border-yellow-300 m-auto '>+Show More</button>)
       }
-     
+      <Modal show={showmodal} onClose={()=>{setshowmodal(false)}} popup size={'md'} className='pt-52 sm:px-10 md:px-32 '>
+              <ModalHeader />
+              <ModalBody className='w-[40%] m-auto '>
+                <div className="flex flex-col">
+                  <PiWarningBold className="w-12 h-12 m-auto text-white"/>
+                  <div className="m-auto mb-3 text-white">Are you sure you want to delete Listing</div>
+                </div>
+                <div className="flex flex-col m-auto justify-center gap-2 sm:flex-row">
+                <Button color={'red'} className="bg-red-600 text-white hover:text-black" onClick={()=>handleDeletePost()}>Yes i'm sure {<AiOutlineDelete className="text-xl text-white "/> }</Button>
+                <Button color={'red'} onClick={()=>{setshowmodal(false)}}>Cancel</Button>
+                </div>
+              </ModalBody>
+            </Modal>
 
       </div>
   )
