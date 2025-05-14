@@ -57,14 +57,14 @@ export default function Header() {
     <div class="hidden w-full sm:block md:w-auto" id="navbar-default">
       <ul class="font-medium flex flex-col gap-2 p-4 md:p-0 mt-4 border bg-blue-900 border-gray-100 rounded-lg md:bg-transparent md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  ">
         
-        <Link to="/">
-             <li className='list-none sm:inline sm:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">Home</li>
+       <Link to="/">
+             <li className='list-none sm:inline text-white md:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">Home</li>
         </Link>
         <Link to="/about">
-           <li className='list-none sm:inline sm:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">About</li>
+           <li className='list-none sm:inline text-white md:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">About</li>
         </Link>
         <Link to="/contact">
-            <li className='list-none sm:inline sm:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">Contact</li>
+            <li className='list-none sm:inline text-white md:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">Contact</li>
          </Link>
 
         <div className='hidden md:inline '>
