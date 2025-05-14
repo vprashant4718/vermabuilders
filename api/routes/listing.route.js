@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/create', verifyToken, createListing);
 router.delete('/delete/:id', verifyToken, deleteListing);
-router.delete('/deletepostadmin/:id', verifyToken, deletePostAdmin);
+router.delete('/deletepostadmin/:postId', verifyToken, deletePostAdmin);
 router.post('/update/:id', verifyToken, UpdateListing);
 router.get('/getlisting/:id', getListing);
 router.get('/get', getSearchListings);
