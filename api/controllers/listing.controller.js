@@ -13,6 +13,7 @@ export const createListing = async(req,res,next)=>{
 }
 
 
+// delete listing by user
 export const deleteListing = async(req,res,next)=>{
     try {
         
@@ -32,6 +33,30 @@ export const deleteListing = async(req,res,next)=>{
     }
         
 }
+
+
+
+// delete listing by admin
+export const deletePostAdmin = async(req,res,next)=>{
+    try {
+        
+       const listing =  await Listing.findById(req.params.id);
+       if (!listing) {
+        return  next(errorHandler(400, 'listing not found'));
+       }
+
+       if(!req.user.admin || req.user.id !== listing.userRef){
+        return next(errorHandler(400, 'You can delete only your listings'));
+       }
+
+        await Listing.findByIdAndDelete(req.params.id);
+        return res.status(201).json('listing deleted success');
+    } catch (error) {
+        next(error)
+    }
+        
+}
+
 
 
 
