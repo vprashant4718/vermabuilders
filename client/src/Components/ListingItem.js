@@ -25,10 +25,13 @@ export default function ListingItem({ listing}) {
           </p>
          
         </div>
-            <div className='flex flex-row gap-2 w-44 text-sm font-semibold items-center mb-3'>
+             <div className='flex flex-row gap-2 w-44 text-sm font-semibold items-center mb-1'>
               <p>{listing.bedrooms} beds</p>
               <p>{listing.bathrooms} baths</p>
             </div>
+            <p className='truncate w-44 text-slate-700 mb-3 font-semibold text-sm '>
+           Date: {new Date(listing.createdAt).toLocaleDateString()}
+          </p>
         </div>
     </div>
                   </Link>
