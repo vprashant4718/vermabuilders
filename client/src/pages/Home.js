@@ -48,7 +48,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="pt-4 md:pt-8"> 
+    <div className="pt-24"> 
      <LoadingBar
         height={5}
         color='#1F51FF' progress={progress}
