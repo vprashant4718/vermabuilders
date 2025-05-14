@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {HiOutlineArrowSmRight, HiUser} from 'react-icons/hi';
 import { BsFilePost } from "react-icons/bs";
+import { RiAdminFill } from "react-icons/ri";
 import { useSelector } from 'react-redux';
 import { signoutUserStart , signoutUserSuccess,signoutUserFailure } from '../redux/user/userSlice';
 import {toast } from 'react-toastify';
@@ -53,20 +54,20 @@ const signOutUser= async()=>{
                 </SidebarItem>
             </Link>
            {currentUser.isAdmin ? <><Link to={'/dashboard?tab=posts'}>
-                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div'>
-                    My Listings
-                </SidebarItem>
-            </Link><Link to={'/dashboard?tab=mypost'}>
-                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div'>
+                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={RiAdminFill} labelColor={'dark'} as='div' className='hover:text-black'>
                     Admin Area
                 </SidebarItem>
+            </Link><Link to={'/dashboard?tab=mypost'}>
+                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
+                    My Listings
+                </SidebarItem>
             </Link></> :<Link to={'/dashboard?tab=mypost'}>
-                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div'>
+                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
                     My Listings
                 </SidebarItem>
             </Link>}
     
-                <SidebarItem active={tab==='/dashboard?tab=signout'} icon={HiOutlineArrowSmRight} labelColor={'dark'} className='cursor-pointer'>
+                <SidebarItem active={tab==='/dashboard?tab=signout'} icon={HiOutlineArrowSmRight} labelColor={'dark'} className='cursor-pointer hover:text-black' >
                    <div onClick={signOutUser}>SignOut</div> 
                 </SidebarItem></div> 
                  </SidebarItemGroup>
