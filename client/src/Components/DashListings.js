@@ -5,6 +5,7 @@ import { MdLocationOn } from 'react-icons/md';
 import { PiWarningBold } from 'react-icons/pi';
 import { useSelector } from 'react-redux';
 import {toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 
 export default function DashListings() {
@@ -153,7 +154,9 @@ export default function DashListings() {
                     {listing.type==='rent'? '₹ '+(listing.regularprice)+'K month': '₹ '+(listing.regularprice)+' Lacs'}
                 </td>
                 <td className="px-6 py-4">
+                <Link to={`/updatelisting/${listing._id}`}>
                     <button type='button' className='bg-blue-950 p-2 rounded text-white'>Update </button>
+                </Link>
                 </td>
                 <td className="px-6 py-4">
                    <button className='bg-red-700 p-2 rounded text-white' onClick={()=>{setshowmodal(true); setPostIdtoDelete(listing._id)}}>Delete</button>
