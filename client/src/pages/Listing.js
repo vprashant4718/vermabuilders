@@ -35,7 +35,7 @@ export default function Listing() {
           try {
             
             setloading(true);
-            const res = await fetch(`/api/listing/getlisting/${params.listingId}`);
+            const res = await fetch(`/api/listing/getsinglelisting/${params.listingId}`);
             const data = await res.json();
             
             if (data.success === false) {
