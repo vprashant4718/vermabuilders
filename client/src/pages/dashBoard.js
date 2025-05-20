@@ -30,8 +30,8 @@ if (tabUrl) {
        {tab === 'posts' && <div className='flex '>
            {tab === 'posts' && <DashPosts />} 
        </div>}
-       {tab === 'listing' && <div className='flex '>
-           {tab === 'listing' && <DashListings />} 
+       {tab === 'mypost' && <div className='flex '>
+           {tab === 'mypost' && <DashListings />} 
        </div>}
     </div>
   )
