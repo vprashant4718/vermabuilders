@@ -58,11 +58,11 @@ const signOutUser= async()=>{
                     Admin Area
                 </SidebarItem>
             </Link><Link to={'/dashboard?tab=mypost'}>
-                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
+                <SidebarItem active={tab==='/dashboard?tab=mypost'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
                     My Listings
                 </SidebarItem>
             </Link></> :<Link to={'/dashboard?tab=mypost'}>
-                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
+                <SidebarItem active={tab==='/dashboard?tab=mypost'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
                     My Listings
                 </SidebarItem>
             </Link>}
