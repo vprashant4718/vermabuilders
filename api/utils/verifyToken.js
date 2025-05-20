@@ -7,7 +7,7 @@ export const verifyToken = (req, res, next)=>{
 
     
     if(!token) {
-      return  next(errorHandler(401, 'You are logged out Please Sign In'));
+      return  next(errorHandler(401, 'Session TimeOut! Please Sign In'));
     }
     
         jwt.verify(token, process.env.JWT_SECRET, (err, user)=>{
