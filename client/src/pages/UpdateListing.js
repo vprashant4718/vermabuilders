@@ -4,7 +4,6 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/st
 import {app} from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import {toast } from 'react-toastify';
 
 export default function UpdateListing() {
     const navigate = useNavigate();
@@ -34,7 +33,7 @@ export default function UpdateListing() {
       const fetchListing= async()=>{
         const listingId = params.listingId;
         
-        const res = await fetch(`/api/listing/getlisting/${listingId}`);
+        const res = await fetch(`/api/listing/getsinglelisting/${listingId}`);
         const data = await res.json();
         if (data.success === false) {
             console.log(data.message);
@@ -65,7 +64,7 @@ export default function UpdateListing() {
             setImageUploadError(false)
             setImageUploading(false);
         }).catch((error)=>{
-            toast.error('Image upload faile max size 2mb');
+            setImageUploadError('Image upload faile max size 2mb');
             setImageUploading(false);
         });
         
@@ -73,7 +72,7 @@ export default function UpdateListing() {
         
     }
     else{
-        toast.error('You can upload max 6 images');
+        setImageUploadError('You can upload max 6 images');
         setImageUploading(false);
         }
     }
@@ -89,11 +88,11 @@ export default function UpdateListing() {
                 'state_changed',
                 (snapshot)=>{
                  const progress = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
-                    toast.info(`uploading image ${progress}%`)
+                    console.log(`uploading image ${progress}%`)
                 }
                 , 
                 (error)=>{
-                    reject(toast.error(error));
+                    reject(error);
                 },
                 ()=>{
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl)=>{
@@ -145,8 +144,10 @@ export default function UpdateListing() {
     
 const handleSubmit=async(e)=>{
     const listingId = params.listingId;
+    console.log(listingId)
     e.preventDefault();
     try {
+        
         if(formdata.imageUrl.length < 1) return setImageUploadError('You have to upload minimum 1 image')
         if(formdata.imageUrl.length > 6) return setImageUploadError('You can upload max 6 image')
         setloading(true);
@@ -163,15 +164,15 @@ const handleSubmit=async(e)=>{
     })
 
     const data = await res.json();
-    setloading(false);
+    setloading(false)
     if(data.success === false){
-        toast.error(data.message);
+        seterror(data.message);
     }
-    toast.success('Listing Updated');
 navigate(`/listing/${listingId}`);
 
+    console.log(data);
 } catch (error) {
-    toast.error(error.message)
+    seterror(error.message)
 }
 }
   return (
@@ -242,7 +243,7 @@ navigate(`/listing/${listingId}`);
             <p className='text-red-700'> {ImageUploadError && ImageUploadError}</p>
             {
             formdata.imageUrl.length > 0 && formdata.imageUrl.map((url, index)=>(
-                <div key={index} className="flex justify-between gap-28 border border-red-400 p-3 items-center rounded sm:gap-60">
+                <div key={index} className="flex justify-between gap-20 border border-red-400 p-3 items-center rounded sm:gap-40">
                 <img src={url} width={50} height={40}  className='rounded object-contain'/>
                 <button type='button' onClick={()=>{handleRemoveImage(index)}} className='text-red-500 border border-red-500 p-2 rounded-lg font-semibold'>DELETE</button>
                 </div>
