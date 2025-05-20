@@ -4,7 +4,9 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/st
 import {app} from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import LoadingBar from 'react-top-loading-bar';
 
+import {toast } from 'react-toastify';
 export default function UpdateListing() {
     const navigate = useNavigate();
     const params = useParams();
@@ -26,24 +28,30 @@ export default function UpdateListing() {
     const [ImageUploadError, setImageUploadError] = useState(false);
     const [upload, setImageUploading] = useState(false);
     const [error, seterror] = useState(false);
-    const [loading, setloading] = useState(false)
-
+    const [loading, setloading] = useState(false);
+    const [progress, setProgress] = useState([]);   
     
     useEffect(() => {
+        try{
+             setProgress(30);
       const fetchListing= async()=>{
         const listingId = params.listingId;
-        
+         setProgress(50);
         const res = await fetch(`/api/listing/getsinglelisting/${listingId}`);
+           setProgress(80);
         const data = await res.json();
         if (data.success === false) {
-            console.log(data.message);
-        }
-        console.log(data);
-        setformdata(data)
+            toast.error(data.message);
+        } 
+        setformdata(data);
       }
 
     
      fetchListing();
+             setProgress(100);
+              } catch (error) {
+        console.log(error);
+      }
     }, [])
     
 
@@ -64,7 +72,7 @@ export default function UpdateListing() {
             setImageUploadError(false)
             setImageUploading(false);
         }).catch((error)=>{
-            setImageUploadError('Image upload faile max size 2mb');
+            toast.error('Image upload faile max size 2mb');
             setImageUploading(false);
         });
         
@@ -72,7 +80,7 @@ export default function UpdateListing() {
         
     }
     else{
-        setImageUploadError('You can upload max 6 images');
+        toast.error('You can upload max 6 images');
         setImageUploading(false);
         }
     }
@@ -88,11 +96,11 @@ export default function UpdateListing() {
                 'state_changed',
                 (snapshot)=>{
                  const progress = (snapshot.bytesTransferred / snapshot.totalBytes)*100;
-                    console.log(`uploading image ${progress}%`)
+                    toast.success(`uploading image ${progress}%`)
                 }
                 , 
                 (error)=>{
-                    reject(error);
+                    reject(toast.error(error));
                 },
                 ()=>{
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl)=>{
@@ -148,8 +156,8 @@ const handleSubmit=async(e)=>{
     e.preventDefault();
     try {
         
-        if(formdata.imageUrl.length < 1) return setImageUploadError('You have to upload minimum 1 image')
-        if(formdata.imageUrl.length > 6) return setImageUploadError('You can upload max 6 image')
+        if(formdata.imageUrl.length < 1) return toast.error('You have to upload minimum 1 image')
+        if(formdata.imageUrl.length > 6) return toast.error('You can upload max 6 image')
         setloading(true);
         seterror(false)
     const res = await fetch(`/api/listing/update/${listingId}`,{
@@ -166,17 +174,23 @@ const handleSubmit=async(e)=>{
     const data = await res.json();
     setloading(false)
     if(data.success === false){
-        seterror(data.message);
+        toast.error(data.message);
     }
-navigate(`/listing/${listingId}`);
+        
+   navigate(`/listing/${listingId}`);
 
-    console.log(data);
+  
 } catch (error) {
-    seterror(error.message)
+    toast.error(error.message);
 }
 }
   return (
     <div className='flex flex-col justify-center items-center text-center gap-6 pt-24 '> 
+      <LoadingBar
+        height={5}
+        color='#1F51FF' progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
         <h1 className='text-center text-3xl font-bold mb-8'>Update Listing</h1>
         <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-4 sm:flex-row' >
     <div className='flex flex-col justify-center items-center flex-1'>
