@@ -1,6 +1,6 @@
 import express from "express";
 import { verifyToken } from "../utils/verifyToken.js";
-import { createListing, deleteListing, getListing, UpdateListing, getSearchListings, getadminlisting, deletePostAdmin} from "../controllers/listing.controller.js";
+import { createListing, deleteListing, getListing, UpdateListing, getSearchListings, getadminlisting, deletePostAdmin, getSingleListing} from "../controllers/listing.controller.js";
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.post('/update/:id', verifyToken, UpdateListing);
 
 // user operations 
 router.get('/getlisting/:id', getListing);
+router.get('/getsinglelisting/:id', getSingleListing);
 router.delete('/delete/:id', verifyToken, deleteListing);
 
 // getting search listings
