@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 
 export default function DashListings() {
   const {currentUser} = useSelector((state)=> state.user);
-  const [userPost, setUserPost]= useState([]);
-  const [showMore, setShowMore] = useState(true); 
+  // const [userPost, setUserPost]= useState([]);
+  // const [showMore, setShowMore] = useState(true); 
   const [showmodal, setshowmodal] = useState(false);
   const [postIdtoDelete, setPostIdtoDelete] = useState(null);
   const [DeleteMessage, setDeleteMessage] = useState(null);
@@ -19,6 +19,12 @@ export default function DashListings() {
 
       const [listings, setListing] = useState([]);
       const [Loading, setLoading] = useState(false);
+      const [searchTerm, setSearchTerm] = useState("");
+
+    const filteredData = listings.filter((listing) =>
+      listing.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
 
   useEffect(() => {
           const fetchListing=async()=>{
@@ -42,24 +48,24 @@ export default function DashListings() {
         
   
 
-  const handleShowMore = async()=>{
-    const startIndex = userPost.length;
-    try {
-      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
-      const data = await res.json();
-      if(res.ok){
-        setUserPost((prev)=> [...prev, ...data.posts]);
-        if(data.posts.length < 1){
-          setShowMore(false);
-        }
-      }
-      else{
+  // const handleShowMore = async()=>{
+  //   const startIndex = userPost.length;
+  //   try {
+  //     const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
+  //     const data = await res.json();
+  //     if(res.ok){
+  //       setUserPost((prev)=> [...prev, ...data.posts]);
+  //       if(data.posts.length < 1){
+  //         setShowMore(false);
+  //       }
+  //     }
+  //     else{
         
-      }
-    } catch (error) {
+  //     }
+  //   } catch (error) {
       
-    }
-  }
+  //   }
+  // }
 
 
   const handleDeletePost= async()=>{
@@ -88,20 +94,16 @@ export default function DashListings() {
       setshowmodal(false);
   }
   return (
-     
-<div className="relative pt-10 w-[100vw] overflow-x-auto h-[80vh] shadow-md sm:rounded-lg md:w-[82vw]">
-    <div className="pb-4 bg-white pl-5">
-        <label for="table-search" className="sr-only">Search</label>
-        <div className="relative mt-1">
-            <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
-            </div>
-            <input type="text" id="table-search" className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " placeholder="Search for items" />
+<>
+        <div className="bg-[#1f2937] w-[100%] z-10 fixed p-2 mt-1">
+           
+               <input type="text" id="table-search" value={searchTerm}  onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search for items" className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " />
         </div>
-    </div>
-    <table className="w-full p-5 text-sm text-left rtl:text-right text-gray-500 ">
+<div className="relative pt-4 w-[100vw] overflow-x-auto h-[67vh] shadow-md sm:rounded-lg md:w-[82vw]">
+    
+       
+    
+    <table className="w-full p-5 text-sm text-left rtl:text-right text-gray-500 mt-12">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
 
@@ -132,8 +134,9 @@ export default function DashListings() {
                 </th>
             </tr>
         </thead>
+ 
         <tbody>
-            {listings.map((listing)=><tr className="bg-white border-b text-gray-900   border-gray-200 hover:bg-gray-50 ">
+            {filteredData.map((listing)=><tr className="bg-white border-b text-gray-900 border-gray-200 hover:bg-gray-50 ">
 
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                    {new Date(listing.createdAt).toLocaleDateString()}
@@ -155,23 +158,21 @@ export default function DashListings() {
                     {listing.type==='rent'? '₹ '+(listing.regularprice)+'K month': '₹ '+(listing.regularprice)+' Lacs'}
                 </td>
                 <td className="px-6 py-4">
-                <Link to={`/updatelisting/${listing._id}`}>
                     <button type='button' className='bg-blue-950 p-2 rounded text-white'>Update </button>
-                </Link>
                 </td>
                 <td className="px-6 py-4">
                    <button className='bg-red-700 p-2 rounded text-white' onClick={()=>{setshowmodal(true); setPostIdtoDelete(listing._id)}}>Delete</button>
                 </td>
             </tr>)}
             
+            
             </tbody>
+         
             </table>
 
    
 
-      {showMore && 
-       (<button onClick={handleShowMore} className='mb-6 text-yellow-300 text-center border-solid border-yellow-300 m-auto '>+Show More</button>)
-      }
+     
       <Modal show={showmodal} onClose={()=>{setshowmodal(false)}} popup size={'md'} className='pt-52 sm:px-10 md:px-32 '>
               <ModalHeader />
               <ModalBody className='w-[40%] m-auto '>
@@ -187,6 +188,7 @@ export default function DashListings() {
             </Modal>
 
       </div>
+      </>
   )
 
 }
