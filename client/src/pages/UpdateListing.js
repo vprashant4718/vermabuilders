@@ -188,13 +188,14 @@ const handleSubmit=async(e)=>{
         toast.error(data.message);
     }
         
+   toast.success('Listing Updated'); 
    navigate(`/listing/${listingId}`);
-
-  
-} catch (error) {
-    toast.error(error.message);
+      
+    } catch (error) {
+        toast.error(error.message);
 }
 }
+    
   return (
     <div className='flex flex-col justify-center items-center text-center gap-6 pt-24 '> 
       <LoadingBar
@@ -213,21 +214,21 @@ const handleSubmit=async(e)=>{
         </div>
         <div className='flex flex-wrap   p-3 w-80  focus:outline-none sm:w-96'>
             <div className='flex gap-2  p-2'>
-            <input type="checkbox" id='sale' className='w-10' onChange={handleOnChange} checked={formdata.type === 'sale'}/>
+            <input type="checkbox" id='sale' className='w-8 h-8' onChange={handleOnChange} checked={formdata.type === 'sale'}/>
             <span>Sale</span>
             </div>
             <div className='flex gap-2 p-2'>
-            <input type="checkbox" id='rent' className='w-10'  onChange={handleOnChange} checked={formdata.type=== 'rent'}/>
+            <input type="checkbox" id='rent' className='w-8 h-8'  onChange={handleOnChange} checked={formdata.type=== 'rent'}/>
             <span>Rent</span>
 
             </div>
             <div className='flex gap-2 p-2'>
-            <input type="checkbox" id='parking' className='w-10' onChange={handleOnChange} checked={formdata.parking} />
+            <input type="checkbox" id='parking' className='w-8 h-8' onChange={handleOnChange} checked={formdata.parking} />
             <span>Parking</span>
 
             </div>
             <div className='flex gap-2 p-2'>
-            <input type="checkbox" id='furnished' className='w-10' onChange={handleOnChange} checked={formdata.furnished}/>
+            <input type="checkbox" id='furnished' className='w-8 h-8' onChange={handleOnChange} checked={formdata.furnished}/>
             <span>Furnished</span>
             </div>
 
