@@ -94,10 +94,10 @@ export default function DashListings() {
       setshowmodal(false);
   }
   return (
-<>
-        <div className="bg-[#1f2937] w-[100%] z-10 fixed p-2 mt-1">
+  <div className=' md:flex'>
+        <div className="bg-[#1f2937] block  z-10 w-auto  p-2  mt-1 md:fixed md:w-[100%]">
            
-               <input type="text" id="table-search" value={searchTerm}  onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search for items" className="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " />
+               <input type="text" id="table-search" value={searchTerm}  onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search for items" className="block pt-2  text-sm text-gray-900 border border-gray-300 rounded-lg w-auto bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " />
         </div>
 <div className="relative pt-4 w-[100vw] overflow-x-auto h-[67vh] shadow-md sm:rounded-lg md:w-[82vw]">
     
@@ -190,7 +190,7 @@ export default function DashListings() {
             </Modal>
 
       </div>
-      </>
+      </div>
   )
 
 }
