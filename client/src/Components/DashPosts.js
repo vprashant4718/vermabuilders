@@ -20,9 +20,10 @@ const [listings, setListing] = useState([]);
 const [Loading, setLoading] = useState(false);
 const [searchTerm, setSearchTerm] = useState("");
   
-  const filteredData = listing.filter((item) =>
-  item.title.toLowerCase().includes(searchTerm.toLowerCase());
-);
+ const filteredData = listings.filter((listing) =>
+      listing.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
 
 
   useEffect(() => {
