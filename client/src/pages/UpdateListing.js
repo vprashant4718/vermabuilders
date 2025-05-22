@@ -155,6 +155,17 @@ const handleSubmit=async(e)=>{
     console.log(listingId)
     e.preventDefault();
     try {
+         if(formdata.name === ''){
+            return toast.error('Please enter a title of listing');
+        }
+        
+          if(formdata.description === ''){
+            return toast.error('Please enter description');
+        }
+
+        if(formdata.address === ''){
+            return toast.error('Please enter address location ');
+        }
         
         if(formdata.imageUrl.length < 1) return toast.error('You have to upload minimum 1 image')
         if(formdata.imageUrl.length > 6) return toast.error('You can upload max 6 image')
@@ -196,9 +207,9 @@ const handleSubmit=async(e)=>{
     <div className='flex flex-col justify-center items-center flex-1'>
 
     <div className='flex flex-col gap-5 mb-5'>
-            <input type="text" placeholder='Name' id='name' className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} value={formdata.name}/>
-            <input type="text" placeholder='Description' id='description'  className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96'  onChange={handleOnChange} value={formdata.description}/>
-            <input type="text" placeholder='Address' id='address'  className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96'  onChange={handleOnChange} value={formdata.address}/>
+            <input type="text" placeholder='Title' id='name' minLength="8" maxLength="50" className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96' onChange={handleOnChange} value={formdata.name}/>
+            <input type="text" placeholder='Description' id='description'  minLength="8" maxLength="100"   className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96'  onChange={handleOnChange} value={formdata.description}/>
+            <input type="text" placeholder='Location' id='address'  minLength="8" maxLength="100"  className='border rounded-lg p-3 w-80  focus:outline-none sm:w-96'  onChange={handleOnChange} value={formdata.address}/>
         </div>
         <div className='flex flex-wrap   p-3 w-80  focus:outline-none sm:w-96'>
             <div className='flex gap-2  p-2'>
