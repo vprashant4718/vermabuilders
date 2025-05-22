@@ -127,9 +127,7 @@ const [searchTerm, setSearchTerm] = useState("");
                 <th scope="col" className="px-6 py-3">
                     Price
                 </th>
-                <th scope="col" className="px-6 py-3">
-                    Update
-                </th>
+                 
                 <th scope="col" className="px-6 py-3">
                     Delete
                 </th>
@@ -158,9 +156,7 @@ const [searchTerm, setSearchTerm] = useState("");
                 <td className="px-6 py-4 uppercase">
                     {listing.type==='rent'? '₹ '+(listing.regularprice)+'K month': '₹ '+(listing.regularprice)+' Lacs'}
                 </td>
-                <td className="px-6 py-4">
-                    <button type='button' className='bg-blue-950 p-2 rounded text-white'>Update </button>
-                </td>
+                
                 <td className="px-6 py-4">
                    <button className='bg-red-700 p-2 rounded text-white' onClick={()=>{setshowmodal(true); setPostIdtoDelete(listing._id)}}>Delete</button>
                 </td>
