@@ -86,32 +86,29 @@ export const UpdateListing = async(req,res,next)=>{
 
 
 export const getListing=async(req,res, next)=>{
+    try{
     const listing = await Listing.find(({userRef: req.params.id}));
     if (!listing) {
       return  next(errorHandler(404, 'No Listing Found'));
         }
     res.status(201).json(listing);
+            } catch (error) {
+        next(error)
+    }
 }
 
 
 export const getSingleListing=async(req,res, next)=>{
+    try{
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
       return  next(errorHandler(404, 'No Listing Found'));
         }
     res.status(201).json(listing);
+        } catch (error) {
+        next(error)
+    }
 }
-// export const getadminlisting = async(req,res)=>{
-//     const listing = await Listing.find({});
-
-//     if (!listing) {
-//       return  next(errorHandler(404, 'No Listing Found'));
-        
-//     }
-    
-//     res.status(201).json(listing);
-// }
-
 
 
 
@@ -134,12 +131,13 @@ export const getadminlisting= async(req,res,next)=>{
         type = {$in: ['sale', 'rent']}
     }
 
+  try {
     const searchTerm = req.query.searchTerm || '';
     const sort = req.query.sort || 'createdAt';
     const order = req.query.order || 'desc';
 
 
-    try {
+
         
         const listing = await Listing.find({
             name:{$regex: searchTerm, $options:'i'},
