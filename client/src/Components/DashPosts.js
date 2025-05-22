@@ -69,6 +69,7 @@ export default function DashPosts() {
 
           const data = await res.json();
           if(res.ok){
+            setListing((prev)=> prev.filter((listing)=> listing._id !== postIdtoDelete));
             toast.success('Post Deleted');
             setDeleteMessage('post has been deleted');
 
