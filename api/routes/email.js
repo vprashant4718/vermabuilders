@@ -1,33 +1,47 @@
 import nodemailer from 'nodemailer';
-import { emailTemplate } from './emailTemplate.js';
+import { emailTemplate, ContactTemplate } from './emailTemplate.js'; // Assuming you have both templates
 import dotenv from 'dotenv';
 dotenv.config();
 
-
+// Configure transporter
 const transporter = nodemailer.createTransport({
   host: process.env.GMAIL_HOST,
   port: process.env.GMAIL_PORT,
-  secure: true, // true for port 465, false for other ports
+  secure: true,
   auth: {
     user: process.env.GMAIL,
     pass: process.env.GMAIL_PASSWORD,
   },
 });
 
-// async..await is not allowed in global scope, must use a wrapper
-export const Verification =Math.floor(100000 + Math.random() * 900000).toString();
-export const OtpMail = async(email) =>{
-  // send mail with defined transport object
-  const info = await transporter.sendMail({
-    from: `"Verma Builders👻" <${process.env.GMAIL}>`, // sender address
-    to: email, // list of receivers
-    subject: "Verification Otp", // Subject line
-    text: "otp for ", // plain text body
-    html: emailTemplate.replace('{verificationcode}', Verification), // html body
-  });
+// 🔐 OTP Verification Mail
+export const Verification = Math.floor(100000 + Math.random() * 900000).toString();
 
-  // console.log("Message sent: %s", info.messageId);
-  // return Verification;  
-}
+const OtpMail = async (email) => {
+  const info = await transporter.sendMail({
+    from: `"Verma Builders🏢" <${process.env.GMAIL}>`,
+    to: email,
+    subject: 'Verification OTP',
+    text: 'Your verification code is below.',
+    html: emailTemplate.replace('{verificationcode}', Verification),
+  });
+};
+
+// 📩 Contact Form Mail
+export const ContactMail = async (email, name, phone, message) => {
+  const html = ContactTemplate
+    .replace('{name}', name)
+    .replace('{email}', email)
+    .replace('{phone}', phone)
+    .replace('{description}', message);
+
+  const info = await transporter.sendMail({
+    from: `"Verma Builders🏢" <${process.env.GMAIL}>`,
+    to: email,
+    subject: 'New Contact From Your Listing',
+    html: html,
+  });
+};
+
 
 export default OtpMail;
