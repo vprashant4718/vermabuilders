@@ -216,4 +216,4 @@ export const sendContactDetails = async(req,res,next)=>{
         console.log(error)
     }
         
-}}
+}
