@@ -1,6 +1,6 @@
 import express from "express";
 import { verifyToken } from "../utils/verifyToken.js";
-import { createListing, deleteListing, getListing, UpdateListing, getSearchListings, getadminlisting, deletePostAdmin, getSingleListing} from "../controllers/listing.controller.js";
+import { createListing, deleteListing, getListing, UpdateListing, getSearchListings, getadminlisting, deletePostAdmin, getSingleListing, sendContactDetails} from "../controllers/listing.controller.js";
 
 const router = express.Router();
 
@@ -22,5 +22,7 @@ router.get('/get', getSearchListings);
 router.get('/getadminlisting', getadminlisting);
 router.delete('/deletepostadmin/:postId', verifyToken, deletePostAdmin);
 
+// send contact details to buyer or seller 
+router.post('/sendcontact/:id', verifyToken, sendContactDetails);
 export default router;
 
