@@ -15,4 +15,116 @@ export const emailTemplate =
       <p>India</p>
     </div>
   </div>
-</div>`
+</div>`;
+
+
+export const ContactTemplate =
+`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Notification</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background-color: #1976d2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .info {
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .info p {
+      margin: 6px 0;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+      padding: 15px;
+      border-top: 1px solid #eee;
+      background-color: #fafafa;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 10px;
+        border-radius: 6px;
+      }
+      .header h2 {
+        font-size: 20px;
+      }
+      .content {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>📩 New Contact Request</h2>
+    </div>
+
+    <div class="content">
+      <p>Hello,</p>
+      <p>Someone is interested in one of your listed properties. Here are the contact details:</p>
+
+      <div class="info">
+        <p><span class="label">Name:</span> {name}</p>
+        <p><span class="label">Email:</span> {email}</p>
+        <p><span class="label">Phone:</span> {phone}</p>
+      </div>
+
+      <div class="info">
+        <p><span class="label">Message:</span></p>
+        <p>{description}</p>
+      </div>
+
+      <p>Please respond to them at your earliest convenience.</p>
+    </div>
+
+    <div class="footer">
+      <p>This message was sent via Verma Builders 🏗️ </p>
+    </div>
+  </div>
+</body>
+</html>
+
+`
