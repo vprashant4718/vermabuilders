@@ -200,17 +200,12 @@ export const getSearchListings= async(req,res,next)=>{
 // sending contact details to seller or buyer 
 export const sendContactDetails = async(req,res,next)=>{
     try {
-        const validDetails = await User.findById(req.params.id);
-        console.log(validDetails);
-        const username = validDetails.username.toUpperCase();
-        const email = validDetails.email.toUpperCase();
-
-        const {phone, message} = req.body;
+        const {email, username, phone, message} = req.body;
         if( !phone || !message){
             return next(errorHandler(400, 'Please fill all the fields'));
         }
 
-        ContactMail(email, username, phone.toUpperCase(), message);
+        ContactMail(email.toUpperCase(), username.toUpperCase(), phone.toUpperCase(), message.toUpperCase());
         res.status(200).json('Message Sent Successfully');
     } catch (error) {
         next(error)
