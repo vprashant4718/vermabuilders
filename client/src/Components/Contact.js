@@ -1,8 +1,10 @@
  
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {toast } from 'react-toastify';
 
-export default function Contact({listing, currentUser}) { 
+export default function Contact({listing}) { 
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [owner, setowner] = useState(null);
   const [formdata, setFormdata] = useState({username: currentUser.username, email:currentUser.email, phone: '', message: ''});
 
@@ -57,7 +59,7 @@ const sendContactDetails = async()=>{
       <p>Contact <span className='italic font-semibold'> {owner && owner.username} </span>for <span className='italic font-semibold'>{ listing.name}</span> </p>
       <input type="text" name="phone" id="phone" placeholder='Enter Your Phone' onChange={handleOnChange} className='mr-auto w-96 h-10 p-2 border border-slate-300 focus:outline-none mb-3 rounded-lg ' required/>
       <textarea name="message" id="message" placeholder='Enter Your Message...' onChange={handleOnChange} className='mr-auto w-96 h-24 p-2 border border-slate-300 focus:outline-none mb-3 rounded-lg ' ></textarea>
-      <button type='button' onClick={sendContactDetails} className='uppercase bg-slate-700 rounded text-lg text-white text-center w-96 p-2 hover:opacity-85'>Send Message</button> 
+      <button type='button' onClick={sendContactDetails} className='uppercase bg-slate-700 rounded text-lg text-white text-center w-96 p-2 hover:opacity-90'>Send Message</button> 
         </div> 
     
   )
