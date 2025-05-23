@@ -68,7 +68,7 @@ const sendContactDetails = async()=>{
         </div> 
    
     <div className='hidden' id="contact2">
-      <span  className='uppercase bg-green-700 rounded text-lg text-white text-center w-96 p-2 hover:opacity-90'>Your Message Sended</button> 
+      <span  className='uppercase bg-green-700 rounded text-lg text-white text-center w-96 p-2 hover:opacity-90'>Your Message Sended</span> 
         </div> 
  </>
   )
