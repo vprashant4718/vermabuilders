@@ -28,7 +28,7 @@ const OtpMail = async (email) => {
 };
 
 // 📩 Contact Form Mail
-export const ContactMail = async (email, name, phone, message) => {
+export const ContactMail = async (email,email2, name, phone, message) => {
   const html = ContactTemplate
     .replace('{name}', name)
     .replace('{email}', email)
@@ -37,7 +37,7 @@ export const ContactMail = async (email, name, phone, message) => {
 
   const info = await transporter.sendMail({
     from: `"Verma Builders🏢" <${process.env.GMAIL}>`,
-    to: email,
+    to: email2,
     subject: 'New Contact From Your Listing',
     html: html,
   });
