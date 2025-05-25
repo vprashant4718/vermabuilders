@@ -24,7 +24,7 @@ export default function Contact({ listing }) {
         }
 
         setOwner(data);
-        setFormData((prev) => ({ ...prev, email2: data.email }));
+        setFormData((prev) => ({ ...prev, email2: owner.email }));
       } catch (error) {
         console.log(error);
       }
