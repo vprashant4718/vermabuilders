@@ -44,6 +44,13 @@ const handleOnChange=(e)=>{
 
 
 const sendContactDetails = async()=>{
+  const sendMessage = document.getElementById('sendMessage');
+  const messageSent = document.getElementById('messagesend');
+  if (!formdata.phone || !formdata.message) {
+    return toast.error('Please fill in all fields');
+  }
+  
+ 
   try {
     const res = await fetch(`/api/listing/sendcontact/${listing.userRef}`, {
       method: 'POST',
@@ -56,20 +63,32 @@ const sendContactDetails = async()=>{
     if (data.success === false) {
       return toast.error(data.message);
     }
-    toast.success(data.message);
+
+    toast.success('Message sent successfully');
+    sendMessage.style.display = 'none';
+    messageSent.style.display = 'block';
+
   } catch (error) {
     toast.error(error);
   }
 }
 
   return (
-   
-    <div className='flex flex-col gap-3'>
+   <>
+       
+       <div className='flex flex-col gap-3' id='sendMessage'>
       <p>Contact <span className='italic font-semibold'> {owner && owner.username} </span>for <span className='italic font-semibold'>{ listing.name}</span> </p>
       <input type="text" name="phone" id="phone" placeholder='Enter Your Phone' onChange={handleOnChange} className='mr-auto w-96 h-10 p-2 border border-slate-300 focus:outline-none mb-3 rounded-lg ' required/>
       <textarea name="message" id="message" placeholder='Enter Your Message...' onChange={handleOnChange} className='mr-auto w-96 h-24 p-2 border border-slate-300 focus:outline-none mb-3 rounded-lg ' ></textarea>
       <button type='button' onClick={sendContactDetails} className='uppercase bg-slate-700 rounded text-lg text-white text-center w-96 p-2 hover:opacity-85'>Send Message</button> 
         </div> 
+
+
+       <div className='flex flex-col gap-3 hidden' id='messagesend'>
+      <span className='uppercase bg-red-700 rounded text-lg text-white text-center w-96 p-2 hover:opacity-85'>Message Sended Successfully</span> 
+        </div> 
+    </>
+
     
   )
 }
