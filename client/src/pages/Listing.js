@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
@@ -139,6 +139,13 @@ export default function Listing() {
             {listing.furnished ? 'Furnished' : 'Unfurnished'}
           </li>
         </ul>
+
+    {!currentUser && 
+        <>
+        <p className='bg-red-700 text-white rounded-lg uppercase hover:opacity-95 p-2 text-center mt-3'>
+          Please <Link to={'/signin'} className='text-white underline px-2'>Login</Link> to contact the owner
+          </p></>}
+
         {currentUser && listing.userRef !== currentUser._id && !contact && (
           <button
             onClick={() => setcontact(true)}
