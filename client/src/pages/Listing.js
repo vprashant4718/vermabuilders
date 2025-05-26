@@ -151,7 +151,7 @@ export default function Listing() {
             onClick={() => setcontact(true)}
             className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'
           >
-            Contact landlord
+            Contact Owner
           </button>
         )}
       {contact && <Contact listing={listing} />}
