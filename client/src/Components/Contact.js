@@ -84,8 +84,8 @@ const sendContactDetails = async()=>{
         </div> 
 
 
-       <div className='flex flex-col gap-3 hidden' id='messagesend mt-3'>
-      <span className='bg-red-700 text-white rounded-lg  p-2 text-center'>Message Send Successfully</span> 
+        <div className='flex flex-col gap-3 hidden' id='messagesend'>
+      <span className='uppercase bg-red-700 rounded text-lg text-white text-center w-96 p-2 mt-3 hover:opacity-85'>Message Send Successfully</span> 
         </div> 
     </>
 
