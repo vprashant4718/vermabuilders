@@ -28,7 +28,7 @@ export default function DashProfile(next) {
   const [errorFun, setErrorFun] = useState();
   // eslint-disable-next-line
   const [errorFun1, setErrorFun1] = useState();
-
+  const backendUrl = process.env.REACT_APP_BASE_URL || "";
 
   useEffect(() => {
     if (file) {
@@ -84,7 +84,7 @@ export default function DashProfile(next) {
         try {
     
           dispatch(updateUserStart());
-          const res = await fetch(`/api/user/update/${currentUser._id}`, 
+          const res = await fetch(`${backendUrl}/api/user/update/${currentUser._id}`, 
             {
               method: 'POST',
               headers:{
@@ -114,7 +114,7 @@ export default function DashProfile(next) {
             try {
     
               dispatch(deleteUserStart());
-              const res = await fetch(`/api/user/delete/${currentUser._id}`, 
+              const res = await fetch(`${backendUrl}/api/user/delete/${currentUser._id}`, 
                 {
                   method: 'DELETE',
     
@@ -200,3 +200,4 @@ export default function DashProfile(next) {
          </div>
          
         )}
+
