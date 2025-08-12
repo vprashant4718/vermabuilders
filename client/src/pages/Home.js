@@ -14,14 +14,14 @@ export default function Home() {
   const [saleListing, setsaleListing] = useState([]);
   const [rentListing, setrentListing] = useState([]);
   const [progress, setProgress] = useState([]);
-
+  const backendUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     const fetchSaleListing = async () => {
       try {
         setProgress(30);
         
-        const res = await fetch(`/api/listing/get?type=sale&limit=4`);
+        const res = await fetch(`${backendUrl ? `${backendUrl}/api/listing/get?type=sale&limit=4` :  "/api/listing/get?type=sale&limit=4" }`);
         const data = await res.json();
         setProgress(50);
         setsaleListing(data);
@@ -34,7 +34,7 @@ export default function Home() {
     const fetchRentListing = async () => {
       try {
         setProgress(75);
-        const res = await fetch(`/api/listing/get?type=rent&limit=4`);
+        const res = await fetch(`${backendUrl ? `${backendUrl}/api/listing/get?type=rent&limit=4`:  "/api/listing/get?type=rent&limit="`);
         const data = await res.json();
         setProgress(100);
         setrentListing(data);
