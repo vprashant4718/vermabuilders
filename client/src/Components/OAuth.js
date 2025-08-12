@@ -9,6 +9,8 @@ import {toast } from 'react-toastify';
 export default function OAuth() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const backendUrl = process.env.REACT_APP_BASE_URL || "";
+    
     const handleGoogleClick = async ()=>{
 
         try {
@@ -16,7 +18,7 @@ export default function OAuth() {
             const auth = getAuth(app);
             
             const results = await signInWithPopup(auth, provider);
-            const res = await fetch('/api/auth/google',{
+            const res = await fetch(`${backendUrl}/api/auth/google`,{
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json',
