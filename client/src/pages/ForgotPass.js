@@ -9,7 +9,8 @@ export default function Forgot() {
   const [formData, setformData] = useState({});
   const [error, setError] = useState();
   const [Loading, setLoading] = useState();
-    const [validate, setvalidate] = useState(false);
+  const [validate, setvalidate] = useState(false);
+  const backendUrl = process.env.REACT_APP_BASE_URL || "";
 
   const navigate = useNavigate();
    const handleOnChange = (e)=>{
@@ -31,7 +32,7 @@ const sendOtpBtn = async(e)=>{
     const emailJson = {"email":emailLower}
     const otpfield = document.getElementById('otpfield');
     const validateOtp = document.getElementById('validateOtp');
-    const res = await fetch('/api/auth/forgot', {
+    const res = await fetch(`${backendUrl}/api/auth/forgot`, {
       method:'POST',
       headers:{
         'Content-Type' : 'application/json'
@@ -80,7 +81,7 @@ const sendOtpBtn = async(e)=>{
     const otptoNumber = otpfield.value;
     const otpJson = {"email":email, "hash":otptoNumber}
     const validateOtp = document.getElementById('validateOtp');
-    const res = await fetch('/api/auth/validateforgototp', {
+    const res = await fetch(`${backendUrl}/api/auth/validateforgototp`, {
       method:'POST',
       headers:{
         'Content-Type' : 'application/json'
@@ -140,7 +141,7 @@ const sendOtpBtn = async(e)=>{
     
       setLoading(true);
       
-    const res = await fetch('/api/user/resetpassword', 
+    const res = await fetch(`${backendUrl}/api/user/resetpassword`, 
     {
           method: 'POST',
           headers:{
