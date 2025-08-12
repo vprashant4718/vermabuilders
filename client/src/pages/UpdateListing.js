@@ -12,6 +12,7 @@ export default function UpdateListing() {
     const params = useParams();
     const {currentUser}= useSelector(state => state.user)
     const [files, setfiles] = useState([]);
+    const backendUrl = process.env.REACT_APP_BASE_URL || "";
     const [formdata, setformdata] = useState({
             imageUrl: [],
             name:"",
@@ -37,7 +38,7 @@ export default function UpdateListing() {
       const fetchListing= async()=>{
         const listingId = params.listingId;
          setProgress(50);
-        const res = await fetch(`/api/listing/getsinglelisting/${listingId}`);
+        const res = await fetch(`${backendUrl}/api/listing/getsinglelisting/${listingId}`);
            setProgress(80);
         const data = await res.json();
         if (data.success === false) {
@@ -171,7 +172,7 @@ const handleSubmit=async(e)=>{
         if(formdata.imageUrl.length > 6) return toast.error('You can upload max 6 image')
         setloading(true);
         seterror(false)
-    const res = await fetch(`/api/listing/update/${listingId}`,{
+    const res = await fetch(`${backendUrl}/api/listing/update/${listingId}`,{
         method: 'POST',
         headers:{
             'Content-Type':'application/json',
