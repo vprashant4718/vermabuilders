@@ -10,7 +10,8 @@ export default function SignUp() {
   const [formData, setformData] = useState({});
   const [error, setError] = useState();
   const [Loading, setLoading] = useState();
-    const [validate, setvalidate] = useState(false);
+  const [validate, setvalidate] = useState(false);
+  const backendUrl = process.env.REACT_APP_BASE_URL || "";
 
   const navigate = useNavigate();
    const handleOnChange = (e)=>{
@@ -32,7 +33,7 @@ const sendOtpBtn = async(e)=>{
     const emailJson = {"email":emailLower}
     const otpfield = document.getElementById('otpfield');
     const validateOtp = document.getElementById('validateOtp');
-    const res = await fetch('/api/auth/email', {
+    const res = await fetch(`${backendUrl}/api/auth/email`, {
       method:'POST',
       headers:{
         'Content-Type' : 'application/json'
@@ -81,7 +82,7 @@ const sendOtpBtn = async(e)=>{
     const otptoNumber = parseInt(otpfield.value)
     const otpJson = {"email":email, "hash":`${otptoNumber}`}
     const validateOtp = document.getElementById('validateOtp');
-    const res = await fetch('/api/auth/validateotp', {
+    const res = await fetch(`${backendUrl}/api/auth/validateotp`, {
       method:'POST',
       headers:{
         'Content-Type' : 'application/json'
@@ -126,7 +127,7 @@ const sendOtpBtn = async(e)=>{
     try {
       setLoading(true);
       
-    const res = await fetch('/api/auth/signup', 
+    const res = await fetch(`${backendUrl}/api/auth/signup`, 
     {
           method: 'POST',
           headers:{
