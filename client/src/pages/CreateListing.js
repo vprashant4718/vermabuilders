@@ -28,7 +28,7 @@ export default function CreateListing() {
     const [error, seterror] = useState(false);
     const [loading, setloading] = useState(false);
     const [progress, setProgress] = useState(0);
-
+    const backendUrl = process.env.REACT_APP_BASE_URL || "";
     
 
     const handleImageSubmit=(e)=>{
@@ -149,7 +149,7 @@ const handleSubmit=async(e)=>{
         seterror(false);
 
         setProgress(30);
-        const res = await fetch('/api/listing/create',{
+        const res = await fetch(`${backendUrl}/api/listing/create`,{
         method: 'POST',
         headers:{
             'Content-Type':'application/json',
