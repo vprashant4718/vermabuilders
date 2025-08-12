@@ -15,7 +15,8 @@ export default function DashPosts() {
   const [postIdtoDelete, setPostIdtoDelete] = useState(null);
   const [DeleteMessage, setDeleteMessage] = useState(null);
   const [errorMessage,setErrorMessage] = useState(null);
-
+const backendUrl = process.env.REACT_APP_BASE_URL || "";
+  
 const [listings, setListing] = useState([]);
 const [Loading, setLoading] = useState(false);
 const [searchTerm, setSearchTerm] = useState("");
@@ -30,7 +31,7 @@ const [searchTerm, setSearchTerm] = useState("");
           const fetchListing=async()=>{
             setLoading(true);
        try {
-              const res = await fetch(`/api/listing/getadminlisting`);
+              const res = await fetch(`${backendUrl}/api/listing/getadminlisting`);
               const data = await res.json();
               if (data.success === false) { 
                 setLoading(false);
@@ -50,7 +51,7 @@ const [searchTerm, setSearchTerm] = useState("");
   const handleShowMore = async()=>{
     const startIndex = userPost.length;
     try {
-      const res = await fetch(`/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
+      const res = await fetch(`${backendUrl}/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
       const data = await res.json();
       if(res.ok){
         setUserPost((prev)=> [...prev, ...data.posts]);
@@ -69,7 +70,7 @@ const [searchTerm, setSearchTerm] = useState("");
 
   const handleDeletePost= async()=>{
       try {
-          const res = await fetch(`/api/listing/deletepostadmin/${postIdtoDelete}`,{
+          const res = await fetch(`${backendUrl}/api/listing/deletepostadmin/${postIdtoDelete}`,{
             method: 'DELETE'
           });
 
@@ -191,3 +192,4 @@ const [searchTerm, setSearchTerm] = useState("");
   )
 
 }
+
