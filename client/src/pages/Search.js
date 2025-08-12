@@ -19,6 +19,7 @@ export default function Search() {
   const [loading, setLoading] = useState(false);
   const [showMore, setshowMore] = useState(false);
   const [progress, setProgress] = useState(0);
+  const backendUrl = process.env.REACT_APP_BASE_URL || "";
 
   useEffect(() => {
     const searchUrlParams = new URLSearchParams(window.location.search);
@@ -56,7 +57,7 @@ export default function Search() {
 
       try {
         setProgress(50);
-        const res = await fetch(`/api/listing/get?${searchQuery}`);
+        const res = await fetch(`${backendUrl}/api/listing/get?${searchQuery}`);
         const data = await res.json();
         setProgress(70);
         if (data.success === false) { 
