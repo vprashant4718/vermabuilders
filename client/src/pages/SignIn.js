@@ -11,6 +11,8 @@ export default function SignIn() {
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch  = useDispatch();
+  const backendUrl = process.env.REACT_APP_BASE_URL || "";
+  
    const handleOnChange = (e)=>{
     setformData({
       ...formData,
@@ -24,7 +26,7 @@ try {
   
   
   dispatch(signInStart());
-    const res = await fetch('/api/auth/signin', 
+    const res = await fetch(`${backendUrl}/api/auth/signin`, 
     { 
           method: 'POST',
           headers:{
