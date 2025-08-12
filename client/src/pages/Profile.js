@@ -36,13 +36,13 @@ export default function Profile(next) {
  // admin 
     const [listings, setListing] = useState([]);
     const [Loading, setLoading] = useState(false);
-  
+    const backendUrl = process.env.REACT_APP_BASE_URL || "";
 
       useEffect(() => {
       const handleShowListing=async(e)=>{ 
     
         try {
-          const res = await fetch(`/api/user/listing/${currentUser._id}`);
+          const res = await fetch(`${backendUrl}/api/user/listing/${currentUser._id}`);
     
     
             const data = await res.json();
@@ -71,7 +71,7 @@ useEffect(() => {
     
           try {
             
-            const res = await fetch(`/api/listing/getadminlisting`);
+            const res = await fetch(`${backendUrl}/api/listing/getadminlisting`);
             const data = await res.json();
             if (data.success === false) { 
               setLoading(false)
@@ -146,7 +146,7 @@ useEffect(() => {
     try {
 
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, 
+      const res = await fetch(`${backendUrl}/api/user/update/${currentUser._id}`, 
         {
           method: 'POST',
           headers:{
@@ -179,7 +179,7 @@ useEffect(() => {
         try {
 
           dispatch(deleteUserStart());
-          const res = await fetch(`/api/user/delete/${currentUser._id}`, 
+          const res = await fetch(`${backendUrl}/api/user/delete/${currentUser._id}`, 
             {
               method: 'DELETE',
 
@@ -205,7 +205,7 @@ useEffect(() => {
         try {
 
           dispatch(signoutUserStart());
-          const res = await fetch(`/api/auth/signout`);
+          const res = await fetch(`${backendUrl}/api/auth/signout`);
            const data = await res.json();
 
         if(data.success === false){
@@ -247,7 +247,7 @@ useEffect(() => {
 
   const handleDeleteListing= async(id)=>{
       try{
-        const res = await fetch(`/api/listing/delete/${id}`,{
+        const res = await fetch(`${backendUrl}/api/listing/delete/${id}`,{
           method:'DELETE'
         });
          const data = await res.json('listing is deleted');
