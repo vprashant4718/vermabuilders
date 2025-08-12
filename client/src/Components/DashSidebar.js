@@ -14,7 +14,8 @@ import { useDispatch } from 'react-redux';
 
 export default function DashSidebar() {
 const { currentUser, error:errormessage } = useSelector((state) => state.user);
-
+const backendUrl = process.env.REACT_APP_BASE_URL || "";
+  
 const dispatch = useDispatch()    
 const location = useLocation();
 const [tab, settab] = useState(null);
@@ -31,7 +32,7 @@ if (tabUrl) {
 const signOutUser= async()=>{
         try {
           dispatch(signoutUserStart());
-          const res = await fetch(`/api/auth/signout`);
+          const res = await fetch(`${backendUrl}/api/auth/signout`);
            const data = await res.json();
 
         if(data.success === false){
@@ -75,3 +76,4 @@ const signOutUser= async()=>{
     </Sidebar>
   )
 }
+
