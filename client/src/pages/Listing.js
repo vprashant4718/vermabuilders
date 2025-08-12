@@ -26,7 +26,8 @@ export default function Listing() {
     const [copied, setCopied] = useState(false); 
     const [contact, setcontact] = useState(false); 
     const { currentUser } = useSelector((state) => state.user);
-
+    const backendUrl = process.env.REACT_APP_BASE_URL || "";
+  
     const params = useParams();
     useEffect(() => {
       
@@ -35,7 +36,7 @@ export default function Listing() {
           try {
             
             setloading(true);
-            const res = await fetch(`/api/listing/getsinglelisting/${params.listingId}`);
+            const res = await fetch(`${backendUrl}/api/listing/getsinglelisting/${params.listingId}`);
             const data = await res.json();
             
             if (data.success === false) {
