@@ -21,6 +21,9 @@ export default function DashListings() {
       const [Loading, setLoading] = useState(false);
       const [searchTerm, setSearchTerm] = useState("");
 
+
+  const backendUrl = process.env.REACT_APP_BASE_URL || "";
+  
     const filteredData = listings.filter((listing) =>
       listing.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -30,7 +33,7 @@ export default function DashListings() {
           const fetchListing=async()=>{
             setLoading(true);
        try {
-              const res = await fetch(`/api/listing/getlisting/${currentUser._id}`);
+              const res = await fetch(`${backendUrl}/api/listing/getlisting/${currentUser._id}`);
               const data = await res.json();
               if (data.success === false) { 
                 setLoading(false);
@@ -70,7 +73,7 @@ export default function DashListings() {
 
   const handleDeletePost= async()=>{
       try {
-          const res = await fetch(`/api/listing/delete/${postIdtoDelete}`,{
+          const res = await fetch(`${backendUrl}/api/listing/delete/${postIdtoDelete}`,{
             method: 'DELETE'
           });
 
@@ -194,3 +197,4 @@ export default function DashListings() {
   )
 
 }
+
