@@ -29,6 +29,7 @@ try {
     const res = await fetch(`${backendUrl}/api/auth/signin`, 
     { 
           method: 'POST',
+          credentials: "include",
           headers:{
             'Content-Type' : 'application/json',
               
