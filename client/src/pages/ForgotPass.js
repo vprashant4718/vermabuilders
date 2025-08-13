@@ -34,6 +34,7 @@ const sendOtpBtn = async(e)=>{
     const validateOtp = document.getElementById('validateOtp');
     const res = await fetch(`${backendUrl}/api/auth/forgot`, {
       method:'POST',
+      credentials: 'include',
       headers:{
         'Content-Type' : 'application/json'
        },
@@ -83,6 +84,7 @@ const sendOtpBtn = async(e)=>{
     const validateOtp = document.getElementById('validateOtp');
     const res = await fetch(`${backendUrl}/api/auth/validateforgototp`, {
       method:'POST',
+      credentials: 'include',
       headers:{
         'Content-Type' : 'application/json'
        },
@@ -144,6 +146,7 @@ const sendOtpBtn = async(e)=>{
     const res = await fetch(`${backendUrl}/api/user/resetpassword`, 
     {
           method: 'POST',
+          credentials: 'include',
           headers:{
             'Content-Type' : 'application/json',
               

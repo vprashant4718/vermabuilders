@@ -151,6 +151,7 @@ const handleSubmit=async(e)=>{
         setProgress(30);
         const res = await fetch(`${backendUrl}/api/listing/create`,{
         method: 'POST',
+        credentials: 'include',
         headers:{
             'Content-Type':'application/json',
         },

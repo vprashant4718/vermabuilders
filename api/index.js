@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-   origin: true,
+    origin: ["https://vermabuilders.vercel.app", "http://vermabuilders.onrender.com", "http://localhost:5173"],
     credentials: true
 }));
 

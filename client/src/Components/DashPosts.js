@@ -71,7 +71,8 @@ const [searchTerm, setSearchTerm] = useState("");
   const handleDeletePost= async()=>{
       try {
           const res = await fetch(`${backendUrl}/api/listing/deletepostadmin/${postIdtoDelete}`,{
-            method: 'DELETE'
+            method: 'DELETE',
+            credentials: 'include'
           });
 
           const data = await res.json();

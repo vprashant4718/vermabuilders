@@ -25,7 +25,7 @@ export const email = async (req, res, next)=>{
 
     else{
       OtpMail(email);
-      res.cookie('hash', hashOTP, { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 });// 15 minutes 
+      res.cookie('hash', hashOTP, { httpOnly: true, secure: true, sameSite: "none",  maxAge: 15 * 60 * 1000 });// 15 minutes 
       res.json({ success: true, message: "OTP sent!" });
          }
      
@@ -72,7 +72,7 @@ export const Forgot = async (req, res, next)=>{
 
     else{
       OtpMail(email);
-      res.cookie('hashed', hashOTP, { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 });// 15 minutes 
+      res.cookie('hashed', hashOTP, { httpOnly: true, secure: true, sameSite: "none",  maxAge: 15 * 60 * 1000 });// 15 minutes 
       res.json({ success: true, message: "OTP sent!" });
          }
      
@@ -167,8 +167,11 @@ export const google = async(req, res, next)=>{
         const token = jwt.sign({ id: user._id, admin:user.isAdmin }, process.env.JWT_SECRET);
         const { password: pass, ...rest } = user._doc;
 
-        res.cookie('access_token', token,{httpOnly : false})
-
+        res.cookie('access_token', token,{httpOnly : true, 
+          secure: true,         // required for SameSite=None
+          sameSite: "none",     // allow cross-site cookies
+          maxAge: 7 * 24 * 60 * 60 * 1000
+        })
         .status(200)
         .json(rest);
       }
@@ -179,8 +182,11 @@ export const google = async(req, res, next)=>{
         await newUser.save();
         const token = jwt.sign({ id: newUser._id, admin:newUser.isAdmin }, process.env.JWT_SECRET);
         const { password: pass, ...rest } = newUser._doc;
-        res.cookie('access_token', token,{httpOnly : false})
-
+        res.cookie('access_token', token,{httpOnly : true, 
+          secure: true,         // required for SameSite=None
+          sameSite: "none",     // allow cross-site cookies
+          maxAge: 7 * 24 * 60 * 60 * 1000
+        })
         .status(200)
         .json(rest);
 

@@ -74,7 +74,8 @@ export default function DashListings() {
   const handleDeletePost= async()=>{
       try {
           const res = await fetch(`${backendUrl}/api/listing/delete/${postIdtoDelete}`,{
-            method: 'DELETE'
+            method: 'DELETE',
+            credentials: 'include',
           });
 
           const data = await res.json();

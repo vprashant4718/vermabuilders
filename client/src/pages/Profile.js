@@ -149,6 +149,7 @@ useEffect(() => {
       const res = await fetch(`${backendUrl}/api/user/update/${currentUser._id}`, 
         {
           method: 'POST',
+          credentials: 'include',
           headers:{
             'Content-Type' : 'application/json',
 
@@ -182,6 +183,7 @@ useEffect(() => {
           const res = await fetch(`${backendUrl}/api/user/delete/${currentUser._id}`, 
             {
               method: 'DELETE',
+              credentials: 'include',
 
            });
            const data = await res.json();
@@ -248,7 +250,8 @@ useEffect(() => {
   const handleDeleteListing= async(id)=>{
       try{
         const res = await fetch(`${backendUrl}/api/listing/delete/${id}`,{
-          method:'DELETE'
+          method:'DELETE',
+          credentials: 'include',
         });
          const data = await res.json('listing is deleted');
 

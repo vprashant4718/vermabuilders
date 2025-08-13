@@ -174,6 +174,7 @@ const handleSubmit=async(e)=>{
         seterror(false)
     const res = await fetch(`${backendUrl}/api/listing/update/${listingId}`,{
         method: 'POST',
+        credentials: 'include',
         headers:{
             'Content-Type':'application/json',
         },

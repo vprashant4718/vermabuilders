@@ -87,6 +87,7 @@ export default function DashProfile(next) {
           const res = await fetch(`${backendUrl}/api/user/update/${currentUser._id}`, 
             {
               method: 'POST',
+              credentials: 'include',
               headers:{
                 'Content-Type' : 'application/json',
     
@@ -117,6 +118,7 @@ export default function DashProfile(next) {
               const res = await fetch(`${backendUrl}/api/user/delete/${currentUser._id}`, 
                 {
                   method: 'DELETE',
+                  credentials: 'include'
     
                });
                const data = await res.json();
