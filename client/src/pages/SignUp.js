@@ -165,7 +165,7 @@ const sendOtpBtn = async(e)=>{
           {validate && <BadgeCheck size={30} id='verified' className='absolute bg-white text-green-500 border-green-500 -mt-14 ml-80 rounded-full self-center p-1 text-center text-4xl  '/> }
         
 
-       {!validate && <div className='flex flex-col gap-3'>
+       {!validate && formData.otpSent && <div className='flex flex-col gap-3'>
         <input type="text" id='otpfield' placeholder="Enter Otp" className='border rounded-lg p-3 lowercase focus:outline-none  sm:w-96' maxLength={6} onChange={handleOnChange}  />
         <button type='button' id='validateOtp' className='bg-sky-500  text-white text-sm p-2 rounded w-30 self-end' onClick={validateOtp}>
            {Loading ? <Loader2Icon size={24} className='animate-spin m-auto' /> : "Validate"  } 
