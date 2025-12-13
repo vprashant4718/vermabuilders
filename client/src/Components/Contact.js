@@ -58,6 +58,7 @@ const sendContactDetails = async()=>{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formdata),
+      credentials: "include",
     });
     const data = await res.json();
     if (data.success === false) {

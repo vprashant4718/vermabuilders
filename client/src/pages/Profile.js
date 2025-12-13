@@ -149,12 +149,12 @@ useEffect(() => {
       const res = await fetch(`${backendUrl}/api/user/update/${currentUser._id}`, 
         {
           method: 'POST',
-          credentials: 'include',
           headers:{
             'Content-Type' : 'application/json',
 
           },
           body: JSON.stringify(formdata),
+          credentials: "include",
        });
         const data = await res.json();
 

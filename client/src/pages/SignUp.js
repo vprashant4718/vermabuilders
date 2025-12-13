@@ -33,12 +33,15 @@ const sendOtpBtn = async(e)=>{
     const emailJson = {"email":emailLower}
     const otpfield = document.getElementById('otpfield');
     const validateOtp = document.getElementById('validateOtp');
+
+    
     const res = await fetch(`${backendUrl}/api/auth/email`, {
       method:'POST',
       headers:{
         'Content-Type' : 'application/json'
        },
        body: JSON.stringify(emailJson),
+       credentials: "include",
 
     });
 
@@ -82,12 +85,15 @@ const sendOtpBtn = async(e)=>{
     const otptoNumber = parseInt(otpfield.value)
     const otpJson = {"email":email, "hash":`${otptoNumber}`}
     const validateOtp = document.getElementById('validateOtp');
+
+
     const res = await fetch(`${backendUrl}/api/auth/validateotp`, {
       method:'POST',
       headers:{
         'Content-Type' : 'application/json'
        },
        body: JSON.stringify(otpJson),
+       credentials: "include",
 
     });
 
@@ -132,9 +138,9 @@ const sendOtpBtn = async(e)=>{
           method: 'POST',
           headers:{
             'Content-Type' : 'application/json',
-              
-          },
+            },
           body: JSON.stringify(formData),
+          credentials: "include",
        });
         const data = await res.json();
         if(data.success === false){

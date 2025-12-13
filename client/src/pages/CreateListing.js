@@ -151,7 +151,6 @@ const handleSubmit=async(e)=>{
         setProgress(30);
         const res = await fetch(`${backendUrl}/api/listing/create`,{
         method: 'POST',
-        credentials: 'include',
         headers:{
             'Content-Type':'application/json',
         },
@@ -159,6 +158,7 @@ const handleSubmit=async(e)=>{
             ...formdata,
             userRef: currentUser._id
         }),
+        credentials: "include",
     })
     setProgress(70);
     const data = await res.json();

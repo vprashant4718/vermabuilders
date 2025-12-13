@@ -32,13 +32,14 @@ const sendOtpBtn = async(e)=>{
     const emailJson = {"email":emailLower}
     const otpfield = document.getElementById('otpfield');
     const validateOtp = document.getElementById('validateOtp');
+    
     const res = await fetch(`${backendUrl}/api/auth/forgot`, {
       method:'POST',
-      credentials: 'include',
       headers:{
         'Content-Type' : 'application/json'
        },
        body: JSON.stringify(emailJson),
+       credentials: "include",
 
     });
 
@@ -82,13 +83,14 @@ const sendOtpBtn = async(e)=>{
     const otptoNumber = otpfield.value;
     const otpJson = {"email":email, "hash":otptoNumber}
     const validateOtp = document.getElementById('validateOtp');
+
     const res = await fetch(`${backendUrl}/api/auth/validateforgototp`, {
       method:'POST',
-      credentials: 'include',
       headers:{
         'Content-Type' : 'application/json'
        },
        body: JSON.stringify(otpJson),
+       credentials: "include",
 
     });
 
@@ -146,12 +148,11 @@ const sendOtpBtn = async(e)=>{
     const res = await fetch(`${backendUrl}/api/user/resetpassword`, 
     {
           method: 'POST',
-          credentials: 'include',
           headers:{
-            'Content-Type' : 'application/json',
-              
+            'Content-Type' : 'application/json',              
           },
           body: JSON.stringify(updateNewPass),
+          credentials: "include",
        });
         const data = await res.json();
         if(data.success === false){
