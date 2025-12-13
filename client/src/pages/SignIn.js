@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import OAuth from '../Components/OAuth';
 import {toast } from 'react-toastify';
+import { Loader2Icon } from 'lucide-react';
 
 export default function SignIn() {
   
@@ -63,9 +64,12 @@ try {
         <span className='items-end flex justify-end p-2 text-xs w-auto sm:text-sm'>  <Link to="/forgot_password" className='text-blue-700 hover:underline'>Forgot Password</Link></span>
         </div>
 
-        <button disabled = {loading} className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-52  sm:w-96'>{loading ? "loading..." : "Sign In"   } </button>
+        <button disabled = {loading} className='border rounded-lg p-2 bg-blue-950 text-white font-bold w-52  sm:w-96'> {loading ? <Loader2Icon size={24} className='animate-spin m-auto' />  : "Sign In"   } </button>
 
       </form>
+
+      <h2 className='text-black text-center text-lg pt-2'>OR </h2>
+
       <div className='flex flex-col  w-auto items-center gap-1 p-1 sm:'>
       <OAuth/>
         <span className='self-end m-auto text-sm sm:text-base sm:w-72'>Don't have an account?  <Link to="/signup" className='text-blue-700 hover:underline sm:'>SignUp</Link></span>
