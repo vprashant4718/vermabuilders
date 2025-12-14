@@ -58,7 +58,7 @@ const sendContactDetails = async()=>{
   
  
   try {
-    const res = await fetch(`/api/listing/sendcontact/${listing.userRef}`, {
+    const res = await fetch(`${backendUrl}/api/listing/sendcontact/${listing.userRef}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
