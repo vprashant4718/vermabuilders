@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 export default function Contact({ listing }) {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [owner, setOwner] = useState(null);
+  const backendUrl = process.env.REACT_APP_BASE_URL;
 
   const [formdata, setFormData] = useState({
     username: currentUser?.username || '',
@@ -17,7 +18,7 @@ export default function Contact({ listing }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`/api/user/${listing.userRef}`);
+        const res = await fetch(`${backendUrl}/api/user/${listing.userRef}`);
         const data = await res.json();
         if (data.success === false) {
           return toast.error(data.message);
