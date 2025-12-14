@@ -46,9 +46,9 @@ export default function Header() {
     
     
     <nav class="bg-gray-200 border-gray-200 fixed top-0 z-50 w-full shadow-md">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+  <div class="max-w-screen-full flex flex-wrap items-center justify-between m-auto md:px-20 p-4">
     <Link to={'/'} class="flex items-center h-8 space-x-3 rtl:space-x-reverse">
-      <img src={logo} className='w-16  md:w-30 md:h-20'  alt="verm builders logo" />
+      <img src={logo} className='w-[5rem] h-16 md:w-[7rem] items-start md:h-24 md:mt-1'  alt="verm builders logo" />
     </Link> 
 
     <form onSubmit={handleSearchListing} className='p-2  rounded-lg flex items-center lg:ml-40 sm:ml-20 sm:bg-slate-100'>
@@ -69,7 +69,7 @@ export default function Header() {
     </button>
 </div>
     <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul class="font-medium flex flex-col gap-2 p-4 md:p-0 mt-4 border bg-blue-900 border-gray-100 rounded-lg md:bg-transparent md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  ">
+      <ul class="font-medium flex flex-col gap-2 p-4 md:p-0 mt-4 border bg-blue-900 border-gray-100 rounded-lg md:bg-transparent md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 items-center ">
         
         <Link to="/">
              <li className='list-none sm:inline text-white md:text-slate-700 hover:underline block py-2 px-3 bg-blue-700 rounded-sm sm:bg-transparent  md:p-0' aria-current="page">Home</li>

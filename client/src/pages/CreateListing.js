@@ -32,6 +32,9 @@ export default function CreateListing() {
     
 
     const handleImageSubmit=(e)=>{
+        if(files.length < 1){
+            return toast.error("Please select atleast 1 image");
+        }
         if(files.length > 0 && files.length + formdata.imageUrl.length < 7){
             setImageUploading(true);
             setImageUploadError(false);
@@ -48,7 +51,7 @@ export default function CreateListing() {
             setImageUploadError(false)
             setImageUploading(false);
         }).catch((error)=>{
-            toast.error('Image upload faile max size 2mb');
+            toast.error('Image upload failed max size 2mb');
             setImageUploading(false);
         });
         

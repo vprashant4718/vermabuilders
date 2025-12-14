@@ -59,7 +59,7 @@ export default function Home() {
           Find Your
           <span className="text-slate-600"> Dream Home</span>
           <br />
-          with Verma Builders
+          with Verma Properties
         </h1>
         <br />
         <p className="text-slate-600 font-semibold text-base lg:w-[70vw]">
@@ -76,7 +76,7 @@ export default function Home() {
 
 <div>
   <Swiper
-    key={rentListing.length} // Force re-render when listings load
+    key={rentListing?.length} // Force re-render when listings load
     modules={[Navigation, Autoplay]}
     navigation
     autoplay={{
@@ -85,10 +85,10 @@ export default function Home() {
     }}
     loop={true}
   >
-    {rentListing &&
-      rentListing.length > 0 &&
-      rentListing.map((url) => (
-        <SwiperSlide
+    {rentListing  &&
+      rentListing?.length > 0 &&
+      rentListing?.map((url) => (
+        <SwiperSlide 
           key={url._id || url.imageUrl[0]}
           className="flex flex-row justify-center items-center m-auto w-auto"
         >
@@ -116,8 +116,8 @@ export default function Home() {
             </Link>
           </div>
           <div className="flex flex-row gap-3 justify-center items-center flex-wrap">
-            {saleListing &&
-              saleListing.map((listing) => <ListingItem listing={listing} />)}
+            {saleListing  &&
+              saleListing?.map((listing, index) => <ListingItem key={index} listing={listing} />)}
           </div>
         </div>
         <hr />
@@ -133,7 +133,7 @@ export default function Home() {
           </div>
           <div className="flex flex-row gap-3 justify-center items-center flex-wrap">
             {rentListing &&
-              rentListing.map((listing) => <ListingItem listing={listing} />)}
+              rentListing?.map((listing, index) => <ListingItem key={index} listing={listing} />)}
           </div>
         </div>
       </div> 

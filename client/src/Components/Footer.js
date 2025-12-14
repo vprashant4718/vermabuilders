@@ -1,7 +1,7 @@
 import React from 'react'
  
 // src/components/Footer.jsx
-import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
@@ -11,7 +11,7 @@ export default function Footer() {
         
         {/* Left Side - Brand */}
         <div className="text-center md:text-left">
-          <h1 className="text-3xl font-bold text-white">Verma Builders</h1>
+          <h1 className="text-3xl font-bold text-white">Verma Properties</h1>
           <p className="mt-2 text-gray-500 text-sm">Building Trust for Over 20 Years</p>
         </div>
 
@@ -24,13 +24,13 @@ export default function Footer() {
 
         {/* Right Side - Social Icons */}
         <div className="flex justify-center md:justify-end space-x-6">
-          <a href="https://www.instagram.com/_vermabuilders/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+          <a href="https://www.instagram.com/verma._properties/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-700 transition">
             <FaInstagram size={22} />
           </a>
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-            <FaFacebookF size={22} />
+          <a href="https://www.linkedin.com/in/vermaproperties/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition">
+            <FaLinkedinIn size={22} />
           </a>
-          <a href="https://www.youtube.com/@vermabuilders" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+          <a href="https://www.youtube.com/@Verma.Properties" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition">
             <FaYoutube size={22} />
           </a>
         </div>
@@ -39,7 +39,7 @@ export default function Footer() {
 
       {/* Bottom */}
       <div className="border-t border-gray-800 mt-8 pt-4 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Verma Builders. Crafted with passion by Chandra Prakash Verma.
+        © {new Date().getFullYear()} Verma Properties. Crafted with passion by Chandra Prakash Verma.
       </div>
     </footer>
   );

@@ -19,7 +19,7 @@ export const Verification = Math.floor(100000 + Math.random() * 900000).toString
 
 const OtpMail = async (email) => {
   const info = await transporter.sendMail({
-    from: `"Verma Builders🏢" <${process.env.GMAIL}>`,
+    from: `"Verma Properties🏢" <${process.env.GMAIL}>`,
     to: email,
     subject: 'Verification OTP',
     text: 'Your verification code is below.',
@@ -36,7 +36,7 @@ export const ContactMail = async (email,email2, name, phone, message) => {
     .replace('{description}', message);
 
   const info = await transporter.sendMail({
-    from: `"Verma Builders🏢" <${process.env.GMAIL}>`,
+    from: `"Verma Properties🏢" <${process.env.GMAIL}>`,
     to: email2,
     subject: 'New Contact From Your Listing',
     html: html,

@@ -177,10 +177,10 @@ const sendOtpBtn = async(e)=>{
       <h1 className='text-3xl text-center font-bold sm:py-3 px-3' >Reset Your Password</h1>
       <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center w-auto gap-4 p-2 sm:p-3'>
            
-        <div className='flex flex-col w-auto gap-3'>
-        <input type="email" id='email'  placeholder="email" className='border rounded-lg p-3 lowercase focus:outline-none sm:w-96' onChange={handleOnChange} required/>
-        <button type='button' id='sendOtpBtn' className='bg-red-600 text-white p-2 rounded w-24 self-end' onClick={sendOtpBtn}> Send OTP</button>
-        <MdVerified  id='verified' className='bg-white text-green-500 border-green-500 text-center p-1 text-4xl rounded hidden'/> 
+        <div className=' relative flex flex-col w-auto gap-3'>
+          <input type="email" id='email' disabled={validate}  placeholder="email" className='border rounded-lg p-3 lowercase focus:outline-none sm:w-96' onChange={handleOnChange} required/>
+          <button type='button' id='sendOtpBtn' className='bg-red-600 text-white p-2 rounded w-24 self-end' onClick={sendOtpBtn}> Send OTP</button>
+          <MdVerified  id='verified' className='bg-white text-green-500 border-green-500 text-center p-1 text-3xl rounded-full hidden absolute self-end mt-2 mr-2'/> 
         </div>
         <div className='flex flex-col w-auto gap-3'>
         <input type="text" id='otpfield' placeholder="Enter Otp" className='border rounded-lg p-3  focus:outline-none sm:w-96 hidden' onChange={handleOnChange}  />

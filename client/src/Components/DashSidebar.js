@@ -50,26 +50,26 @@ const signOutUser= async()=>{
         <SidebarItemGroup>
       
            <div className='flex flex-col gap-2  pt-8 ' ><Link to={'/dashboard?tab=profile'}>
-                <SidebarItem active={tab==='/dashboard?tab=profile'} icon={HiUser} label={currentUser.isAdmin?'admin': 'user'} labelColor={'dark'} as='div' className='hover:text-black'>
+                <SidebarItem active={tab==='profile'} icon={HiUser} label={currentUser.isAdmin?'admin': 'user'} labelColor={'dark'} as='div' className='hover:text-black'>
                     Profile
                 </SidebarItem>
             </Link>
            {currentUser.isAdmin ? <><Link to={'/dashboard?tab=posts'}>
-                <SidebarItem active={tab==='/dashboard?tab=posts'} icon={RiAdminFill} labelColor={'dark'} as='div' className='hover:text-black'>
+                <SidebarItem active={tab==='posts'} icon={RiAdminFill} labelColor={'dark'} as='div' className='hover:text-black'>
                     Admin Area
                 </SidebarItem>
             </Link><Link to={'/dashboard?tab=mypost'}>
-                <SidebarItem active={tab==='/dashboard?tab=mypost'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
+                <SidebarItem active={tab==='mypost'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
                     My Listings
                 </SidebarItem>
             </Link></> :<Link to={'/dashboard?tab=mypost'}>
-                <SidebarItem active={tab==='/dashboard?tab=mypost'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
+                <SidebarItem active={tab==='mypost'} icon={BsFilePost} labelColor={'dark'} as='div' className='hover:text-black'>
                     My Listings
                 </SidebarItem>
             </Link>}
     
-                <SidebarItem active={tab==='/dashboard?tab=signout'} icon={HiOutlineArrowSmRight} labelColor={'dark'} className='cursor-pointer hover:text-black' >
-                   <div onClick={signOutUser}>SignOut</div> 
+                <SidebarItem active={tab==='signout'} onClick={signOutUser}  icon={HiOutlineArrowSmRight} labelColor={'dark'} className='cursor-pointer hover:text-black' >
+                   <div>SignOut</div> 
                 </SidebarItem></div> 
                  </SidebarItemGroup>
            </SidebarItems>
