@@ -199,6 +199,7 @@ export const getSearchListings= async(req,res,next)=>{
 
 // sending contact details to seller or buyer 
 export const sendContactDetails = async(req,res,next)=>{
+    console.log("i am here ");
     try {
         let {email, email2, username, phone, message} = req.body;
         if( !phone || !message){
@@ -209,7 +210,6 @@ export const sendContactDetails = async(req,res,next)=>{
     username = username?.trim().toUpperCase();
     phone = phone?.trim().toUpperCase();
     message = message?.trim().toUpperCase();
-
         ContactMail(email,email2, username, phone, message);
         res.status(200).json('Message Sent Successfully');
     } catch (error) {
